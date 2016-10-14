@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBook", "PasteBook\PasteBook.csproj", "{03FA7A70-348A-4A95-87B3-4AE9853F97D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLibrary", "BusinessLogicLibrary\BusinessLogicLibrary.csproj", "{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBook_EF_Library", "PasteBook_EF_Library\PasteBook_EF_Library.csproj", "{9DB47662-57C2-43F3-888F-A646377B0962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{03FA7A70-348A-4A95-87B3-4AE9853F97D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03FA7A70-348A-4A95-87B3-4AE9853F97D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03FA7A70-348A-4A95-87B3-4AE9853F97D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB47662-57C2-43F3-888F-A646377B0962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB47662-57C2-43F3-888F-A646377B0962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB47662-57C2-43F3-888F-A646377B0962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB47662-57C2-43F3-888F-A646377B0962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
