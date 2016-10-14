@@ -13,10 +13,10 @@ namespace PasteBook_EF_Library
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PasteBookDB_AYENGEntities : DbContext
+    public partial class PasteBookDB_AYENGEntities1 : DbContext
     {
-        public PasteBookDB_AYENGEntities()
-            : base("name=PasteBookDB_AYENGEntities")
+        public PasteBookDB_AYENGEntities1()
+            : base("name=PasteBookDB_AYENGEntities1")
         {
         }
     
