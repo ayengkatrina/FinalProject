@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="494109d4851a419bb19aa03110c51373" Name="Diagram1" ZoomLevel="95">
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.COMMENTS_TABLE" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.FRIENDS_TABLE" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.LIKES_TABLE" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.NOTIFICATION_TABLE" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.POST_TABLE" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.REF_COUNTRY" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PasteBookDB_AYENGModel.USER_TABLE" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__COMMENTS___POST___182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__COMMENTS___POSTE__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__NOTIFICAT__COMME__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__FRIENDS_T__FRIEN__31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__FRIENDS_T__USER___30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__LIKES_TAB__LIKED__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__LIKES_TAB__POST___267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__NOTIFICAT__POST___20C1E124" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__NOTIFICAT__RECEI__1DE57479" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__NOTIFICAT__SENDE__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__POST_TABL__POSTE__1367E606" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__POST_TABL__PROFI__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="PasteBookDB_AYENGModel.FK__USER_TABL__COUNT__0DAF0CB0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
