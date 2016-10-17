@@ -13,5 +13,15 @@ namespace PasteBook.Controllers
         {
             return View();
         }
+
+        public ActionResult HomePage()
+        {
+            return View();
+        }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

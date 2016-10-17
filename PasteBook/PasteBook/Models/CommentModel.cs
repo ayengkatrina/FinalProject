@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BusinessLogicLibrary
+namespace PasteBook
 {
-   public class Comment
+    public class CommentModel
     {
         public int ID { get; set; }
         public int PostID { get; set; }

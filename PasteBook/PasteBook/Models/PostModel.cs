@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BusinessLogicLibrary
+namespace PasteBook
 {
-   public class Post
+    public class PostModel
     {
         public int PostID { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }

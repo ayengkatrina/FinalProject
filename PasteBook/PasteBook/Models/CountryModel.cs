@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace BusinessLogicLibrary
+namespace PasteBook
 {
-   public class RefCountry
+    public class CountryModel
     {
         public int CountryID { get; set; }
         public string Country { get; set; }
