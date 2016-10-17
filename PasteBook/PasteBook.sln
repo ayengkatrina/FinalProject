@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBook", "PasteBook\Past
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLibrary", "BusinessLogicLibrary\BusinessLogicLibrary.csproj", "{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBook_EF_Library", "PasteBook_EF_Library\PasteBook_EF_Library.csproj", "{9DB47662-57C2-43F3-888F-A646377B0962}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PasteBook_EntityFramework", "PasteBook_EntityFramework\PasteBook_EntityFramework.csproj", "{5EBAD77C-918A-4820-8DBC-65BCCD53BE4B}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73FA0E60-0D4F-404B-87DF-10C5282E0B8B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9DB47662-57C2-43F3-888F-A646377B0962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9DB47662-57C2-43F3-888F-A646377B0962}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9DB47662-57C2-43F3-888F-A646377B0962}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9DB47662-57C2-43F3-888F-A646377B0962}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EBAD77C-918A-4820-8DBC-65BCCD53BE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EBAD77C-918A-4820-8DBC-65BCCD53BE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EBAD77C-918A-4820-8DBC-65BCCD53BE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU

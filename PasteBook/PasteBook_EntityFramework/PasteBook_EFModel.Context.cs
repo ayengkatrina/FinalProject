@@ -13,9 +13,9 @@ namespace PasteBook_EntityFramework
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PasteBookDB_AYENGEntities : DbContext
+    public partial class PasteBookDBEntities : DbContext
     {
-        public PasteBookDB_AYENGEntities()
+        public PasteBookDBEntities()
             : base("name=PasteBookDB_AYENGEntities")
         {
         }
