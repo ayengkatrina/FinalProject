@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasteBook_EntityFramework;
+using PasteBookEntityLibrary;
 
 namespace BusinessLogicLibrary
 {
@@ -25,7 +25,36 @@ namespace BusinessLogicLibrary
                 GENDER = user.Gender,
                 PROFILE_PIC = user.ProfilePic,
                 DATE_CREATED = user.DateCreated,
-                ABOUT_ME = user.AboutMe
+                ABOUT_ME = user.AboutMe,
+                EMAIL_ADDRESS = user.EmailAddress
+                
+            };
+
+            return userTable;
+
+        }
+
+        public static User ToUser(USER_TABLE user)
+        {
+            User userTable = new User()
+            {
+                UserID = user.ID,
+                UserName = user.USER_NAME,
+                Password = user.PASSWORD,
+                Salt = user.SALT,
+                FirstName = user.FIRST_NAME,
+                Lastname = user.LAST_NAME,
+                Birthday = user.BIRTHDAY,
+                CountryID = user.COUNTRY_ID,
+                MobileNo = user.MOBILE_NO,
+                Gender = user.GENDER,
+                ProfilePic = user.PROFILE_PIC,
+                DateCreated = user.DATE_CREATED,
+                AboutMe = user.ABOUT_ME,
+                EmailAddress = user.EMAIL_ADDRESS
+
+               
+
             };
 
             return userTable;

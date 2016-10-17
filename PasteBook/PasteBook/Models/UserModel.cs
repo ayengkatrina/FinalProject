@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -10,6 +11,7 @@ namespace PasteBook
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
         public string Salt { get; set; }
         public string FirstName { get; set; }
         public string Lastname { get; set; }
@@ -21,5 +23,7 @@ namespace PasteBook
         public Nullable<System.DateTime> DateCreated { get; set; }
         public string AboutMe { get; set; }
         public string EmailAddress { get; set; }
+
+        public virtual ICollection<File> Files { get; set; }
     }
 }

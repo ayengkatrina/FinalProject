@@ -24,7 +24,7 @@ namespace PasteBook
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap-slate.min.css",
+                      "~/Content/bootstrap-cerulean.min.css",
                       "~/Content/site.css"));
         }
     }

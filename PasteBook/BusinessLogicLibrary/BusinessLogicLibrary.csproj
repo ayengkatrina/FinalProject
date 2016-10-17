@@ -46,6 +46,8 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Friend.cs" />
     <Compile Include="Entities\Like.cs" />
+    <Compile Include="Manager\MockUserRepository.cs" />
+    <Compile Include="Manager\PasswordManager.cs" />
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Post.cs" />
@@ -53,12 +55,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PasteBook_EntityFramework\PasteBook_EntityFramework.csproj">
-      <Project>{5ebad77c-918a-4820-8dbc-65bccd53be4b}</Project>
-      <Name>PasteBook_EntityFramework</Name>
+    <ProjectReference Include="..\PasteBookEntityLibrary\PasteBookEntityLibrary.csproj">
+      <Project>{bdfc96af-3047-4316-9f2c-36ad18d8b5cb}</Project>
+      <Name>PasteBookEntityLibrary</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
