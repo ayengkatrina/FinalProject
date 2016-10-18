@@ -11,6 +11,7 @@ namespace PasteBook.Controllers
     public class PasteBookController : Controller
     {
         DataAccess dataAccess = new DataAccess();
+        Manager manager = new Manager();
         // GET: PasteBook
         public ActionResult Index()
         {
@@ -28,7 +29,12 @@ namespace PasteBook.Controllers
             bool ifMatched = dataAccess.SimulateLogin(model.EmailAddress, model.Password);
             if (ifMatched)
             {
-                return RedirectToAction("AlreadyLogin", "PasteBook");
+                string email = model.EmailAddress;
+                Session["userSession"] = email;
+
+
+
+                return RedirectToAction("Home", "PasteBook");
             }
             else
             {
@@ -39,10 +45,19 @@ namespace PasteBook.Controllers
         }
 
         [HttpGet]
-        public ActionResult AlreadyLogin()
+        public ActionResult Home()
         {
-            return View();
+           
+          var post =  dataAccess.GetPost();
+
+            var result = manager.GetAllPost();
+
+
+
+            return View(result);
         }
+
+        
 
 
         [HttpGet]
@@ -59,24 +74,35 @@ namespace PasteBook.Controllers
 
             if (file != null)
             {
-                string pic = System.IO.Path.GetFileName(file.FileName);
-                string path = System.IO.Path.Combine(
-                                       Server.MapPath("~/Content/Images"), pic);
-                // file is uploaded
-                file.SaveAs(path);
-
-                // save the image path path to the database or you can send image 
-                // directly to database
-                // in-case if you want to store byte[] ie. for DB
-                using (MemoryStream ms = new MemoryStream())
+                if (file.ContentLength < 4096 * 1024)
                 {
-                    file.InputStream.CopyTo(ms);
-                    //byte[] array = ms.GetBuffer();
-                    model.ProfilePic = ms.GetBuffer();
-                }
-                dataAccess.SimulateUserCreation(Mapper.ToUser(model));
+                    string pic = System.IO.Path.GetFileName(file.FileName);
+                    string path = System.IO.Path.Combine(Server.MapPath("~/Content/Images"), pic);
+                    // file is uploaded
+                    file.SaveAs(path);
 
-                return RedirectToAction("CreatedAccount", "PasteBook");
+                    // save the image path path to the database or you can send image 
+                    // directly to database
+                    // in-case if you want to store byte[] ie. for DB
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        //byte[] array = ms.GetBuffer();
+                        model.ProfilePic = ms.GetBuffer();
+                    }
+
+                    dataAccess.SimulateUserCreation(Mapper.ToUser(model));
+
+                    return RedirectToAction("CreatedAccount", "PasteBook");
+                }
+                else
+                {
+
+
+                }
+            }else
+            {
+                dataAccess.SimulateUserCreation(Mapper.ToUser(model));
             }
 
 
@@ -87,6 +113,36 @@ namespace PasteBook.Controllers
         public ActionResult CreatedAccount()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ProfileInfo()
+        {
+            var email = Session["userSession"].ToString();
+
+           UserModel model = Mapper.ToUserModel(dataAccess.GetUserAccount(email));
+
+            return View(model);
         }
     }
 }

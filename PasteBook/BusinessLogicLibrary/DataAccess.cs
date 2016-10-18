@@ -82,9 +82,8 @@ namespace BusinessLogicLibrary
                     user = Mapper.ToUser(content.USER_TABLE.Where(x => x.EMAIL_ADDRESS == email).SingleOrDefault());
 
                 }
-               
-            }
 
+            }
             catch (DbEntityValidationException ex)
             {
                 var errorMessages = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
@@ -100,5 +99,127 @@ namespace BusinessLogicLibrary
             }
             return user;
         }
+
+       public string GetUserID(string email)
+        {
+            string userId = null;
+            try
+            {
+                using (var context = new PasteBookDBEntities())
+                {
+                     var id = (from userTable in context.USER_TABLE
+                                  where userTable.EMAIL_ADDRESS == email
+                                  select userTable.ID);
+
+                    userId = id.ToString();
+                }
+
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
+            
+
+            return userId;
+        }
+
+
+
+        public List<RefCountry> GetAllCountries()
+        {
+            List<RefCountry> countryList = new List<RefCountry>();
+
+            try { 
+                  using (var content = new PasteBookDBEntities())
+                     {
+
+                         foreach (var item in content.REF_COUNTRY)
+                         {
+                             countryList.Add(Mapper.ToRefCountry(item));
+                         }
+
+
+                     }
+                }
+
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+             }
+            return countryList;
+        }
+
+        public int CreatePost(Post post)
+        {
+            using (var content = new PasteBookDBEntities())
+            {
+               
+                content.POST_TABLE.Add(Mapper.ToPOST_TABLE(post));
+
+                int numberCreated = content.SaveChanges();
+                return numberCreated;
+            }
+
+        }
+
+        public List<Post> GetPost()
+        {
+           List< Post> postList = new List<Post>();
+            List<POST_TABLE> postTableList = new List<POST_TABLE>();
+
+            try
+            {
+                using (var context = new PasteBookDBEntities())
+                {
+                    postTableList = (from post in context.POST_TABLE
+                                     orderby post.CREATED_DATE descending
+                                     select post).ToList();
+
+                    foreach (var item in postTableList)
+                    {
+                        postList.Add(Mapper.ToPost(item));
+                    }
+
+                }
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
+
+                // Join the list to a single string.
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Combine the original exception message with the new one.
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+
+                // Throw a new DbEntityValidationException with the improved exception message.
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
+
+            return postList;
+
+            
+        }
     }
+
 }
+

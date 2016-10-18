@@ -1,0 +1,204 @@
+﻿
+@model PasteBook.UserModel
+
+
+<div class="container">
+    <h2>Profile</h2>
+
+    @*stackoverflow.com/questions/17952514/mvc-how-to-display-a-byte-array-image-from-model*@
+    @{
+        var base64 = Convert.ToBase64String(Model.ProfilePic);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    
+
+
+    <div class="col-md-3">
+        <form id="formHomeProfile">
+            <div class="form-group">
+                <img src="@imgSrc" class="img-thumbnail" alt="Profile Picture" width="150" height="150">
+            </div>
+            <div class="form-group">
+                @Html.Label("Katrina Ayeng")
+                @*Model.User.Fullname*@
+
+            </div>
+
+            <div class="form-group">
+                <a href="#" id="linkFriends" tabindex="5" class="">Timeline</a>
+            </div>
+
+            <div class="form-group">
+                <a href="#" id="linkNotifications" tabindex="5" class="">Info</a>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="panel-group">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel</div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="form-horizontal col-md-6">
+                            <div class="col-md-4">
+                                <input type="button" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-group col-md-6">
+
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            @Html.Label("First Name ", new { @class = "control-label col-md-12" })
+
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span>@Model.FirstName</span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            @Html.Label("Last Name", new { @class = "control-label col-md-12" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span>@Model.Lastname </span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                @Html.Label("Birthday", new { @class = "control-label col-md-12" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span>@Model.Birthday.ToShortDateString()</span>
+                                            </div>
+                                        </div>
+
+                                        @{
+                                            List<SelectListItem> countryItems = new List<SelectListItem>();
+                                            countryItems.Add(new SelectListItem()
+                                            {
+                                                Text = "Philippines",
+                                                Value = "63"
+                                            });
+                                            countryItems.Add(new SelectListItem()
+                                            {
+                                                Text = "Poland ",
+                                                Value = "48",
+
+                                            });
+
+                                        }
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                @Html.Label("Country", new { @class = "control-label col-md-12" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span>@Model.CountryID</span>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                @Html.Label("Mobile No.", new { @class = "control-label col-md-12" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span>@Model.MobileNo </span>
+                                            </div>
+                                        </div>
+
+                                        @{ 
+                                            string gender = null;
+                                            if(Model.Gender == "F")
+                                            {
+                                                gender = "Female";
+                                            }
+                                            else if(Model.Gender == "M")
+                                            {
+                                                gender = "Male";
+                                            }
+                                            else if(Model.Gender == "U")
+                                            {
+                                                gender = "Unspecified";
+                                            }
+                                        }
+
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-4">
+                                                @Html.Label("Gender", new { @class = "control-label col-md-12" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span>@gender</span>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                @Html.Label("About Me", new { @class = "control-label col-md-12" })
+                                            </div>
+                                            <div class="col-md-8">
+                                                <span>@Model.AboutMe</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-horizontal col-md-6">
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            @Html.Label("User Name", new { @class = "control-label col-md-12" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span>@Model.UserName</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            @Html.Label("Email Address", new { @class = "control-label col-md-12" })
+
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span>@Model.EmailAddress</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-4">
+                                            @Html.Label("Password", new { @class = "control-label col-md-12" })
+                                        </div>
+                                        <div class="col-md-8">
+                                            <span>@Model.Password</span>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <input type="submit" value="Create" class="btn btn-default" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

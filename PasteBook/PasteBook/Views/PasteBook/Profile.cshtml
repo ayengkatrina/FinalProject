@@ -1,0 +1,46 @@
+﻿@model PasteBook.ContainerModel
+
+
+<div class="container">
+    <h2>Profile</h2>
+
+
+    <div class="col-md-3">
+        <form id="formHomeProfile">
+            <div class="form-group">
+                <img src="~/Content/Images/default.png" class="img-thumbnail" alt="Profile Picture" width="150" height="150">
+            </div>
+            <div class="form-group">
+                @Html.Label("Katrina Ayeng")
+                @*Model.User.Fullname*@
+
+            </div>
+
+            <div class="form-group">
+                <a href="#" id="linkFriends" tabindex="5" class="">Timeline</a>
+            </div>
+
+            <div class="form-group">
+                <a href="#" id="linkNotifications" tabindex="5" class="">Info</a>
+            </div>
+
+        </form>
+    </div>
+
+
+    <div class="panel-group">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Panel</div>
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        @Html.TextAreaFor(x => x.Post.Content)
+                    </div>
+                    <div class="col-md-offset-8 col-md-12">
+                        <input type="button" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -24,6 +24,7 @@ namespace PasteBook
         public string AboutMe { get; set; }
         public string EmailAddress { get; set; }
 
-       
+        public string Fullname { get { return string.Format("{0} {1}", FirstName, Lastname); } }
+
     }
 }
