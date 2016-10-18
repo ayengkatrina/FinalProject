@@ -207,7 +207,6 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
-    <Compile Include="Models\File.cs" />
     <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LikeModel.cs" />

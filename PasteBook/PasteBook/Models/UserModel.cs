@@ -24,6 +24,6 @@ namespace PasteBook
         public string AboutMe { get; set; }
         public string EmailAddress { get; set; }
 
-        public virtual ICollection<File> Files { get; set; }
+       
     }
 }

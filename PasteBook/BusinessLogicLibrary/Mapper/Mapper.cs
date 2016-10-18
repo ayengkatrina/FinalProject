@@ -61,7 +61,7 @@ namespace BusinessLogicLibrary
 
         }
 
-        public static REF_COUNTRY RefCountryEntityMapper(RefCountry refCountry)
+        public static REF_COUNTRY ToREF_COUNTRY(RefCountry refCountry)
         {
             REF_COUNTRY country = new REF_COUNTRY()
             {
@@ -72,7 +72,18 @@ namespace BusinessLogicLibrary
             return country;
         }
 
-        public static POST_TABLE PostEntityMapper(Post post)
+        public static RefCountry ToRefCountry(REF_COUNTRY refCountry)
+        {
+            RefCountry country = new RefCountry()
+            {
+                CountryID = refCountry.ID,
+                Country = refCountry.COUNTRY
+
+            };
+            return country;
+        }
+
+        public static POST_TABLE ToPOST_TABLE(Post post)
         {
             POST_TABLE postTable = new POST_TABLE()
             {
@@ -86,7 +97,20 @@ namespace BusinessLogicLibrary
             return postTable;
         }
 
-        public static NOTIFICATION_TABLE NotificationEntityMapper(Notification notif)
+        public static Post ToPost(POST_TABLE postTable)
+        {
+            Post post = new BusinessLogicLibrary.Post()
+            {
+                PostID = postTable.ID,
+                CreatedDate = postTable.CREATED_DATE,
+                Content = postTable.CONTENT,
+                ProfileID = postTable.PROFILE_ID,
+                PosterID = postTable.POSTER_ID
+            };
+            return post;
+        }
+
+        public static NOTIFICATION_TABLE ToNOTIFICATION_TABLE(Notification notif)
         {
             NOTIFICATION_TABLE notifTable = new NOTIFICATION_TABLE()
             {
@@ -103,8 +127,24 @@ namespace BusinessLogicLibrary
             return notifTable;
         }
 
+        public static Notification ToNotification(NOTIFICATION_TABLE notifTable)
+        {
+            Notification notif = new Notification()
+            {
+                ReceiverID = notifTable.RECEIVER_ID,
+                NotifType = notifTable.NOTIF_TYPE,
+                SenderID = notifTable.SENDER_ID,
+                CreatedDate = notifTable.CREATED_DATE,
+                CommentID = notifTable.COMMENT_ID,
+                PostID = notifTable.POST_ID,
+                ID = notifTable.ID,
+                Seen = notifTable.SEEN
+            };
+            return notif;
+        }
 
-        public static LIKES_TABLE LikeEntityMapper(Like like)
+
+        public static LIKES_TABLE ToLIKES_TABLE(Like like)
         {
             LIKES_TABLE likeTable = new LIKES_TABLE()
             {
@@ -116,7 +156,18 @@ namespace BusinessLogicLibrary
             return likeTable;
         }
 
-        public static FRIENDS_TABLE FriendEntityMapper(Friend friend)
+        public static Like ToLike(LIKES_TABLE likeTable)
+        {
+            Like like = new Like()
+            {
+                ID = likeTable.ID,
+                PostID = likeTable.POST_ID,
+                LikedBy = likeTable.LIKED_BY
+            };
+            return like;
+        }
+
+        public static FRIENDS_TABLE ToFRIEND_TABLE(Friend friend)
         {
             FRIENDS_TABLE friendTable = new FRIENDS_TABLE()
             {
@@ -130,7 +181,21 @@ namespace BusinessLogicLibrary
             return friendTable;
         }
 
-        public static COMMENTS_TABLE CommentEntityMapper(Comment comment)
+        public static Friend ToFriend(FRIENDS_TABLE friendTable)
+        {
+            Friend friend = new Friend()
+            {
+                ID = friendTable.ID,
+                UserID = friendTable.USER_ID,
+                FriendID = friendTable.FRIEND_ID,
+                Request = friendTable.REQUEST,
+                Blocked = friendTable.BLOCKED,
+                CreatedDate = friendTable.CREATED_DATE
+            };
+            return friend;
+        }
+
+        public static COMMENTS_TABLE ToCOMMENT_TABLE(Comment comment)
         {
             COMMENTS_TABLE commentTable = new COMMENTS_TABLE()
             {
@@ -141,6 +206,20 @@ namespace BusinessLogicLibrary
                 DATE_CREATED = comment.DateCreated
             };
             return commentTable;
+        }
+
+        public static Comment ToComment(COMMENTS_TABLE commentTable)
+        {
+            Comment comment = new BusinessLogicLibrary.Comment()
+            {
+                ID = commentTable.ID,
+                PostID = commentTable.POST_ID,
+                PosterID = commentTable.POSTER_ID,
+                Content = commentTable.CONTENT,
+                DateCreated = commentTable.DATE_CREATED
+
+            };
+            return comment;
         }
 
     }
