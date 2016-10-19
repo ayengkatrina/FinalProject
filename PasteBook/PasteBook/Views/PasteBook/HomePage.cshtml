@@ -16,12 +16,12 @@
                             {
                             @*<form id="login-form"  method="post" role="form" style="display: block;">*@
                                 <div class="form-group col-sm-6 col-sm-offset-3">
-                                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Address", @type = "email" } })
+                                    @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email Address", @type = "email", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger"})
                                    
                                 </div>
                                 <div class="form-group col-sm-6 col-sm-offset-3">
-                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @type = "password" } })
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @type = "password", @required = "required" } })
                                     @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                                    
                                 </div>

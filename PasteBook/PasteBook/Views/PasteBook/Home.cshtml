@@ -1,71 +1,34 @@
-﻿@model IEnumerable<PasteBook.PostModel>
+﻿
+@model PasteBook.PostModel
   
-    
 <div class="container">
-    <h2>Home</h2>
-    
-   
-    <div class="col-md-3">
-        <form id="formHomeProfile">
-            <div class="form-group">
-                <img src="~/Content/Images/default.png" class="img-thumbnail" alt="Profile Picture" width="50" height="50"> 
-            </div>
-            <div class="form-group">
-                @Html.Label("Katrina Ayeng")
-                @*Model.User.Fullname*@
-                
-            </div>
-
-            <div class="form-group">
-                <a href="#" id="linkFriends" tabindex="5" class="">Friends</a>
-            </div>
-
-            <div class="form-group">
-                <a href="#" id="linkNotifications" tabindex="5" class="">Notifications</a>
-            </div>
-
-        </form>
-    </div>
-    
-
-    <div class="panel-group">
-        <div class="col-md-9">
-        <div class="panel panel-default">
-            <div class="panel-heading"></div>
-            <div class="panel-body">
-                <div class="col-md-12">
-                    @*@Html.TextAreaFor(x => x.Post.Content , new { @cols = "150", @rows = "5"})*@
-                </div>
-                <div class="col-md-offset-10 col-md-12">
-                    <input type="button" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
-    @foreach (var item in Model)
+    @using (Html.BeginForm("Home", "PasteBook", FormMethod.Post))
     {
-    <div class="panel-group">
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-                    <div class="col-md-12">
-                        @*@Html.TextAreaFor(x => x.Post.Content, new { @cols = "150", @rows = "5" })*@
-                        @item.Content
-                    </div>
-                    <div class="col-md-offset-10 col-md-12">
-                        @item.CreatedDate
-                        @item.PosterID
-                        
+
+        <h2>Home</h2>
+
+        <div class="panel-group">
+            <div class="col-md-9">
+                <div class="panel panel-info">
+                    
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(x => x.Content, new { @cols = "130", @rows = "5" })
+                        </div>
+                        <div class="col-md-offset-10 col-md-12">
+                            <input type="submit" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
     }
 
+    @{
+        Html.RenderAction("HomePost");
+        
 
+    }
 
 </div>

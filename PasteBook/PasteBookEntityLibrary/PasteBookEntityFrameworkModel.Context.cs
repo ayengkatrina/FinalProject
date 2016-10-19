@@ -12,6 +12,8 @@ namespace PasteBookEntityLibrary
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PasteBookDBEntities : DbContext
     {
@@ -32,5 +34,10 @@ namespace PasteBookEntityLibrary
         public virtual DbSet<POST_TABLE> POST_TABLE { get; set; }
         public virtual DbSet<REF_COUNTRY> REF_COUNTRY { get; set; }
         public virtual DbSet<USER_TABLE> USER_TABLE { get; set; }
+    
+        public virtual ObjectResult<POST_USER_JOIN_Result> POST_USER_JOIN()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POST_USER_JOIN_Result>("POST_USER_JOIN");
+        }
     }
 }

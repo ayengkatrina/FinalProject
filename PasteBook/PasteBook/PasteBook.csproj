@@ -202,12 +202,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Manager\Manager.cs" />
+    <Compile Include="Manager\MVCManager.cs" />
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CommentModel.cs" />
     <Compile Include="Models\ContainerModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LikeModel.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Views\PasteBook\Search.cshtml" />
     <Content Include="Views\PasteBook\Logout.cshtml" />
     <Content Include="Views\PasteBook\ProfileInfo.cshtml" />
+    <Content Include="Views\PasteBook\HomePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

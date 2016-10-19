@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Management;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -17,5 +18,20 @@ namespace PasteBook
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        ////stackoverflow.com/questions/3853767/maximum-request-length-exceeded
+
+        //private void Application_Error(object sender, EventArgs e)
+        //{
+        //    var ex = Server.GetLastError();
+        //    var httpException = ex as HttpException ?? ex.InnerException as HttpException;
+        //    if (httpException == null) return;
+
+        //    if (httpException.WebEventCode == WebEventCodes.RuntimeErrorPostTooLarge)
+        //    {
+        //        //handle the error
+        //        Response.Write("Too big a file, dude"); //for example
+        //    }
+        //}
     }
 }

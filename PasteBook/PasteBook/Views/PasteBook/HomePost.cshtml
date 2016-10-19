@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PasteBook.PostModel>
+
+@foreach (var item in Model)
+{
+    <div class="panel-group">
+        <div class="col-md-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">@item.PosterID</div>
+
+                <div class="panel-body">
+
+                    <div class="col-md-12">
+
+                        @item.Content
+                    </div>
+
+                    <div class="panel-footer">
+
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Like</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+
+                        @*<div class="col-md-1">
+                            <a href="#" id="linkComment" tabindex="5" class="">Comment</a>
+
+                        </div>*@
+
+                        <div class="col-lg-6 text-left">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Comment</button>
+                                </span>
+                                <input type="text" class="form-control" placeholder="Write something...">
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+
+                        <div class="col-md-3 text-right">
+                            @item.CreatedDate
+                        </div>
+
+                       
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

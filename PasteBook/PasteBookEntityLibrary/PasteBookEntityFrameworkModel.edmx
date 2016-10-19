@@ -239,6 +239,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="POST_USER_JOIN" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="PasteBookDBModelStoreContainer">
           <EntitySet Name="COMMENTS_TABLE" EntityType="Self.COMMENTS_TABLE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FRIENDS_TABLE" EntityType="Self.FRIENDS_TABLE" Schema="dbo" store:Type="Tables" />
@@ -624,7 +625,15 @@
             <End Role="REF_COUNTRY" EntitySet="REF_COUNTRY" />
             <End Role="USER_TABLE" EntitySet="USER_TABLE" />
           </AssociationSet>
+          <FunctionImport Name="POST_USER_JOIN" ReturnType="Collection(PasteBookDBModel.POST_USER_JOIN_Result)" />
         </EntityContainer>
+        <ComplexType Name="POST_USER_JOIN_Result">
+          <Property Type="String" Name="FIRST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LAST_NAME" Nullable="false" MaxLength="50" />
+          <Property Type="Binary" Name="PROFILE_PIC" Nullable="true" />
+          <Property Type="String" Name="CONTENT" Nullable="false" MaxLength="1000" />
+          <Property Type="DateTime" Name="CREATED_DATE" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -716,6 +725,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="POST_USER_JOIN" FunctionName="PasteBookDBModel.Store.POST_USER_JOIN">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PasteBookDBModel.POST_USER_JOIN_Result">
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="PROFILE_PIC" ColumnName="PROFILE_PIC" />
+                <ScalarProperty Name="CONTENT" ColumnName="CONTENT" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

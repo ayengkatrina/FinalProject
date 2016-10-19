@@ -2,7 +2,7 @@
 
 @using (Html.BeginForm("Register", "PasteBook", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
-               
+    @Html.AntiForgeryToken()
 
  <div class="form-horizontal" >
 
@@ -17,9 +17,9 @@
 
 
 
-
+                
                  <div class="form-group col-md-6">
-
+                     @Html.Label("Required fields (*)")
                      <div class="form-group">
                          <div class="col-md-4">
                              @Html.Label("Upload Image: ", new { @class = "control-label col-md-12" })
@@ -30,37 +30,38 @@
                                  Browse <input type="file" name="file" id="file" style="width: 100%;">
                              </span>
                              @Html.ValidationMessageFor(model => model.ProfilePic, "", new { @class = "text-danger" })
+                             @Html.ValidationMessage("ImageExtensionValidation", new { @class = "text-danger" })
                          </div>
                      </div>
 
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("First Name ", new { @class = "control-label col-md-12" })
+                             @Html.Label("*First Name ", new { @class = "control-label col-md-12" })
                             
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                             @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @required="required" } })
                              @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-4">
-                            @Html.Label("Last Name", new { @class = "control-label col-md-12" })
+                            @Html.Label("*Last Name", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control" } })
+                             @Html.EditorFor(model => model.Lastname, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.Lastname, "", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("Birthday", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Birthday", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @max = "0d" } })
+                             @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @max = "0d", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
                          </div>
                      </div>
@@ -84,7 +85,7 @@
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("Country", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Country", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
                              @Html.DropDownListFor(model => model.CountryID, countryItems, new { @class = "form-control" })
@@ -95,7 +96,7 @@
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("Mobile No.", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Mobile No", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
                              @Html.EditorFor(model => model.MobileNo, new { htmlAttributes = new { @class = "form-control" } })
@@ -132,7 +133,7 @@
                      <div class="form-group">
 
                          <div class="col-md-4">
-                             @Html.Label("Gender", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Gender", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
                              @Html.DropDownListFor(model => model.Gender, genderItems, new { @class = "form-control" })
@@ -147,8 +148,8 @@
                              @Html.Label("About Me", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.TextAreaFor(model => model.AboutMe, new { htmlAttributes = new { @class = "form-control" } })
-                             @Html.ValidationMessageFor(model => model.AboutMe, "", new { @class = "text-danger" })
+                             @Html.TextAreaFor(model => model.AboutMe, new { htmlAttributes = new { @class = "form-control" }, @cols="60", @rows="5" })
+                             @Html.ValidationMessageFor(model => model.AboutMe, "", new { @class = "text-danger"})
                          </div>
                      </div>
                  </div>
@@ -156,48 +157,49 @@
                  <div class="form-horizontal col-md-6">
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("User Name", new { @class = "control-label col-md-12" })
+                             @Html.Label("*User Name", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control"} })
+                             @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("Email Address", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Email Address", new { @class = "control-label col-md-12" })
 
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+                             @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control", @type = "email", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                             @Html.ValidationMessage("emailExist", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-4">
-                             @Html.Label("Password", new { @class = "control-label col-md-12" })
+                             @Html.Label("*Password", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                             @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-4">
-                            @Html.Label("Confirm Password", new { @class = "control-label col-md-12" })
+                            @Html.Label("*Confirm Password", new { @class = "control-label col-md-12" })
                          </div>
                          <div class="col-md-8">
-                             @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type="password" } })
+                             @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type="password", @required = "required" } })
                              @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
                          </div>
                      </div>
 
                      <div class="form-group">
                          <div class="col-md-offset-4 col-md-8">
-                             <input type="submit" value="Create" class="btn btn-default" />
+                             <input type="submit" value="Create" class="btn btn-primary" />
                          </div>
                      </div>
 

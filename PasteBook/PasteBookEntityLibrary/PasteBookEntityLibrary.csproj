@@ -81,6 +81,9 @@
     <Compile Include="POST_TABLE.cs">
       <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="POST_USER_JOIN_Result.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="REF_COUNTRY.cs">
       <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>

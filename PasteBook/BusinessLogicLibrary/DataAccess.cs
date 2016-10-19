@@ -12,37 +12,12 @@ namespace BusinessLogicLibrary
 {
     public class DataAccess
     {
-        PasswordManager passwordManager = new PasswordManager();
+               
+       
 
-
-
-        public int SimulateUserCreation(User user)
+        public bool CreateAccount(User user)
         {
-            int result;
-            string salt = null;
-
-            user.Password = passwordManager.GeneratePasswordHash(user.Password, out salt);
-            user.Salt = salt;
-
-            result = CreateAccount(user);
-            return result;
-
-
-        }
-
-        public bool SimulateLogin(string email, string password)
-        {
-
-            User user2 = GetUserAccount(email);
-
-            bool result = passwordManager.IsPasswordMatch(password, user2.Salt, user2.Password);
-
-            return result;
-        }
-
-
-        public int CreateAccount(User user)
-        {
+            bool result;
             try
             {
 
@@ -53,7 +28,15 @@ namespace BusinessLogicLibrary
                     content.USER_TABLE.Add(Mapper.ToUSER_TABLE(user));
 
                     int numberCreated = content.SaveChanges();
-                    return numberCreated;
+                    if (numberCreated > 0)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                    return result;
                 }
             }
 
@@ -100,40 +83,6 @@ namespace BusinessLogicLibrary
             return user;
         }
 
-       public string GetUserID(string email)
-        {
-            string userId = null;
-            try
-            {
-                using (var context = new PasteBookDBEntities())
-                {
-                     var id = (from userTable in context.USER_TABLE
-                                  where userTable.EMAIL_ADDRESS == email
-                                  select userTable.ID);
-
-                    userId = id.ToString();
-                }
-
-            }
-            catch (DbEntityValidationException ex)
-            {
-                var errorMessages = ex.EntityValidationErrors.SelectMany(x => x.ValidationErrors).Select(x => x.ErrorMessage);
-
-                // Join the list to a single string.
-                var fullErrorMessage = string.Join("; ", errorMessages);
-
-                // Combine the original exception message with the new one.
-                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
-
-                // Throw a new DbEntityValidationException with the improved exception message.
-                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
-            }
-            
-
-            return userId;
-        }
-
-
 
         public List<RefCountry> GetAllCountries()
         {
@@ -168,15 +117,24 @@ namespace BusinessLogicLibrary
             return countryList;
         }
 
-        public int CreatePost(Post post)
+        public bool CreatePost(Post post)
         {
-            using (var content = new PasteBookDBEntities())
+            bool result;
+            using (var context = new PasteBookDBEntities())
             {
-               
-                content.POST_TABLE.Add(Mapper.ToPOST_TABLE(post));
+                post.CreatedDate = DateTime.Now;
+                context.POST_TABLE.Add(Mapper.ToPOST_TABLE(post));
 
-                int numberCreated = content.SaveChanges();
-                return numberCreated;
+                int numberCreated = context.SaveChanges();
+                if (numberCreated > 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+                return result;
             }
 
         }
@@ -218,6 +176,91 @@ namespace BusinessLogicLibrary
             return postList;
 
             
+        }
+
+        public  bool CreateComment(Comment comment)
+        {
+            bool result;
+            int numberCreated = 0;
+            using (var context = new PasteBookDBEntities())
+            {
+                comment.DateCreated = DateTime.Now;
+                context.COMMENTS_TABLE.Add(Mapper.ToCOMMENT_TABLE(comment));
+
+                 numberCreated = context.SaveChanges();
+                if (numberCreated > 0)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+                return result;
+            }
+           
+        }
+
+        public List<Comment> GetComments(int postID)
+        {
+            List<Comment> commentList = new List<Comment>();
+            List<COMMENTS_TABLE> commentTableList = new List<COMMENTS_TABLE>();
+            
+            using (var context = new PasteBookDBEntities())
+            {
+                commentTableList = (from comment in context.COMMENTS_TABLE
+                                 orderby comment.DATE_CREATED descending
+                               where comment.POST_ID == postID
+                                 select comment).ToList();
+                foreach(var item in commentTableList)
+                {
+                    commentList.Add(Mapper.ToComment(item));
+                }
+
+            }
+            return commentList;
+        }
+
+        public bool LikePost(Like like)
+        {
+            bool result;
+            using(var context = new PasteBookDBEntities())
+            {
+                context.LIKES_TABLE.Add(Mapper.ToLIKES_TABLE(like));
+                int numberCreated = context.SaveChanges();
+
+               if(numberCreated > 0)
+                {
+                    result = true;
+                }else
+                {
+                    result = false;
+                }
+                return result;
+            }
+            
+        }
+
+        //public List<Like> GetFriendListWhoLikeAPost(int postID)
+        //{
+
+        //}
+
+        public bool CheckEmailIfAlreadyExist(string email)
+        {
+            bool result;
+            using (var context = new PasteBookDBEntities())
+            {
+                if (context.USER_TABLE.Any(x => x.EMAIL_ADDRESS == email))
+                {
+                     result = true;
+                }else
+                {
+                     result = false;
+                }
+                return result;
+            }
+
         }
     }
 

@@ -46,8 +46,8 @@
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\Friend.cs" />
     <Compile Include="Entities\Like.cs" />
-    <Compile Include="Manager\MockUserRepository.cs" />
-    <Compile Include="Manager\PasswordManager.cs" />
+    <Compile Include="Entities\PostUserJoin.cs" />
+    <Compile Include="Manager\Manager.cs" />
     <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Entities\Notification.cs" />
     <Compile Include="Entities\Post.cs" />

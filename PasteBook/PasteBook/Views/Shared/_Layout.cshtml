@@ -21,14 +21,29 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Home", "PasteBook")</li> 
                     <li>@Html.ActionLink("Profile", "Profile", "PasteBook")</li>
-                    <li>@Html.ActionLink("Search", "Search", "PasteBook")</li>
+                    <li>@Html.ActionLink("Notification", "Search", "PasteBook")</li>
                 </ul>
-                @*@Html.Partial("_LoginPartial")*@
+               
+
+
+               
+                    <div class="col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-info" type="button">Go!</button>
+                            </span>
+                        </div><!-- /input-group -->
+                    </div><!-- /.col-lg-6 -->
+                
+
+                 
+
                 <div class="pull-right">
 
                   
-                    @Html.ActionLink("Logout", "Logout", "PasteBook")
-                    @Html.ActionLink("Settings", "Settings", "PasteBook")
+                    @Html.ActionLink("Logout", "Logout", "PasteBook", new { id="linkLogout"})
+                    @Html.ActionLink("Settings", "Settings", "PasteBook", new { id = "linkSettings" })
                 </div>
             </div>
         </div>

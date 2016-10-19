@@ -7,9 +7,31 @@ using System.Threading.Tasks;
 
 namespace BusinessLogicLibrary
 {
-   public class PasswordManager
+   public class Manager
     {
-       
+        DataAccess dataAccess = new DataAccess();
+
+        public bool SimulateUserCreation(User user)
+        {
+            bool result;
+            string salt = null;
+
+            user.Password = GeneratePasswordHash(user.Password, out salt);
+            user.Salt = salt;
+
+            result = dataAccess.CreateAccount(user);
+            return result;
+        }
+
+        public bool SimulateLogin(string email, string password)
+        {
+
+            User user2 = dataAccess.GetUserAccount(email);
+
+            bool result = IsPasswordMatch(password, user2.Salt, user2.Password);
+
+            return result;
+        }
 
         //HashComputer
 

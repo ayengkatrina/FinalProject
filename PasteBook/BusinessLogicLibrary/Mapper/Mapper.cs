@@ -222,5 +222,19 @@ namespace BusinessLogicLibrary
             return comment;
         }
 
+        public static PostUserJoin ToPostUserJoin(POST_USER_JOIN_Result postUserJoin)
+        {
+            PostUserJoin postUser = new PostUserJoin()
+            {
+                FirstName = postUserJoin.FIRST_NAME,
+                LastName = postUserJoin.LAST_NAME,
+                ProfilePic = postUserJoin.PROFILE_PIC,
+                Content = postUserJoin.CONTENT,
+                CreatedDate = postUserJoin.CREATED_DATE
+
+            };
+            return postUser;
+        }
+
     }
 }

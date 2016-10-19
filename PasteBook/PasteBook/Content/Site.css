@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 100%;
 }
+
+#linkLogout, #linkSettings{
+    margin-top: 2%;
+    color: #fff;
+}
+.searchBar{
+    margin-top: 5%;
+}

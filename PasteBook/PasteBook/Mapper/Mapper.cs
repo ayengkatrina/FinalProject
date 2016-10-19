@@ -199,7 +199,7 @@ namespace PasteBook
             return comment;
         }
 
-        public static CommentModel commentModel(Comment comment)
+        public static CommentModel ToCommentModel(Comment comment)
         {
             CommentModel commentModel = new CommentModel()
             {
