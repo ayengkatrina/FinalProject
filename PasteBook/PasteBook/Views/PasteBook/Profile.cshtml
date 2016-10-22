@@ -1,46 +1,120 @@
-﻿@model PasteBook.ContainerModel
+﻿@model PasteBook.UserProfileModel
 
+@{
+    var gender = "";
+    var imgSrc = "";
+    if (Model.User.PROFILE_PIC == null)
+    {
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
+    {
+
+        var base64 = Convert.ToBase64String(@Model.User.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    if(Model.User.GENDER == "F")
+    {
+        gender = "Female";
+    }
+
+    else if (Model.User.GENDER == "M")
+    {
+        gender = "Male";
+    }
+    else if(Model.User.GENDER == "U")
+    {
+        gender = "";
+    }
+}
 
 <div class="container">
-    <h2>Profile</h2>
+    <div class="fixed col-md-4">
+        <form id="formProfileDetails">
 
+            <div id="upperProfile">
+                <div id="divProfilePic" class="form-group text-center">
+                    <img src="@imgSrc" id="imgProfilePic" alt="Profile-Picture" class="img-thumbnail" />
+                </div>
 
-    <div class="col-md-3">
-        <form id="formHomeProfile">
-            <div class="form-group">
-                <img src="~/Content/Images/default.png" class="img-thumbnail" alt="Profile Picture" width="150" height="150">
-            </div>
-            <div class="form-group">
-                @Html.Label("Katrina Ayeng")
-                @*Model.User.Fullname*@
-
-            </div>
-
-            <div class="form-group">
-                <a href="#" id="linkFriends" tabindex="5" class="">Timeline</a>
+                <div id="divProfileName" class="form-group text-center">
+                    <h4><span>@Model.User.FIRST_NAME @Model.User.LAST_NAME</span></h4>
+                </div>
             </div>
 
-            <div class="form-group">
-                <a href="#" id="linkNotifications" tabindex="5" class="">Info</a>
+            <div id="lowerProfile">
+                <div class="div-details">
+                    <div class="form-group text-center">
+                        <h5>About Me <button id="btnAboutMe" type="button"><span class="glyphicon glyphicon-edit"></span></button></h5>
+                    </div>
+                    <div class="form-group">
+                        
+                        <textarea id="textAreaAbboutMe" cols="43" rows="8" readonly="readonly">
+                           @Model.User.ABOUT_ME
+                        </textarea>
+                    </div>
+
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <span>Philippines</span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        <span>Joined @Model.User.DATE_CREATED.ToString("MMMM dd, yyyy")</span>
+                    </div>
+
+                    <div class="form=group text-center">
+                        <span class="glyphicon glyphicon-gift"></span>
+                        <span>Born on @Model.User.BIRTHDAY.ToString("MMMM dd, yyyy")</span>
+                    </div><br />
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-phone-alt"></span>
+                        <span>@Model.User.MOBILE_NO</span>
+                    </div>
+
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span>@gender</span>
+                    </div>
+                </div>
+
             </div>
+        </form>
+    </div>
+
+    <div class="col-md-8">
+        <form>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.TextAreaFor(x => x.Post.CONTENT, new { @cols = "150", @rows = "3" })
+                   
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+                        <a href="#" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span>Post</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            @{
+                Html.RenderAction("ProfilePost");
+
+            }
+
 
         </form>
     </div>
 
 
-    <div class="panel-group">
-        <div class="col-md-9">
-            <div class="panel panel-default">
-                <div class="panel-heading">Panel</div>
-                <div class="panel-body">
-                    <div class="col-md-12">
-                        @Html.TextAreaFor(x => x.Post.Content)
-                    </div>
-                    <div class="col-md-offset-8 col-md-12">
-                        <input type="button" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </div>
+

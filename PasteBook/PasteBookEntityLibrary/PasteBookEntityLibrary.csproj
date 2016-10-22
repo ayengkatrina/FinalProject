@@ -57,7 +57,22 @@
     <Compile Include="FRIENDS_TABLE.cs">
       <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FRIEND_POST_USER_JOIN1_Result.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FRIEND_POST_USER_JOIN2_Result.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FRIEND_POST_USER_JOIN3_Result.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FRIEND_POST_USER_JOIN_Result.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LIKES_TABLE.cs">
+      <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NEWSFEEDPOST_Result.cs">
       <DependentUpon>PasteBookEntityFrameworkModel.tt</DependentUpon>
     </Compile>
     <Compile Include="NOTIFICATION_TABLE.cs">

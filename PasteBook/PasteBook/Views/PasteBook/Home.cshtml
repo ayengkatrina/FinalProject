@@ -1,6 +1,5 @@
-﻿
-@model PasteBook.PostModel
-  
+﻿@model PasteBookEntityLibrary.POST_TABLE
+
 <div class="container">
     @using (Html.BeginForm("Home", "PasteBook", FormMethod.Post))
     {
@@ -10,10 +9,10 @@
         <div class="panel-group">
             <div class="col-md-9">
                 <div class="panel panel-info">
-                    
+
                     <div class="panel-body">
                         <div class="col-md-12">
-                            @Html.TextAreaFor(x => x.Content, new { @cols = "130", @rows = "5" })
+                            @Html.TextAreaFor(x => x.CONTENT, new { @cols = "130", @rows = "5" })
                         </div>
                         <div class="col-md-offset-10 col-md-12">
                             <input type="submit" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
@@ -26,8 +25,11 @@
     }
 
     @{
-        Html.RenderAction("HomePost");
+       
+            Html.RenderAction("HomePost", "PasteBook");
         
+
+
 
     }
 

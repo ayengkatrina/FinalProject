@@ -38,7 +38,7 @@ namespace PasteBookEntityLibrary
         public string MOBILE_NO { get; set; }
         public string GENDER { get; set; }
         public byte[] PROFILE_PIC { get; set; }
-        public Nullable<System.DateTime> DATE_CREATED { get; set; }
+        public System.DateTime DATE_CREATED { get; set; }
         public string ABOUT_ME { get; set; }
         public string EMAIL_ADDRESS { get; set; }
     

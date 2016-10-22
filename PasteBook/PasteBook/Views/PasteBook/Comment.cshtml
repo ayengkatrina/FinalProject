@@ -1,0 +1,15 @@
+﻿@model IEnumerable<PasteBookEntityLibrary.COMMENTS_TABLE>
+
+@{
+    foreach (var item in Model)
+    {
+
+        <span>@item.CONTENT </span>
+
+        @item.POST_TABLE.USER_TABLE1.FIRST_NAME
+
+    }
+
+
+
+}

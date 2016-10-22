@@ -24,7 +24,7 @@ namespace PasteBookEntityLibrary
         public int POST_ID { get; set; }
         public int POSTER_ID { get; set; }
         public string CONTENT { get; set; }
-        public Nullable<System.DateTime> DATE_CREATED { get; set; }
+        public System.DateTime DATE_CREATED { get; set; }
     
         public virtual POST_TABLE POST_TABLE { get; set; }
         public virtual USER_TABLE USER_TABLE { get; set; }

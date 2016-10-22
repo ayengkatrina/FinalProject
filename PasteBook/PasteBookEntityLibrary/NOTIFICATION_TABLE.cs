@@ -17,7 +17,7 @@ namespace PasteBookEntityLibrary
         public int RECEIVER_ID { get; set; }
         public string NOTIF_TYPE { get; set; }
         public int SENDER_ID { get; set; }
-        public Nullable<System.DateTime> CREATED_DATE { get; set; }
+        public System.DateTime CREATED_DATE { get; set; }
         public int COMMENT_ID { get; set; }
         public int POST_ID { get; set; }
         public int ID { get; set; }

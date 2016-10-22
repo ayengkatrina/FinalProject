@@ -24,9 +24,111 @@ textarea {
 }
 
 #linkLogout, #linkSettings{
-    margin-top: 2%;
+    margin-top: 50%;
     color: #fff;
 }
+
+
 .searchBar{
     margin-top: 5%;
+}
+
+#imgProfilePicPost, #imgHomePicPost{
+    height: 40px;
+    width: 40px;
+}
+
+#imgProfilePic{
+    margin-top:20px;
+    height: 100px;
+    width: 100px;
+}
+
+.profilePost{
+    position:absolute;
+
+}
+#formProfileDetails{
+   
+   
+   
+}
+#upperProfile{
+    
+    background-color: #424242;
+    border: solid;
+    border-color:#F5F5F5;
+    border-radius: 5px;
+}
+
+#lowerProfile{
+    margin-top: 10px;
+     border: solid;
+    border-color:#F5F5F5;
+    border-radius: 5px;
+}
+
+
+.div-details{
+    margin-top: 10px;
+
+    padding-left:10px;
+}
+
+#btnAboutMe{
+    
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
+#textAreaAbboutMe{
+    
+    text-align: center;
+    border: none;
+    outline: none;
+    resize:none;
+    overflow: hidden;
+}
+
+#underAboutMe{
+    position:absolute;
+    top: 50px;
+}
+
+.navbar{
+    background-color: #009688;
+    height: 10px;
+}
+.navbar-inverse {
+    background-color: #009688;
+    border-color: #009688;
+}
+.input-group{
+    margin-top: 2px;
+    
+
+}
+#divSearch{
+        padding-left: 153px;
+}
+#divLogout{
+    margin-top:10px;
+}
+#ulNav{
+    padding-left:23px;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #BDBDBD;
+    
+}   
+ #linkSettings:hover, #linkLogout:hover{
+    
+    color: #BDBDBD;
+     text-decoration: none;
 }

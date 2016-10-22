@@ -202,30 +202,27 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Manager\MVCManager.cs" />
-    <Compile Include="Mapper\Mapper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\CommentModel.cs" />
-    <Compile Include="Models\ContainerModel.cs" />
-    <Compile Include="Models\CountryModel.cs" />
-    <Compile Include="Models\EmailModel.cs" />
-    <Compile Include="Models\FriendModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\LikeModel.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\NotificationModel.cs" />
-    <Compile Include="Models\PostModel.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="Models\PasteBookViewModels\ProfileViewModel.cs" />
+    <Compile Include="Models\PasteBookViewModels\PBRegisterViewModel.cs" />
+    <Compile Include="Models\PasteBookViewModels\UserProfileModel.cs" />
+    <Compile Include="Models\StoredProcModel\FriendPostUserJoinModel.cs" />
+    <Compile Include="Models\StoredProcModel\PostUserJoinModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-cerulean.min.css" />
+    <Content Include="Content\bootstrap-paper.min.css" />
+    <Content Include="Content\bootstrap-simplex.min.css" />
     <Content Include="Content\bootstrap-slate.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\default.png" />
+    <Content Include="Content\bootstrap-spacelab.min.css" />
     <Content Include="Content\Styles\loginStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -261,10 +258,14 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\PasteBook\CreatedAccount.cshtml" />
+    <Content Include="Views\PasteBook\Search.cshtml" />
+    <Content Include="Views\PasteBook\Logout.cshtml" />
+    <Content Include="Views\PasteBook\ProfileInfo.cshtml" />
+    <Content Include="Views\PasteBook\HomePost.cshtml" />
+    <Content Include="Views\PasteBook\ProfilePost.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
@@ -276,23 +277,23 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\PasteBook\HomePage.cshtml" />
     <Content Include="Views\PasteBook\Register.cshtml" />
-    <Content Include="Views\PasteBook\CreatedAccount.cshtml" />
     <Content Include="Views\PasteBook\Home.cshtml" />
     <Content Include="Views\PasteBook\Profile.cshtml" />
-    <Content Include="Views\PasteBook\Search.cshtml" />
-    <Content Include="Views\PasteBook\Logout.cshtml" />
-    <Content Include="Views\PasteBook\ProfileInfo.cshtml" />
-    <Content Include="Views\PasteBook\HomePost.cshtml" />
+    <Content Include="Views\PasteBook\Comment.cshtml" />
+    <Content Include="Views\PasteBook\MakeComment.cshtml" />
+    <Content Include="Views\PasteBook\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -309,6 +310,10 @@
     <ProjectReference Include="..\BusinessLogicLibrary\BusinessLogicLibrary.csproj">
       <Project>{73fa0e60-0d4f-404b-87df-10c5282e0b8b}</Project>
       <Name>BusinessLogicLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PasteBookEntityLibrary\PasteBookEntityLibrary.csproj">
+      <Project>{bdfc96af-3047-4316-9f2c-36ad18d8b5cb}</Project>
+      <Name>PasteBookEntityLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

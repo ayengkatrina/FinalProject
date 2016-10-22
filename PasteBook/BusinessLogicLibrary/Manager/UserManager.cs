@@ -4,31 +4,83 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLibrary;
+using PasteBookEntityLibrary;
 
 namespace BusinessLogicLibrary
 {
-   public class Manager
+   public class UserManager
     {
-        DataAccess dataAccess = new DataAccess();
+        //UserTableAccess userTableAccess = new UserTableAccess();
+        DataAccess<USER_TABLE> dataAccess = new DataAccess<USER_TABLE>();
 
-        public bool SimulateUserCreation(User user)
+        //public USER_TABLE GetUserAccount(string email)
+        //{
+        //   List<USER_TABLE> user = ;
+        //    return user;
+        //}
+
+        public USER_TABLE GetUserDetails(string email)
+        {
+            var list = dataAccess.GetOne(x=>x.EMAIL_ADDRESS == email).SingleOrDefault();
+
+            return list;
+        }
+
+        public bool CheckIfEmailAlreadyExist(string email)
+        {
+            bool result;
+            
+            var list = dataAccess.GetOne(x => x.EMAIL_ADDRESS == email);
+
+            if (list.Count() > 0)
+            {
+                result = true;
+            }else
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        public bool CheckIfUserNameAlreadyExist(string userName)
+        {
+            bool result;
+            var list = dataAccess.GetOne(x => x.USER_NAME == userName);
+            if(list.Count() > 0)
+            {
+                result = true;
+            }else
+            {
+                result = false;
+            }
+            return result;
+        }
+
+      
+
+        public bool SimulateUserCreation(USER_TABLE user )
         {
             bool result;
             string salt = null;
 
-            user.Password = GeneratePasswordHash(user.Password, out salt);
-            user.Salt = salt;
+            user.PASSWORD = GeneratePasswordHash(user.PASSWORD, out salt);
+            user.SALT = salt;
 
-            result = dataAccess.CreateAccount(user);
+            //result = userTableAccess.CreateAccount(user);
+            user.DATE_CREATED = DateTime.Now;
+            result = dataAccess.Create(user);
             return result;
         }
 
         public bool SimulateLogin(string email, string password)
         {
+            //USER_TABLE user2 = userTableAccess.GetUserAccount(email);
 
-            User user2 = dataAccess.GetUserAccount(email);
+            USER_TABLE user2 = dataAccess.GetAll().Where(x=> x.EMAIL_ADDRESS == email).FirstOrDefault();
 
-            bool result = IsPasswordMatch(password, user2.Salt, user2.Password);
+            bool result = IsPasswordMatch(password, user2.SALT, user2.PASSWORD);
 
             return result;
         }

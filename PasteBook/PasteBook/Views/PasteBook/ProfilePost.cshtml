@@ -1,0 +1,88 @@
+﻿@*@model IEnumerable<PasteBook.FriendPostUserJoinModel>*@
+
+@*@model IEnumerable<PasteBookEntityLibrary.FRIEND_POST_USER_JOIN3_Result>*@
+@model IEnumerable<PasteBookEntityLibrary.NEWSFEEDPOST_Result>
+
+
+
+@foreach (var item in Model)
+
+{
+    var postID = item.ID;
+
+    var base64 = Convert.ToBase64String(@item.PROFILE_PIC);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    
+            <div class="panel-group">
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <img src="@imgSrc" class="img-thumbnail" id="imgProfilePicPost" alt="Profile Picture" width="50px" height="50px">
+                        <span>@item.FIRST_NAME @item.LAST_NAME</span>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            @item.CONTENT
+                        </div>
+                        <div class="panel-footer">
+                            @*<div class="col-md-12">
+                                
+                               <input type="text" class="form-control" placeholder="Write something...">
+                            </div>*@
+                            @{
+                                Html.RenderAction("MakeComment", "PasteBook", new { ID = postID });
+
+                            }
+
+                            <div class="col-md-4">
+                                <div class="input-group">
+                                    <span class="input-group-btn text-left">
+                                        <button class="btn btn-default" type="button">Like</button>
+                                        <button id="btnComment" class="btn btn-default" type="button">Comment</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                @item.CREATED_DATE
+                            </div>
+                   
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        @{
+                            Html.RenderAction("Comment", "PasteBook", new { ID = postID });
+
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+
+       
+}
+
+
+@{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+        var getUsernameUrl = '@Url.Action("ValidateUsername", "User")';
+        var getEmailUrl = '@Url.Action("ValidateEmail", "User")';
+        var makeCommentUrl = '@Url.Action("MakeComment", "Pastebook")';
+
+        $(document).ready(function () {
+            $('#btnComment').click(function () {
+
+                $.get('@Url.Action("MakeComment", "Pastebook")', function (data) {
+                    //$('#testsim').replaceWith(data);
+                });
+                alert("Comment added");
+                    
+            })
+
+    });
+    </script>
+}

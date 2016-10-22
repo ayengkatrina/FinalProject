@@ -39,5 +39,46 @@ namespace PasteBookEntityLibrary
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<POST_USER_JOIN_Result>("POST_USER_JOIN");
         }
+    
+        public virtual ObjectResult<FRIEND_POST_USER_JOIN_Result> FRIEND_POST_USER_JOIN()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FRIEND_POST_USER_JOIN_Result>("FRIEND_POST_USER_JOIN");
+        }
+    
+        public virtual ObjectResult<FRIEND_POST_USER_JOIN1_Result> FRIEND_POST_USER_JOIN1(Nullable<int> profileID)
+        {
+            var profileIDParameter = profileID.HasValue ?
+                new ObjectParameter("profileID", profileID) :
+                new ObjectParameter("profileID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FRIEND_POST_USER_JOIN1_Result>("FRIEND_POST_USER_JOIN1", profileIDParameter);
+        }
+    
+        public virtual ObjectResult<FRIEND_POST_USER_JOIN2_Result> FRIEND_POST_USER_JOIN2(Nullable<int> profileID)
+        {
+            var profileIDParameter = profileID.HasValue ?
+                new ObjectParameter("profileID", profileID) :
+                new ObjectParameter("profileID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FRIEND_POST_USER_JOIN2_Result>("FRIEND_POST_USER_JOIN2", profileIDParameter);
+        }
+    
+        public virtual ObjectResult<FRIEND_POST_USER_JOIN3_Result> FRIEND_POST_USER_JOIN3(Nullable<int> profileID)
+        {
+            var profileIDParameter = profileID.HasValue ?
+                new ObjectParameter("profileID", profileID) :
+                new ObjectParameter("profileID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<FRIEND_POST_USER_JOIN3_Result>("FRIEND_POST_USER_JOIN3", profileIDParameter);
+        }
+    
+        public virtual ObjectResult<NEWSFEEDPOST_Result> NEWSFEEDPOST(Nullable<int> profileID)
+        {
+            var profileIDParameter = profileID.HasValue ?
+                new ObjectParameter("profileID", profileID) :
+                new ObjectParameter("profileID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NEWSFEEDPOST_Result>("NEWSFEEDPOST", profileIDParameter);
+        }
     }
 }
