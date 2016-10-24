@@ -1,36 +1,63 @@
-﻿@model PasteBookEntityLibrary.POST_TABLE
+﻿@model IEnumerable<PasteBookEntityLibrary.NEWSFEEDPOST_Result>
 
-<div class="container">
-    @using (Html.BeginForm("Home", "PasteBook", FormMethod.Post))
+<div id="divHome" class="container col-md-offset-1">   
+
+
+@foreach (var item in Model)
+{
+    var imgSrc = "";
+
+    if (@item.PROFILE_PIC == null)
     {
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
+    {
+        var base64 = Convert.ToBase64String(@item.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+    var postID = @item.ID;
 
-        <h2>Home</h2>
 
-        <div class="panel-group">
-            <div class="col-md-9">
-                <div class="panel panel-info">
 
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            @Html.TextAreaFor(x => x.CONTENT, new { @cols = "130", @rows = "5" })
-                        </div>
-                        <div class="col-md-offset-10 col-md-12">
-                            <input type="submit" id="btnPost" value="&nbsp Post &nbsp " class="btn btn-primary" />
-                        </div>
+    <div class="panel-group">
+        <div class="col-md-9">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <img src="@imgSrc" id="imgHomePicPost" class="img-thumbnail" alt="Profile Picture" width="50" height="50">
+                    <span>@item.FIRST_NAME @item.LAST_NAME</span>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="col-md-12">
+
+                        @item.CONTENT
                     </div>
+
+                  
+
+                        @{
+                            Html.RenderAction("MakeComment", "PasteBook", new { ID = postID });
+                        }
+
+                    
+
+                    <div class="col-md-12">
+                        @{
+
+                            Html.RenderAction("Comment", "PasteBook", new { ID = postID });
+
+                        }
+
+                    </div>
+
                 </div>
             </div>
         </div>
+    </div>
+ }
+    
 
-    }
-
-    @{
-       
-            Html.RenderAction("HomePost", "PasteBook");
-        
-
-
-
-    }
 
 </div>

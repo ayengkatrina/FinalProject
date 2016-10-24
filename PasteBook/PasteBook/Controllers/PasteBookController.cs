@@ -19,6 +19,7 @@ namespace PasteBook.Controllers
         RefCountryManger refCountryManager = new RefCountryManger();
         LikeManager likeManager = new LikeManager();
         CommentManager commentManager = new CommentManager();
+        FriendManager friendManager = new FriendManager();
 
         public ActionResult Index()
         {
@@ -28,6 +29,7 @@ namespace PasteBook.Controllers
         [HttpGet]
         public ActionResult HomePage()
         {
+          
 
             return View();
         }
@@ -45,6 +47,7 @@ namespace PasteBook.Controllers
 
                 USER_TABLE userModel = userManager.GetUserDetails(emailAd);
 
+                Session["userID"] = userModel.ID;
                 Session["email"] = userModel.EMAIL_ADDRESS;
                 //Session["userSession"] = userModel;
                 return RedirectToAction("Home", "PasteBook");
@@ -107,73 +110,24 @@ namespace PasteBook.Controllers
 
         }
 
-        //public JsonResult ValidateEmail(string email)
-        //{
-        //    bool check = userManager.CheckIfEmailAlreadyExist(email);
-
-        //    return Json(new { Email = Email }, JsonRequestBehavior.AllowGet);
-        //}
-    
-
-
-
-   
+        
 
 
         [HttpGet]
         public ActionResult Home()
         {
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Home(POST_TABLE post)
-        {
-            string email = (string)Session["email"];
-            USER_TABLE user = userManager.GetUserDetails(email);
-            //PostModel post = new PostModel();
-
-
-            if (post.CONTENT != null)
-            {
-                post.POSTER_ID = user.ID;
-                post.PROFILE_ID = user.ID;
-                postManager.CreatePost(post);
-                return View();
-            }
-            else
-            {
-                return View();
-            }
-        }
-
-
-
-
-        public PartialViewResult HomePost()
-        {
-            
             string email = (string)Session["email"];
             USER_TABLE user = userManager.GetUserDetails(email);
             int ID = user.ID;
-           
 
             List<NEWSFEEDPOST_Result> result = new List<NEWSFEEDPOST_Result>();
             result = postManager.NewsFeedPost(ID);
-
-            return PartialView("HomePost", result);
+            return View(result);
         }
 
-        public PartialViewResult ProfilePost()
+       
 
-        {
-            int profileID = 5;
-           
-            List<NEWSFEEDPOST_Result> result = new List<NEWSFEEDPOST_Result>();
-            result = postManager.NewsFeedPost(profileID);
-            return PartialView("ProfilePost", result);
-        }
+        
 
         public PartialViewResult Comment(int ID)
         {
@@ -186,17 +140,29 @@ namespace PasteBook.Controllers
 
         }
 
-        public PartialViewResult MakeComment(int ID, COMMENTS_TABLE comment)
+        [HttpGet]
+        public PartialViewResult MakeComment()
         {
-            if(comment == null) {
-                comment.POST_ID = ID;
-                var createComment = commentManager.CommentOnAPost(comment);
-            }
-            
             return PartialView();
         }
 
+        [HttpPost]
+        public ActionResult MakeComment(int ID, COMMENTS_TABLE comment)
+        {
+            var createComment = false;
+            string email = (string)Session["email"];
+            USER_TABLE user = userManager.GetUserDetails(email);
+            if(comment.CONTENT != null) {
+                comment.POST_ID = ID;
+                comment.DATE_CREATED = DateTime.Now;
+                comment.POSTER_ID = user.ID;
+                createComment = commentManager.CommentOnAPost(comment);
+            }
 
+            return RedirectToAction("Home", "PasteBook");
+        }
+
+       
 
         [HttpGet]
         public ActionResult Profile()
@@ -206,10 +172,140 @@ namespace PasteBook.Controllers
             UserProfileModel userProfile = new UserProfileModel();
             //userProfile.User = (USER_TABLE)Session["userSession"];
             string email = (string)Session["email"];
+            Session["userID"] = userProfile.User.ID;
 
             userProfile.User = userManager.GetUserDetails(email);
 
             return View(userProfile);
+        }
+
+        public ActionResult UploadPicture(HttpPostedFileBase file)
+        {
+            //stackoverflow.com/questions/16255882/uploading-displaying-images-in-mvc-4
+            if (file != null)
+            {
+                string email = (string)Session["email"];
+                using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                    //byte[] array = ms.GetBuffer();
+                    byte[] profilePic = ms.GetBuffer();
+                    var addingPicResult = userManager.AddProfilePicture(profilePic, email);
+                }               
+               
+                return RedirectToAction("Profile", "PasteBook");
+
+            }
+            else
+            {
+                return RedirectToAction("Profile", "PasteBook");
+            }
+
+        }
+        public ActionResult AddAboutMe(string txtaboutMe)
+        {
+            string email = (string)Session["email"];
+            var addingAboutMeResult = userManager.AddAboutMe(txtaboutMe, email);
+            return RedirectToAction("Profile", "PasteBook");
+        }
+
+        public PartialViewResult ProfilePost(int ID)
+        {
+            var postList = postManager.TimelinePost(ID);
+            return PartialView("ProfilePost", postList);
+        }
+
+        [HttpGet]
+        public ActionResult Friends()
+        {
+            return View();
+        }
+
+
+        public PartialViewResult CommentList(int ID)
+        {
+
+
+            var result = commentManager.GetComments(ID);
+
+            return PartialView("Comment", result);
+
+
+        }
+
+        [HttpGet]
+        public PartialViewResult MakeCommentOnPost()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult MakeCommentOnPost(int ID, COMMENTS_TABLE comment)
+        {
+            var createComment = false;
+            string email = (string)Session["email"];
+            USER_TABLE user = userManager.GetUserDetails(email);
+            if (comment.CONTENT != null)
+            {
+                comment.POST_ID = ID;
+                comment.DATE_CREATED = DateTime.Now;
+                comment.POSTER_ID = user.ID;
+                createComment = commentManager.CommentOnAPost(comment);
+            }
+
+            return RedirectToAction("Profile", "PasteBook");
+        }
+
+        [HttpGet]
+        public ActionResult Settings()
+        {
+            string email = (string)Session["email"];
+            USER_TABLE user = userManager.GetUserDetails(email);
+
+            
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public ActionResult Settings(USER_TABLE userModel)
+        {
+            string email = (string)Session["email"];
+            var editProfileResult = userManager.EditProfile(userModel, email);
+
+            return View(userModel);
+        }
+
+        [HttpGet]
+        public ActionResult Security()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult Security(SecurityModel model)
+        {
+            int userID = (int)Session["userID"];
+            USER_TABLE user = userManager.GetUserDetailsByID(userID);
+            bool isPasswordMatch = userManager.IsPasswordMatch(model.CurrentPassword, user.SALT, user.PASSWORD);
+            if (isPasswordMatch)
+            {
+                string saltResult = null;
+
+                string hash = userManager.GeneratePasswordHash(model.NewPassword, out saltResult);
+                string salt = saltResult;
+
+                userManager.EditCredential(userID, model.NewEmailAddress, hash, salt);
+                return RedirectToAction("Settings", "PasteBook");
+            }
+            else
+            {
+                ModelState.AddModelError("passwordNotMatch", "Wrong password");
+                return RedirectToAction("Settings", "PasteBook");
+            }
+
+           
+
         }
 
         [HttpGet]
@@ -220,17 +316,8 @@ namespace PasteBook.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult ProfileInfo()
-        {
-            ProfileViewModel profileModel = (ProfileViewModel)Session["userSession"];
-
-            // string email = userModel.EmailAddress;
 
 
-
-            return View(profileModel);
-        }
 
         public ActionResult Notifications()
         {
@@ -242,11 +329,12 @@ namespace PasteBook.Controllers
         public ActionResult Logout()
         {
             Session["email"] = null;
-
-
-
             return RedirectToAction("HomePage", "PasteBook"); 
         }
+
+
+
+
     }
 
 }     

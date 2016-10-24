@@ -23,6 +23,8 @@
                         <li>@Html.ActionLink("Home", "Home", "PasteBook")</li>
                         <li>@Html.ActionLink("Profile", "Profile", "PasteBook")</li>
                         <li>@Html.ActionLink("Notification", "Search", "PasteBook")</li>
+                        <li>@Html.ActionLink("Friends", "Friends", "PasteBook")</li>
+
                     </ul>
                 </div>
                
@@ -51,10 +53,10 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - PasteBook.com</p>
-        </footer>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")

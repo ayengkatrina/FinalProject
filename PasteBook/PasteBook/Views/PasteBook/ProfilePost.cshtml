@@ -1,7 +1,6 @@
-﻿@*@model IEnumerable<PasteBook.FriendPostUserJoinModel>*@
-
-@*@model IEnumerable<PasteBookEntityLibrary.FRIEND_POST_USER_JOIN3_Result>*@
-@model IEnumerable<PasteBookEntityLibrary.NEWSFEEDPOST_Result>
+﻿
+@*@model IEnumerable<PasteBookEntityLibrary.NEWSFEEDPOST_Result>*@
+@model IEnumerable <PasteBookEntityLibrary.POST_TABLE>
 
 
 
@@ -9,16 +8,23 @@
 
 {
     var postID = item.ID;
+    var imgSrc = "";
+    if (@item.USER_TABLE.PROFILE_PIC == null)
+    {
+        imgSrc= @Url.Content("~/Content/Images/default.png");
+    }else
+    {
+        var base64 = Convert.ToBase64String(@item.USER_TABLE.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
 
-    var base64 = Convert.ToBase64String(@item.PROFILE_PIC);
-    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-    
+
             <div class="panel-group">
 
-                <div class="panel panel-info">
+                <div id ="divPostPanel"class="panel panel-default">
                     <div class="panel-heading">
                         <img src="@imgSrc" class="img-thumbnail" id="imgProfilePicPost" alt="Profile Picture" width="50px" height="50px">
-                        <span>@item.FIRST_NAME @item.LAST_NAME</span>
+                        <span>@item.USER_TABLE.FIRST_NAME @item.USER_TABLE.LAST_NAME</span>
                     </div>
 
                     <div class="panel-body">
@@ -31,20 +37,13 @@
                                <input type="text" class="form-control" placeholder="Write something...">
                             </div>*@
                             @{
-                                Html.RenderAction("MakeComment", "PasteBook", new { ID = postID });
+                                Html.RenderAction("MakeCommentOnPost", "PasteBook", new { ID = postID });
 
                             }
 
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <span class="input-group-btn text-left">
-                                        <button class="btn btn-default" type="button">Like</button>
-                                        <button id="btnComment" class="btn btn-default" type="button">Comment</button>
-                                    </span>
-                                </div>
-                            </div>
+                           
                             <div class="col-md-6 text-right">
-                                @item.CREATED_DATE
+                                @item.CREATED_DATE.ToString("MMMM, dd, yyyy")
                             </div>
                    
 
@@ -53,7 +52,7 @@
 
                     <div class="col-md-12">
                         @{
-                            Html.RenderAction("Comment", "PasteBook", new { ID = postID });
+                            Html.RenderAction("CommentList", "PasteBook", new { ID = postID });
 
                         }
 
@@ -66,7 +65,7 @@
 }
 
 
-@{
+@*@{
     @Scripts.Render("~/bundles/jquery");
     <script>
         var getUsernameUrl = '@Url.Action("ValidateUsername", "User")';
@@ -85,4 +84,4 @@
 
     });
     </script>
-}
+}*@

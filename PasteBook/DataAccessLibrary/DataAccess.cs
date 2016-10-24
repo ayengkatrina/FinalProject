@@ -97,25 +97,7 @@ namespace DataAccessLibrary
             return entityList;
         }
 
-        //public T GetOne(Object id)
-        //{
-
-        //    try
-        //    {
-        //        using (var context = new PasteBookDBEntities())
-        //        {
-        //          var  record = context.Set<T>().Find(id);
-        //            return record;
-        //        }
-
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-
-        //}
-
+       
 
     }
 }

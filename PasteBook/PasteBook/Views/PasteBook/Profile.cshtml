@@ -1,6 +1,7 @@
 ﻿@model PasteBook.UserProfileModel
 
 @{
+    var profileID = Model.User.ID;
     var gender = "";
     var imgSrc = "";
     if (Model.User.PROFILE_PIC == null)
@@ -35,7 +36,7 @@
 
             <div id="upperProfile">
                 <div id="divProfilePic" class="form-group text-center">
-                    <img src="@imgSrc" id="imgProfilePic" alt="Profile-Picture" class="img-thumbnail" />
+                    <img id="imgProfileImage" src="@imgSrc" id="imgProfilePic" alt="Profile-Picture" class="img-thumbnail" />
                 </div>
 
                 <div id="divProfileName" class="form-group text-center">
@@ -46,7 +47,7 @@
             <div id="lowerProfile">
                 <div class="div-details">
                     <div class="form-group text-center">
-                        <h5>About Me <button id="btnAboutMe" type="button"><span class="glyphicon glyphicon-edit"></span></button></h5>
+                        <h5>About Me <button id="btnAboutMeEdit" type="button"><span class="glyphicon glyphicon-edit"></span></button></h5>
                     </div>
                     <div class="form-group">
                         
@@ -88,7 +89,9 @@
     </div>
 
     <div class="col-md-8">
-        <form>
+        @using (Html.BeginForm("Home", "PasteBook", FormMethod.Post))
+        {
+
 
             <div class="panel panel-default">
                 <div class="panel-body">
@@ -105,16 +108,213 @@
                 </div>
             </div>
 
-            @{
-                Html.RenderAction("ProfilePost");
+          
+        }
+        @{
+            Html.RenderAction("ProfilePost", "PasteBook", new { ID = profileID } );
 
-            }
 
+        }
 
-        </form>
     </div>
 
+    <!-- Modal About Me -->
+    <div class="modal fade" id="modalAboutMe" role="dialog">
+        <div class="modal-dialog">
+            @using (Html.BeginForm("AddAboutMe", "PasteBook", FormMethod.Post, new { id ="formAboutMe"}))
+               {
+       
+              
+    
+                <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">About Me</h4>
+                </div>
+                <div class="modal-body">
+                   
+                    @*@Html.TextAreaFor(x => x.User.ABOUT_ME, new { id = "txtAboutMe", rows = "3", cols = "150", htmlAttributes = new { @class = "form-control" } })*@
+                    <textarea id="txtAboutMe" name="txtaboutMe" rows="3" cols="150"></textarea>
+                    <div class="form-group">
+                        <span  id="txtAboutMeValidationMessage" class="text-danger"></span>
+                    </div> 
 
+                </div>
+                <div class="modal-footer">
+                    <button id="btn-AboutMe" type="button" class="btn btn-default" @*data-dismiss="modal"*@>Save</button>
+                </div>
+                   
+            </div>
+}
+        </div>
+    </div>
+    
 
+    <!-- Modal Picture -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload Image</h4>
+                </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("UploadPicture", "PasteBook", FormMethod.Post, FormMethod.Post,
+                                new { enctype = "multipart/form-data" , id = "uploadform" }))
+                    {
+                    <div class="form-group">
+                       
+                        <div class="col-md-12">
+
+                            <span class="btn btn-default btn-file">
+                                <input type="file" name="file" id="file" onChange="validate(this.value)"style="width: 100%;">
+                               
+                            </span>
+
+                            <div id="txtExtensionValidationMessage" class="form-group">
+                                <span class="text-danger">Please select .jpg, .jpeg and .png image only</span>
+                            </div>
+                            <div id="txtSizeValidationMessage" class="form-group">
+                                <span class="text-danger">Please select image file with size 2MB or less than 2MB.</span>
+                            </div>                          
+                           
+                        </div>
+
+                        <div class="col-md-12 text-center">
+                            <button id="btn-Upload" type="button" class="btn btn-default" @*data-dismiss="modal"*@>Upload</button>
+                        </div>
+                       
+                    </div>
+                    }
+
+                </div>
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+ @{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+
+
+        $(document).ready(function () {
+            
+            btnAboutMeEdit
+
+            $("#imgProfileImage").on("click", function () {
+                $('#myModal').modal('show');
+            });
+
+            $("#btnAboutMeEdit").on("click", function () {
+                $('#modalAboutMe').modal('show');
+            });
+
+            //www.aspsnippets.com/Articles/Check-Validate-File-Image-Size-before-upload-using-JavaScript-and-jQuery.aspx
+
+            $("#btn-Upload").bind("click", function () {
+               
+
+                if (typeof ($("#file")[0].files) != "undefined") {
+                    var size = parseFloat($("#file")[0].files[0].size / (1024 * 1024)).toFixed(2);
+
+                    if ((ImageFileExtensionValidate() == false) || (size > 2)){
+
+                    
+                        if (ImageFileExtensionValidate() == false) {
+
+                            toggle_visibility('txtExtensionValidationMessage')
+
+                            if (size > 2) {
+
+                                toggle_visibility('txtSizeValidationMessage')
+                                alert(size + " MB. NOT ALLOWED");
+                            } 
+                        }
+                    }
+                    else if ((ImageFileExtensionValidate() == true) && (size <= 2))
+                    {
+                       
+                        alert(size + " MB.");
+                        $("#uploadform").submit();
+                     
+
+                    }
+
+
+
+                } else {
+                    alert("This browser does not support HTML5.");
+                }
+            });
+
+            //stackoverflow.com/questions/19163327/how-do-i-make-a-div-hidden-by-default-using-javascript
+            function toggle_visibility(id) {
+
+                var e = document.getElementById(id);
+                if (e.style.display == 'block')
+                    e.style.display = 'none';
+
+                else
+                    e.style.display = 'block';
+            }
+
+            //stackoverflow.com/questions/14852090/jquery-check-for-file-extension-before-uploading
+            function ImageFileExtensionValidate() {
+                var file = $("#file").val()
+                var ext = file.split(".");
+                ext = ext[ext.length - 1].toLowerCase();
+                var arrayExtensions = ["jpg", "jpeg", "png"];
+
+                if (arrayExtensions.lastIndexOf(ext) == -1) {
+                    return false;
+                    alert("Wrong extension type.");
+                    $("#image").val("");
+                }
+                else {
+                    return true;
+                }
+            }
+
+            //stackoverflow.com/questions/5371089/count-characters-in-textarea
+
+            function AboutMeLenghtValidate() {
+                var max = 5;
+                var len = $('#txtAboutMe').val().length;
+                if (len >= max) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            $('#txtAboutMe').keyup(function () {
+                var max = 2000;
+                var len = $(this).val().length;
+                if (len >= max) {
+                    $('#txtAboutMeValidationMessage').text(' You have reached the limit');
+                } else {
+                    var char = max - len;
+                    $('#txtAboutMeValidationMessage').text(char + ' characters left');
+                }
+            });
+
+            $('#btn-AboutMe').click(function () {
+                if (AboutMeLenghtValidate() == true) {
+                    $("#formAboutMe").submit();
+                }
+            });
+
+        });
+
+
+
+
+
+    </script>
+}
 

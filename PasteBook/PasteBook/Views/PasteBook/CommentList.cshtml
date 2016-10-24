@@ -1,18 +1,21 @@
 ﻿@model IEnumerable<PasteBookEntityLibrary.COMMENTS_TABLE>
 
+
 @{
 
     foreach (var item in Model)
     {
-        
 
 
-        
 
-            <span>@item.CONTENT </span>
+        <div class="col-md-4">
+
+        </div>
+
+        <span>@item.CONTENT </span>
 
 
             <span>@item.USER_TABLE.FIRST_NAME</span>
 
-        }
     }
+}

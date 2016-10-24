@@ -21,8 +21,27 @@ namespace BusinessLogicLibrary
         //}
         public List<FRIENDS_TABLE> GetListOfFriends(int userID)
         {
-            var list = dataAccess.GetOne(x => x.USER_TABLE1.ID == userID);
-            return list;
+            List<FRIENDS_TABLE> friendslist = new List<FRIENDS_TABLE>();
+           
+            using (var context = new PasteBookDBEntities())
+            {
+                var list = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.REQUEST == "Y");
+                var secondList = context.FRIENDS_TABLE.Where(x => x.USER_ID == userID && x.REQUEST == "Y");
+
+                foreach(var item in list)
+                {
+                    friendslist.Add(item);
+                }
+
+                foreach(var item in secondList)
+                {
+                    friendslist.Add(item);
+                }
+
+                return friendslist;
+            }
+
+             
         }
     }
 }

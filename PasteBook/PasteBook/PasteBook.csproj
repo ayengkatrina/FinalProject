@@ -208,6 +208,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PasteBookViewModels\ProfileViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\PBRegisterViewModel.cs" />
+    <Compile Include="Models\PasteBookViewModels\SecurityModel.cs" />
     <Compile Include="Models\PasteBookViewModels\UserProfileModel.cs" />
     <Compile Include="Models\StoredProcModel\FriendPostUserJoinModel.cs" />
     <Compile Include="Models\StoredProcModel\PostUserJoinModel.cs" />
@@ -263,8 +264,6 @@
     <Content Include="Views\PasteBook\CreatedAccount.cshtml" />
     <Content Include="Views\PasteBook\Search.cshtml" />
     <Content Include="Views\PasteBook\Logout.cshtml" />
-    <Content Include="Views\PasteBook\ProfileInfo.cshtml" />
-    <Content Include="Views\PasteBook\HomePost.cshtml" />
     <Content Include="Views\PasteBook\ProfilePost.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -294,6 +293,11 @@
     <Content Include="Views\PasteBook\Comment.cshtml" />
     <Content Include="Views\PasteBook\MakeComment.cshtml" />
     <Content Include="Views\PasteBook\Notifications.cshtml" />
+    <Content Include="Views\PasteBook\Friends.cshtml" />
+    <Content Include="Views\PasteBook\CommentList.cshtml" />
+    <Content Include="Views\PasteBook\MakeCommentOnPost.cshtml" />
+    <Content Include="Views\PasteBook\Settings.cshtml" />
+    <Content Include="Views\PasteBook\Security.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

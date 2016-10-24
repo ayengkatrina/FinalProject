@@ -23,13 +23,18 @@ namespace BusinessLogicLibrary
 
         }
 
-        public List<FRIEND_POST_USER_JOIN3_Result> PostInTheNewsFeed(int profileID)
-        {
-            List<FRIEND_POST_USER_JOIN3_Result> list = new List<FRIEND_POST_USER_JOIN3_Result>();
+        //public List<POST_TABLE> PostInTheNewsFeed(int userID)
+        //{
+        //    FriendManager friendManager = new FriendManager();
+        //    List<POST_TABLE> postList = new List<POST_TABLE>();
 
-            list = storedProcAccess.PostInTheNewsFeed(profileID);
-            return list;
-        }
+        //    var listOfFriends = friendManager.GetListOfFriends(userID);
+
+        //    using (var context = new PasteBookDBEntities())
+        //    {
+        //        var list = context.POST_TABLE.Include("USER_TABLE").Where(x=>x.POSTER_ID == listOfFriends.)
+        //    }
+        //}
 
      public List<NEWSFEEDPOST_Result> NewsFeedPost(int profileID)
         {
@@ -37,6 +42,21 @@ namespace BusinessLogicLibrary
             list = storedProcAccess.NewsFeedPost(profileID);
             return list;
         }
+
+        public List<POST_TABLE> TimelinePost(int profileID)
+        {
+            List<POST_TABLE> list = new List<POST_TABLE>();
+            //list = dataAccess.GetOne(x => x.PROFILE_ID == profileID);
+
+            using (var context = new PasteBookDBEntities())
+            {
+                list = context.POST_TABLE.Include("USER_TABLE").Where(x => x.PROFILE_ID == profileID).ToList();
+            }
+
+                return list;
+        }
+
+
 
 
         }

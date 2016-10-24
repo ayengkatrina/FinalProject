@@ -74,6 +74,9 @@ textarea {
 
     padding-left:10px;
 }
+#divHome{
+    padding-left: 35px;
+}
 
 #btnAboutMe{
     
@@ -112,7 +115,7 @@ textarea {
 
 }
 #divSearch{
-        padding-left: 153px;
+        padding-left: 76px;
 }
 #divLogout{
     margin-top:10px;
@@ -131,4 +134,13 @@ textarea {
     
     color: #BDBDBD;
      text-decoration: none;
+}
+
+.panel-default>.panel-heading {
+    
+    background-color: #009688;
+   
+}
+#txtExtensionValidationMessage, #txtSizeValidationMessage /*#txtAboutMeValidationMessage*/{
+    display:none;
 }

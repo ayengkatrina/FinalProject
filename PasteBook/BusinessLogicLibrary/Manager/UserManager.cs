@@ -13,6 +13,7 @@ namespace BusinessLogicLibrary
     {
         //UserTableAccess userTableAccess = new UserTableAccess();
         DataAccess<USER_TABLE> dataAccess = new DataAccess<USER_TABLE>();
+        UserDataAccess userDataAccess = new UserDataAccess();
 
         //public USER_TABLE GetUserAccount(string email)
         //{
@@ -20,11 +21,42 @@ namespace BusinessLogicLibrary
         //    return user;
         //}
 
+            public bool EditProfile(USER_TABLE user, string email)
+        {
+            var result = userDataAccess.EditProfile(user, email);
+            return result;
+        }
+
+        public bool EditCredential(int userID, string email, string hash, string salt)
+        {
+            var result = userDataAccess.EditCredential(userID, email, hash, salt);
+            return result;
+        }
+
         public USER_TABLE GetUserDetails(string email)
         {
             var list = dataAccess.GetOne(x=>x.EMAIL_ADDRESS == email).SingleOrDefault();
 
             return list;
+        }
+
+        public USER_TABLE GetUserDetailsByID(int userID)
+        {
+            var list = dataAccess.GetOne(x => x.ID == userID).SingleOrDefault();
+
+            return list;
+        }
+        
+        public bool AddProfilePicture(byte[] profilePic, string email)
+        {
+            var result = userDataAccess.AddPicture(profilePic, email);
+            return result;
+        }
+
+        public bool AddAboutMe(string aboutMe, string email)
+        {
+            var result = userDataAccess.AddAboutMe(aboutMe, email);
+            return result;
         }
 
         public bool CheckIfEmailAlreadyExist(string email)
