@@ -14,49 +14,82 @@
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                
-                @*@Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
-            </div>
-            <div class="navbar-collapse collapse">
-                <div id="liNav">
-                    <ul id="ulNav" class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Home", "PasteBook")</li>
-                        <li>@Html.ActionLink("Profile", "Profile", "PasteBook")</li>
-                        <li>@Html.ActionLink("Notification", "Search", "PasteBook")</li>
-                        <li>@Html.ActionLink("Friends", "Friends", "PasteBook")</li>
-
-                    </ul>
-                </div>
                
-
-
-               
-                    <div id="divSearch" class="col-md-6">
-                        <div class="input-group">
-                            <input  type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-btn">
-                                <button class="btn btn-info" type="button">Go!</button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </div><!-- /.col-lg-6 -->
-                
-
-                 
-
-                <div id="divLogout" class="co-md-4 pull-right">
-                            
-                    @Html.ActionLink("Logout", "Logout", "PasteBook", new { id="linkLogout"})
-                    @Html.ActionLink("Settings", "Settings", "PasteBook", new { id = "linkSettings" })
-                </div>
+                @Html.ActionLink("PasteBook", "HomePage", "PasteBook", new { area = "" }, new {id="linkAppName", @class = "navbar-brand" })
             </div>
+
+            @{
+                string userFullName = (string)Session["userFullName"];
+                string userName = "@"+(string)Session["userName"];
+                var imgSrc = "";
+                if (Session["profilePic"] == null)
+                {
+                    imgSrc = @Url.Content("~/Content/Images/default.png");
+                }
+                else
+                {
+
+                    var base64 = Convert.ToBase64String((byte[])Session["profilePic"]);
+                    imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                }
+
+                if (Session["userID"] != null)
+                {
+                    <div class="navbar-collapse collapse">
+                        <div id="liNav">
+                            <ul id="ulNav" class="nav navbar-nav">
+                                <li>@Html.ActionLink("Home", "Home", "PasteBook")</li>
+                                <li>@Html.ActionLink("Profile", "Profile", "PasteBook")</li>
+                                <li>@Html.ActionLink("Notification", "Search", "PasteBook")</li>
+                                <li>@Html.ActionLink("Friends", "Friends", "PasteBook")</li>
+
+                            </ul>
+                        </div>
+
+                        <div id="divSearch" class="col-md-5">
+                       @using (Html.BeginForm("Search", "PasteBook", FormMethod.Post))
+                       {
+                            <div class="input-group">
+                                <input id="txtSearch" name="txtSearch"type="text" class="form-control" placeholder="Search for...">
+                                <span class="input-group-btn">
+                                    <button id="btnSearch" class="btn btn-info" type="submit" >Go!</button>
+                                </span>
+                            </div><!-- /input-group -->
+                       }
+                        </div><!-- /.col-lg-6 -->
+                       
+
+                        <div id="dropdownIcon"class="dropdown col-md-1">
+                            <button id="btnDropdownIcon" class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                <img id="imgDPNav" src="@imgSrc">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                               
+                                <li role="presentation"><span>&nbsp </span> @userFullName</li>
+                                <li role="presentation"><span>&nbsp </span>@userName</li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">@Html.ActionLink("Edit Profile", "Settings", "PasteBook", new { id = "linkLogout" })</li>
+                                <li role="presentation">@Html.ActionLink("Security", "Security", "PasteBook", new { id = "linkLogout" })</li>
+
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation">@Html.ActionLink("Logout", "Logout", "PasteBook", new { id = "linkLogout" })</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                     }
+
+            }
+           
+
+            
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
-        @*<hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - PasteBook.com</p>
-        </footer>*@
+
     </div>
 
     @Scripts.Render("~/bundles/jquery")
@@ -64,3 +97,44 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+
+@{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+
+
+        $(document).ready(function () {
+
+
+            $('#settingSelector').change(function () {
+                if ($(this).val() == 'profile') {
+                    window.location.href = '@Url.Action("Security", "PasteBook")';
+
+                }
+                else if ($(this).val() == 'profile') {
+                    window.location.href = '@Url.Action("Settings", "PasteBook")';
+                }
+            });
+
+
+            var searchUrl = '@Url.Action("Search", "PasteBook")';
+
+            $('#btnSearch').click(function () {
+                alert("hello");
+                var searchKeyword = $('#txtSearch').val();
+
+                $('#btnSearch').submit();
+
+               
+
+            });
+
+
+
+
+
+        });
+
+    </script>
+}

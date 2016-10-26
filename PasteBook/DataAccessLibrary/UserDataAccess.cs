@@ -9,13 +9,35 @@ namespace DataAccessLibrary
 {
    public class UserDataAccess
     {
-        public bool AddPicture(byte[] profilePic, string email)
+
+        public List<USER_TABLE> Search(string userFullName)
+        {
+            List<USER_TABLE> userList = new List<USER_TABLE>();
+            List<USER_TABLE> firstNameList = new List<USER_TABLE>();
+            List<USER_TABLE> lastNameList = new List<USER_TABLE>();
+            using (var context = new PasteBookDBEntities())
+            {
+                firstNameList = context.USER_TABLE.Where(x => x.FIRST_NAME.ToLower() == userFullName).ToList();
+                lastNameList = context.USER_TABLE.Where(x => x.LAST_NAME.ToLower() == userFullName).ToList();
+
+                foreach(var item in firstNameList)
+                {
+                    userList.Add(item);
+                }
+                foreach(var item in lastNameList)
+                {
+                    userList.Add(item);
+                }
+                return userList;
+            }
+        }
+        public bool AddPicture(byte[] profilePic, int userID)
         {
 
             int numberSave = 0;
             using (var context = new PasteBookDBEntities())
             {
-                USER_TABLE user = context.USER_TABLE.Where(x => x.EMAIL_ADDRESS == email).SingleOrDefault();
+                USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
                 {
                     user.PROFILE_PIC = profilePic;
@@ -34,13 +56,13 @@ namespace DataAccessLibrary
             }
         }
 
-        public bool AddAboutMe(string aboutMe, string email)
+        public bool AddAboutMe(string aboutMe, int userID)
         {
 
             int numberSave = 0;
             using (var context = new PasteBookDBEntities())
             {
-                USER_TABLE user = context.USER_TABLE.Where(x => x.EMAIL_ADDRESS == email).SingleOrDefault();
+                USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
                 {
                     user.ABOUT_ME = aboutMe;
@@ -59,13 +81,13 @@ namespace DataAccessLibrary
             }
         }
 
-        public bool EditProfile(USER_TABLE userModel, string email)
+        public bool EditProfile(USER_TABLE userModel, int userID)
         {
 
             int numberSave = 0;
             using (var context = new PasteBookDBEntities())
             {
-                USER_TABLE user = context.USER_TABLE.Where(x => x.EMAIL_ADDRESS == email).SingleOrDefault();
+                USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
                 {
                     user.USER_NAME = userModel.USER_NAME;
@@ -120,7 +142,58 @@ namespace DataAccessLibrary
             }
         }
 
+        public bool EditEmailAddress(int userID, string email)
+        {
 
+            int numberSave = 0;
+            using (var context = new PasteBookDBEntities())
+            {
+                USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
+                if (user != null)
+                {
+                    user.EMAIL_ADDRESS = email;                   
+
+                    numberSave = context.SaveChanges();
+
+                }
+
+            }
+            if (numberSave > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool EditPassword(int userID, string hash, string salt)
+        {
+
+            int numberSave = 0;
+            using (var context = new PasteBookDBEntities())
+            {
+                USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
+                if (user != null)
+                {
+                    
+                    user.PASSWORD = hash;
+                    user.SALT = salt;
+
+                    numberSave = context.SaveChanges();
+
+                }
+
+            }
+            if (numberSave > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
     }
 }

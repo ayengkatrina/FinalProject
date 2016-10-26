@@ -4,15 +4,23 @@
 
     foreach (var item in Model)
     {
-        
+<form id="formComments">
+    <div id="divComment"class="col-md-12">
+        <div class="col-md-4">
+            <h5>@item.USER_TABLE.FIRST_NAME @item.USER_TABLE.LAST_NAME</h5>
+            <span>@item.DATE_CREATED.ToString("MMMM, dd, yyyy")</span>
 
+        </div>
+        <div class="form-group col-md-8">
+            <textarea id="textAreaComments"class="form-control"cols="100" rows="2" readonly="readonly">@item.CONTENT </textarea>
+        </div>
 
-        
+    </div>
 
-            <span>@item.CONTENT </span>
+    <div class="form-group col-md-4 text-left">
+       
+    </div>
 
-
-            <span>@item.USER_TABLE.FIRST_NAME</span>
-
-        }
+</form>
     }
+}

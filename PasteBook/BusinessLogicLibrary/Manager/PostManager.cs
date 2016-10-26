@@ -23,25 +23,29 @@ namespace BusinessLogicLibrary
 
         }
 
-        //public List<POST_TABLE> PostInTheNewsFeed(int userID)
-        //{
-        //    FriendManager friendManager = new FriendManager();
-        //    List<POST_TABLE> postList = new List<POST_TABLE>();
-
-        //    var listOfFriends = friendManager.GetListOfFriends(userID);
-
-        //    using (var context = new PasteBookDBEntities())
-        //    {
-        //        var list = context.POST_TABLE.Include("USER_TABLE").Where(x=>x.POSTER_ID == listOfFriends.)
-        //    }
-        //}
-
-     public List<NEWSFEEDPOST_Result> NewsFeedPost(int profileID)
+        public List<POST_TABLE> PostInTheNewsFeed(int userID)
         {
-            List<NEWSFEEDPOST_Result> list = new List<NEWSFEEDPOST_Result>();
-            list = storedProcAccess.NewsFeedPost(profileID);
-            return list;
+            FriendManager friendManager = new FriendManager();
+            List<POST_TABLE> postList = new List<POST_TABLE>();
+
+            List<FRIENDS_TABLE> friendList = friendManager.GetListOfFriends(userID);
+
+            using (var context = new PasteBookDBEntities())
+            {
+                foreach(var item in friendList)
+                {
+                  var list = context.POST_TABLE.Include("USER_TABLE").Include("LIKES_TABLE").Where(x => x.POSTER_ID == item.USER_ID || x.POSTER_ID == item.FRIEND_ID).OrderByDescending(x=>x.CREATED_DATE).Take(100);
+                    foreach(var itemInList in list)
+                    {
+                        postList.Add(itemInList);
+                    }
+                }
+
+                return postList;
+            }
         }
+
+
 
         public List<POST_TABLE> TimelinePost(int profileID)
         {
@@ -50,7 +54,7 @@ namespace BusinessLogicLibrary
 
             using (var context = new PasteBookDBEntities())
             {
-                list = context.POST_TABLE.Include("USER_TABLE").Where(x => x.PROFILE_ID == profileID).ToList();
+                list = context.POST_TABLE.Include("USER_TABLE").Include("LIKES_TABLE").Where(x => x.PROFILE_ID == profileID).OrderByDescending(x => x.CREATED_DATE).Take(100).ToList();
             }
 
                 return list;

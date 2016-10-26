@@ -3,22 +3,13 @@
 
 @using (Html.BeginForm("MakeComment", "PasteBook", FormMethod.Post))
 {
-
-    <div class="col-md-12">
-        @Html.EditorFor(x => x.CONTENT, new { htmlAttributes = new { @class = "form-control", @required = "required", @placeholder = "Write a comment..." } })
-
-    </div>
-
-    <div class="col-md-4">
+    <div class="col-md-10">
         <div class="input-group">
-            <span class="input-group-btn text-left">
-                <button class="btn btn-default" type="button">Like</button>
+            @Html.EditorFor(x => x.CONTENT, new { htmlAttributes = new { @class = "form-control", @required = "required", @placeholder = "Write a comment..." } })
+            <span class="input-group-btn">
                 <button id="btnComment" class="btn btn-default" type="submit">Comment</button>
             </span>
         </div>
     </div>
-
-
-
 }
 

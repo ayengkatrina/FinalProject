@@ -20,16 +20,31 @@ namespace BusinessLogicLibrary
         //   List<USER_TABLE> user = ;
         //    return user;
         //}
-
-            public bool EditProfile(USER_TABLE user, string email)
+        public List<USER_TABLE> Search(string inputString)
         {
-            var result = userDataAccess.EditProfile(user, email);
+            var userList = userDataAccess.Search(inputString);
+            return userList;
+        }
+
+            public bool EditProfile(USER_TABLE user, int userID)
+        {
+            var result = userDataAccess.EditProfile(user, userID);
             return result;
         }
 
         public bool EditCredential(int userID, string email, string hash, string salt)
         {
             var result = userDataAccess.EditCredential(userID, email, hash, salt);
+            return result;
+        }
+        public bool EditEmailAddress(int userID, string email)
+        {
+            var result = userDataAccess.EditEmailAddress(userID, email);
+            return result;
+        }
+        public bool EditPassword(int userID, string hash, string salt)
+        {
+            var result = userDataAccess.EditPassword(userID, hash, salt);
             return result;
         }
 
@@ -47,15 +62,15 @@ namespace BusinessLogicLibrary
             return list;
         }
         
-        public bool AddProfilePicture(byte[] profilePic, string email)
+        public bool AddProfilePicture(byte[] profilePic, int userID)
         {
-            var result = userDataAccess.AddPicture(profilePic, email);
+            var result = userDataAccess.AddPicture(profilePic, userID);
             return result;
         }
 
-        public bool AddAboutMe(string aboutMe, string email)
+        public bool AddAboutMe(string aboutMe, int userID)
         {
-            var result = userDataAccess.AddAboutMe(aboutMe, email);
+            var result = userDataAccess.AddAboutMe(aboutMe, userID);
             return result;
         }
 

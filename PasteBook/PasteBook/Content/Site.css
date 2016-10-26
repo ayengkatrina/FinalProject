@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -19,20 +20,64 @@
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
+
 textarea {
     max-width: 100%;
+    resize: none;
 }
 
-#linkLogout, #linkSettings{
-    margin-top: 50%;
-    color: #fff;
+/*Upload button*/
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+a {
+    color: #1DE9B6;
+    text-decoration: none;
 }
 
-
-.searchBar{
-    margin-top: 5%;
+/*BUTTON*/
+#btnConfirmRequest{
+    height: 35px;
+    width:300px;
+    border-radius: 2px;
+    
 }
 
+/*TEXTAREA*/
+
+
+#textAreaAbboutMe, #textAreaComment, #textAreaPost, #textAreaComments{
+
+ background-color: #A7FFEB;
+    border:none;
+    border-radius: 5px;
+    outline: none;    
+   
+}
+
+#txtAboutMe, #textAreaAbboutMe{
+    color:#263238;
+    border-radius:5px;
+      
+}
+
+/*IMAGE*/
 #imgProfilePicPost, #imgHomePicPost{
     height: 40px;
     width: 40px;
@@ -43,19 +88,181 @@ textarea {
     height: 100px;
     width: 100px;
 }
+#imgProfileImage, #imgProfileImageFriend{
+    margin-top: 40px;
+    height: 160px;
+    width:160px;
+}
 
 .profilePost{
     position:absolute;
 
 }
+#imgProfilePicFiends{
+    height:100px;
+    width: 100px;
+   
+    
+}
+#imgDPNav{
+    height: 22px;
+    width: 22px;
+}
+#btnDropdownIcon{
+    background-color:#FCE4EC;
+}
+/*Dropdown*/
+#dropdownIcon{
+    
+    margin-left: 100px;
+}
+
+/*Link*/
+
+#linkLogout, #linkSettings{
+    
+    
+}
+#linkSettings:hover, #linkLogout:hover{
+    
+    color: #BDBDBD;
+     text-decoration: none;
+}
+
+/*DIVISIONS*/
+.open>.dropdown-menu {
+    display: block;
+    background-color: antiquewhite;
+}
+
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #444444;
+    white-space: nowrap;
+}
+
+.searchBar{
+    margin-top: 5%;
+}
+
+.div-details{
+    margin-top: 10px;
+
+    padding-left:10px;
+}
+#divHomePosList,#divHomePostHead{
+   
+    margin-top: 10px;
+    margin-bottom:10px;
+}
+
+
+.navbar{
+    background-color: #009688;
+    height: 10px;
+}
+.navbar-inverse {
+    background-color: #009688;
+    border-color: #009688;
+    padding-left: 75px;
+}
+.input-group{
+    margin-top: 2px;
+    
+
+}
+#divSearch{
+     margin-left: 20px;    
+}
+#divLogout{
+    margin-top:10px;
+}
+
+#ulNav{
+    padding-left:23px;
+}
+.navbar-inverse .navbar-nav>li>a {
+    color: #fff;
+}
+.navbar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+    color: #BDBDBD;
+    
+}   
+
+.panel-default>.panel-heading {
+    
+    background-color: #009688;
+   
+}
+#divUpperColor{
+    background-color:#1DE9B6;
+    padding-top: 80px;
+}
+
+#divCommnentButton{
+    margin-bottom: 5px;
+}
+
+
+#divLikeButton, #divLikeButtonProfile{
+    margin-left: -30px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    
+}
+#divComment{
+    margin-top: 1px;
+    margin-left: 8px;
+}
+#divCommentList{
+    margin-top: 5px;
+}
+#divPostHead{
+    background-color: #009688;
+    padding-top: 3px;
+   padding-bottom:3px;
+   border-radius: 1px;
+   margin-bottom:5px;
+}
+#divHomePostHead{
+    background-color: #009688;
+    margin-top: -1px;
+     padding-top: 3px;
+   padding-bottom:3px;
+   border-radius: 1px;
+   margin-bottom:5px;
+}
+
+#divPostNamePic, #divHomePostNamePic{
+    margin-left: -25px;
+}
+#divPostDate{
+    margin-top:8px;
+    margin-right:25px;
+}
+
+/*Form*/
+
 #formProfileDetails{
    
    
    
 }
+
+#formFriends{
+    border: solid;
+    border-color:#BDBDBD;
+    background-color:#424242; 
+}
+
 #upperProfile{
     
-    background-color: #424242;
+    background-color: #009688;
     border: solid;
     border-color:#F5F5F5;
     border-radius: 5px;
@@ -67,16 +274,18 @@ textarea {
     border-color:#F5F5F5;
     border-radius: 5px;
 }
-
-
-.div-details{
-    margin-top: 10px;
-
-    padding-left:10px;
+#formComments{
+    background-color:#F5F5F5;
 }
-#divHome{
-    padding-left: 35px;
+
+#underAboutMe{
+    position:absolute;
+    top: 50px;
 }
+
+
+
+/*BUTTONS*/
 
 #btnAboutMe{
     
@@ -87,60 +296,21 @@ textarea {
     background: transparent;
 }
 
-#textAreaAbboutMe{
-    
-    text-align: center;
-    border: none;
-    outline: none;
-    resize:none;
-    overflow: hidden;
+
+#upperProfile, #divPostHead, #divHomePostHead{
+    color: aliceblue;
 }
 
-#underAboutMe{
-    position:absolute;
-    top: 50px;
-}
 
-.navbar{
-    background-color: #009688;
-    height: 10px;
-}
-.navbar-inverse {
-    background-color: #009688;
-    border-color: #009688;
-}
-.input-group{
-    margin-top: 2px;
-    
+ 
 
-}
-#divSearch{
-        padding-left: 76px;
-}
-#divLogout{
-    margin-top:10px;
-}
-#ulNav{
-    padding-left:23px;
-}
-.navbar-inverse .navbar-nav>li>a {
-    color: #fff;
-}
-.navbar .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-    color: #BDBDBD;
-    
-}   
- #linkSettings:hover, #linkLogout:hover{
-    
-    color: #BDBDBD;
-     text-decoration: none;
-}
 
-.panel-default>.panel-heading {
-    
-    background-color: #009688;
-   
-}
 #txtExtensionValidationMessage, #txtSizeValidationMessage /*#txtAboutMeValidationMessage*/{
     display:none;
+}
+
+
+/*SPAN*/
+#spanDatePost{
+    
 }

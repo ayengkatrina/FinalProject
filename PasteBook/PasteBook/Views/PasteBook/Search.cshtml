@@ -1,1 +1,38 @@
-﻿Search
+﻿@model IEnumerable<PasteBookEntityLibrary.USER_TABLE>
+
+
+
+
+<h4>Search Result</h4>
+@foreach (var item in Model)
+{
+    var imgSrc = "";
+    if (@item.PROFILE_PIC == null)
+    {
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
+    {
+
+        var base64 = Convert.ToBase64String(@item.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    <div class="container col-md-3">
+        @using (Html.BeginForm("UserProfileFilter", "PasteBook", new { friendID = @item.ID }, FormMethod.Post))
+        {
+            <div id="divUpperColor" class="col-md-12"></div>
+            <div class="col-md-6">
+                <img id="imgProfilePicFiends" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" />
+            </div>
+            <div class="col-md-6">
+                <h5>@item.FIRST_NAME @item.LAST_NAME</h5>
+                
+                <input type="submit" onclick="ProfileFriend(@item.ID)" value="@item.USER_NAME" />
+            </div>
+
+        }
+    </div>
+}
+
+

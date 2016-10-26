@@ -1,0 +1,8 @@
+﻿@model IEnumerable<PasteBookEntityLibrary.LIKES_TABLE>
+
+
+@using (Html.BeginForm("LikeAPostProfile", "PasteBook", FormMethod.Post))
+{
+
+<button type="submit" class="btn btn-default">Likes <span class="badge">5@*@Model.Count()*@</span></button>
+}

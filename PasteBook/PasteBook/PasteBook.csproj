@@ -294,10 +294,11 @@
     <Content Include="Views\PasteBook\MakeComment.cshtml" />
     <Content Include="Views\PasteBook\Notifications.cshtml" />
     <Content Include="Views\PasteBook\Friends.cshtml" />
-    <Content Include="Views\PasteBook\CommentList.cshtml" />
     <Content Include="Views\PasteBook\MakeCommentOnPost.cshtml" />
     <Content Include="Views\PasteBook\Settings.cshtml" />
     <Content Include="Views\PasteBook\Security.cshtml" />
+    <Content Include="Views\PasteBook\LikeAPostProfile.cshtml" />
+    <Content Include="Views\PasteBook\NonFriend.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

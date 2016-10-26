@@ -1,0 +1,189 @@
+﻿@model PasteBook.UserProfileModel
+
+
+@{
+    int? id = Model.User.ID;
+    var address = "@";
+    var profileID = Model.User.ID;
+    var gender = "";
+    var imgSrc = "";
+    if (Model.User.PROFILE_PIC == null)
+    {
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
+    {
+
+        var base64 = Convert.ToBase64String(@Model.User.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+    if (Model.User.GENDER == "F")
+    {
+        gender = "Female";
+    }
+
+    else if (Model.User.GENDER == "M")
+    {
+        gender = "Male";
+    }
+    else if (Model.User.GENDER == "U")
+    {
+        gender = "";
+    }
+}
+
+<div class="container">
+    <div class="fixed col-md-4">
+        <form id="formProfileDetails">
+
+            <div id="upperProfile">
+                <div id="divProfilePic" class="form-group text-center">
+
+
+                    <img id="imgProfileImageFriend" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" />
+
+
+                </div>
+
+                <div id="divProfileName" class="form-group text-center">
+                    <h4><span>@Model.User.FIRST_NAME @Model.User.LAST_NAME</span></h4>
+                    <label>@address</label><label> @Model.User.USER_NAME</label>
+                </div>
+            </div>
+
+            <div id="lowerProfile">
+                <div class="div-details">
+                    <div class="form-group text-center">
+                        <div id="divRequestStatusButton">
+                            @{
+                                string request = ViewBag.RequestStatus;
+                                if (request == "theySendARequest")
+                                {
+                                    using (@Html.BeginForm("ConfirmFriendRequest", "PasteBook", new { friendID = @id },FormMethod.Post, new { id = "formConfirmRequest" }))
+                                    {
+                                        <button type="button" id="btnConfirmRequest" >Confirm Friend Request</button>
+                                    }
+                                }
+                                else if (request == "youSendARequest")
+                                {
+                                    <button type="button" id="btnPendingRequest" >Pending Friend Request</button>
+                                }
+                                else if (request == "noRequestAtAll")
+                                {
+                                    using (Html.BeginForm("SendFriendRequest", "PasteBook", FormMethod.Post, new { friendID = id }))
+                                    {
+                                        <button class ="btn btn-default"type="submit" id="btnAddFriend" >Add Friend</button>
+                                    }
+                                }
+                            }
+                           
+                        </div>
+
+                        <h5>About Me</h5>
+
+                    </div>
+                    <div class="form-group">
+
+                        <textarea id="textAreaAbboutMe" cols="43" rows="3" readonly="readonly">
+                            @Model.User.ABOUT_ME
+                        </textarea>
+                    </div>
+
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-map-marker"></span>
+                        <span>Philippines</span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                        <span>Joined @Model.User.DATE_CREATED.ToString("MMMM dd, yyyy")</span>
+                    </div>
+
+                    <div class="form=group text-center">
+                        <span class="glyphicon glyphicon-gift"></span>
+                        <span>Born on @Model.User.BIRTHDAY.ToString("MMMM dd, yyyy")</span>
+                    </div><br />
+
+
+
+                    <div class="form-group text-center">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        <span>@gender</span>
+                    </div>
+
+                    <div class="form-group text-center">
+
+                        @{
+                            if (Model.User.MOBILE_NO != null)
+                            {
+                                <span class="glyphicon glyphicon-phone-alt"></span>
+                                <span>@Model.User.MOBILE_NO</span>
+                            }
+                        }
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-8">
+        @using (Html.BeginForm())
+        {
+
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <textarea id="postContent" , name="postContent" cols="150" rows="3"></textarea>
+
+                </div>
+                <div class="panel-footer clearfix">
+                    <div class="pull-right">
+
+                        <button id="btnPost" type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            <span>Post</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+
+    </div>
+
+
+
+
+
+</div>
+
+
+@{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+
+
+        $(document).ready(function () {
+
+            $("#btnConfirmRequest").on("click", function () {
+                alert("button is working po!");
+
+                $('#formConfirmRequest').submit();
+            });
+        });
+
+
+    </script>
+}
+
+
