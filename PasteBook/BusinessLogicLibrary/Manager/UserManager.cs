@@ -124,7 +124,8 @@ namespace BusinessLogicLibrary
             return result;
         }
 
-      
+
+        //www.codeproject.com/Articles/608860/Understanding-and-Implementing-Password-Hashing
 
         public bool SimulateUserCreation(USER_TABLE user )
         {
@@ -134,7 +135,7 @@ namespace BusinessLogicLibrary
             user.PASSWORD = GeneratePasswordHash(user.PASSWORD, out salt);
             user.SALT = salt;
 
-            //result = userTableAccess.CreateAccount(user);
+            
             user.DATE_CREATED = DateTime.Now;
             result = dataAccess.Create(user);
             return result;
@@ -143,7 +144,7 @@ namespace BusinessLogicLibrary
         public bool SimulateLogin(string email, string password)
         {
             bool result;
-            //USER_TABLE user2 = userTableAccess.GetUserAccount(email);
+           
 
             USER_TABLE user2 = dataAccess.GetAll().Where(x=> x.EMAIL_ADDRESS == email).FirstOrDefault();
             if(user2 != null)

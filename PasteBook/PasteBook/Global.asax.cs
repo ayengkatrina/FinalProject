@@ -19,19 +19,29 @@ namespace PasteBook
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        ////stackoverflow.com/questions/3853767/maximum-request-length-exceeded
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var ex = Server.GetLastError() as HttpException;
 
-        //private void Application_Error(object sender, EventArgs e)
-        //{
-        //    var ex = Server.GetLastError();
-        //    var httpException = ex as HttpException ?? ex.InnerException as HttpException;
-        //    if (httpException == null) return;
+            if (ex != null)
+            {
+                int errorCode = ex.GetHttpCode();
 
-        //    if (httpException.WebEventCode == WebEventCodes.RuntimeErrorPostTooLarge)
-        //    {
-        //        //handle the error
-        //        Response.Write("Too big a file, dude"); //for example
-        //    }
-        //}
+                if (errorCode == 404)
+                {
+                    Response.Redirect("~/Error/Error404");
+                }
+
+                else
+                {
+                    Response.Redirect("~/Error/GlobalError");
+                }
+            }
+
+            else
+            {
+                Response.Redirect("~/Error/GlobalError");
+            }
+        }
     }
 }
