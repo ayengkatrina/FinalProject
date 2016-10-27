@@ -186,7 +186,7 @@
 
     <!-- Modal Picture -->
     <div class="modal fade" id="modalPictureAdd" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-sm">
             @using (Html.BeginForm("UploadPicture", "PasteBook", FormMethod.Post, FormMethod.Post,
                                             new { enctype = "multipart/form-data", id = "uploadform", @class = "form-inline" }))
             {
@@ -195,21 +195,15 @@
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                         <h4 class="modal-title">Upload Image</h4>
                     </div>
-                    <div class="modal-body">
+                    <div class="form-inline modal-body">
 
 
-
-
-
-
-
-
-                        <label class="input-group-btn">
-                            <span class="btn btn-primary">
+                        <label class="form-group input-group-btn">
+                            <span id="btnBrowse" class="btn btn-primary">
                                 Browse&hellip; <input type="file" name="file" id="file" onChange="validate(this.value)" style="display: none;" multiple">
                             </span>
                         </label>
-                        <input type="text" class="form-control" readonly>
+                        
 
 
 
@@ -226,7 +220,7 @@
                         </div>
 
 
-                        <button id="btn-Upload" type="button" class="btn btn-default text-right">Upload</button>
+                        <button id="btn-Upload" type="button" class="btn btn-default pull-right">Upload</button>
 
 
 
