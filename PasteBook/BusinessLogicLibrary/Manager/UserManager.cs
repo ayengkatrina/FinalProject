@@ -14,12 +14,31 @@ namespace BusinessLogicLibrary
         //UserTableAccess userTableAccess = new UserTableAccess();
         DataAccess<USER_TABLE> dataAccess = new DataAccess<USER_TABLE>();
         UserDataAccess userDataAccess = new UserDataAccess();
+        LikeDataAccess likeDataAccess = new LikeDataAccess();
 
         //public USER_TABLE GetUserAccount(string email)
         //{
         //   List<USER_TABLE> user = ;
         //    return user;
         //}
+        public List<USER_TABLE> ListOfUserWhoLikeAPost(int postID)
+        {
+            List<USER_TABLE> usersWhoLikeList = new List<USER_TABLE>();
+            List<LIKES_TABLE> listLikeTable = likeDataAccess.GetListOfLikeRecordOnPost(postID);
+
+            using (var context = new PasteBookDBEntities())
+            {
+                
+                List<int> userIDList = listLikeTable.Select(x => x.ID).ToList();
+                foreach(var item in userIDList)
+                {
+                    usersWhoLikeList.Add(context.USER_TABLE.Where(x => x.ID == item).SingleOrDefault());
+                }
+                return usersWhoLikeList;
+            }
+
+        }
+
         public List<USER_TABLE> Search(string inputString)
         {
             var userList = userDataAccess.Search(inputString);
@@ -123,11 +142,19 @@ namespace BusinessLogicLibrary
 
         public bool SimulateLogin(string email, string password)
         {
+            bool result;
             //USER_TABLE user2 = userTableAccess.GetUserAccount(email);
 
             USER_TABLE user2 = dataAccess.GetAll().Where(x=> x.EMAIL_ADDRESS == email).FirstOrDefault();
-
-            bool result = IsPasswordMatch(password, user2.SALT, user2.PASSWORD);
+            if(user2 != null)
+            {
+                 result = IsPasswordMatch(password, user2.SALT, user2.PASSWORD);
+            }
+            else
+            {
+                result = false;
+            }
+           
 
             return result;
         }

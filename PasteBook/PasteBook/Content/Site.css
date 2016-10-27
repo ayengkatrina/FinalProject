@@ -249,6 +249,31 @@ a {
     margin-right:25px;
 }
 
+#divWrappersearch{
+    border: solid;
+    border-radius: 5px;
+    background-color: #1DE9B6;
+
+}
+#jumbotron{
+    margin-top:20px;
+    height: 278px;
+    background-color: #FFF9C4;
+    
+}
+#panelLogin{
+    margin-top: 20px;
+    
+}
+.panel-default>.panel-heading {
+    background-color: #4DB6AC;
+    
+}
+#divHomePageWrapper{
+    background-color: #FFF9C4;
+    border-radius: 5px;
+}
+
 /*Form*/
 
 #formProfileDetails{
@@ -300,7 +325,7 @@ a {
 }
 
 
-#upperProfile, #divPostHead, #divHomePostHead{
+#upperProfile, #divPostHead, #divHomePostHead, #panelSearch{
     color: aliceblue;
 }
 

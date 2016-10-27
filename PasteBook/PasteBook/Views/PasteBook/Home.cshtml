@@ -66,7 +66,7 @@
                         }
 
                         <div id="divLikeButton" class="col-md-1">
-                            <button type="submit" class="btn btn-default" onclick="LikePost(@item.ID)"><span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count() Likes </span></button>
+                            <button type="submit" class="btn btn-default" onclick="LikeHomePost(@item.ID)"><span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count() Likes </span></button>
                         </div>
                     </div>
                    
@@ -103,6 +103,30 @@
         }
 
         setTimeout(refresh, 10000);
+
+
+
+        var likeHomePostUrl = '@Url.Action("LikeAPostHome", "PasteBook")';
+
+        function LikeHomePost(ID) {
+            
+            var data = {
+                postID: ID
+            }
+
+            $.ajax({
+                url: likeHomePostUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
+                    location.reload();
+                },
+                error: function () {
+
+                }
+            })
+
+        }
 
 
     </script>

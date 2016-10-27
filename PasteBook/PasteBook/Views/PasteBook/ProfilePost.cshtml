@@ -49,7 +49,8 @@
                 }
 
                 <div id="divLikeButtonProfile" class="col-md-1">
-                    <button type="submit" class="btn btn-default" onclick="LikePost(@item.ID)"><span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count() Likes </span></button>
+                    <button id="btnLike" type="submit" class="btn btn-default" onclick="LikePost(@item.ID)"><span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count() Like  </span></button>
+                   
                 </div>
 
 
@@ -79,6 +80,7 @@
     @Scripts.Render("~/bundles/jquery");
 <script>
     var likeUrl = '@Url.Action("LikeAPostProfile", "PasteBook")';
+    var likeListUrl = '@Url.Action("LikeListOfUsers", "PasteBook")';
 
     function LikePost(ID) {
 
@@ -99,6 +101,26 @@
         })
 
     }
+
+    $('#btnLike').hover(function () {
+
+        var likeListUrl = '@Url.Action("LikeListOfUsers", "PasteBook")';
+
+
+        $.ajax({
+            url: likeUrl,
+            data: data,
+            type: 'POST',
+            success: function (data) {
+                alert("workingpo!");
+                $('#userListLike').modal('show');
+            },
+            error: function () {
+
+            }
+        })
+
+    });
 
 
 

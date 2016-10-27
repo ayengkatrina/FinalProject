@@ -11,7 +11,8 @@ namespace PasteBookEntityLibrary
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class USER_TABLE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,18 +29,51 @@ namespace PasteBookEntityLibrary
         }
     
         public int ID { get; set; }
+
+        [RegularExpression("^[a-zA-Z_-]*", ErrorMessage = "Alphanumericand and (_-) characters only")]
+        [Display(Name = "User name")]
+        [Required(ErrorMessage = "Please enter userName.")]
         public string USER_NAME { get; set; }
         public string PASSWORD { get; set; }
         public string SALT { get; set; }
+
+
+
+        
+        [RegularExpression("^[a-zA-Z'_.-]*", ErrorMessage = "Alphanumeric and ('_.-) characters only")]
+        [Display(Name = "First Name")]
+        [Required(ErrorMessage = "Please enter first name.")]
         public string FIRST_NAME { get; set; }
+
+        [RegularExpression("^[a-zA-Z'_.-]*", ErrorMessage = "Alphanumeric and ('_.-) characters only")]
+        [Display(Name = "Last Name")]
+        [Required(ErrorMessage = "Please enter last name.")]
         public string LAST_NAME { get; set; }
+
+        [Required(ErrorMessage = "Please enter birthdate.")]
+        [DataType(DataType.DateTime)]
+        [Display(Name = "Birthday")]
         public System.DateTime BIRTHDAY { get; set; }
+
+
         public Nullable<int> COUNTRY_ID { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Mobile No")]
         public string MOBILE_NO { get; set; }
+
+
         public string GENDER { get; set; }
+
         public byte[] PROFILE_PIC { get; set; }
+
         public System.DateTime DATE_CREATED { get; set; }
+
         public string ABOUT_ME { get; set; }
+
+        [Display(Name = "Email Address")]
+        [Required(ErrorMessage = "Please enter email address.")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email Address format eg. sample@yahoo.com ")]
         public string EMAIL_ADDRESS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

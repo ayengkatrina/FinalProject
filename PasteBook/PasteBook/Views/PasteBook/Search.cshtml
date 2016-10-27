@@ -18,21 +18,30 @@
         imgSrc = String.Format("data:image/gif;base64,{0}", base64);
     }
 
-    <div class="container col-md-3">
-        @using (Html.BeginForm("UserProfileFilter", "PasteBook", new { userIDOfFriend = @item.ID }, FormMethod.Post))
+    
+        using (Html.BeginForm("UserProfileFilter", "PasteBook", new { userIDOfFriend = @item.ID }, FormMethod.Post))
         {
-            <div id="divUpperColor" class="col-md-12"></div>
-            <div class="col-md-6">
-                <img id="imgProfilePicFiends" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" />
-            </div>
-            <div class="col-md-6">
-                <h5>@item.FIRST_NAME @item.LAST_NAME</h5>
+
+            <div class="col-md-4">
                 
-                <input type="submit" onclick="ProfileFriend(@item.ID)" value="@item.USER_NAME" />
+                <div id="panelSearch" class="panel panel-default">
+                    <div class="panel-heading"><h4>@item.FIRST_NAME @item.LAST_NAME</h4></div>
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <img id="imgProfilePicFiends" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" />
+                        </div>
+                        <div class="col-md-6">
+                            <input type="submit" class="btn btn-default" onclick="ProfileFriend(@item.ID)" value="@item.USER_NAME" />
+                        </div>
+                    </div>
+                </div>
             </div>
 
+
+
+
         }
-    </div>
+    
 }
 
 

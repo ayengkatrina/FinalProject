@@ -11,12 +11,12 @@ namespace BusinessLogicLibrary
    public class LikeManager
     {
         DataAccess<LIKES_TABLE> dataAccess = new DataAccess<LIKES_TABLE>();
+        LikeDataAccess likeDataccess = new LikeDataAccess();
 
         public bool LikeAPost(LIKES_TABLE like)
         {
-            
-           bool result = dataAccess.Create(like);
-            return result;
+            var resultOfLikePost = likeDataccess.LikeAPost(like);
+            return resultOfLikePost;
         }
 
 

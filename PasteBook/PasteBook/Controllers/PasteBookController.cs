@@ -29,9 +29,17 @@ namespace PasteBook.Controllers
         [HttpGet]
         public ActionResult HomePage()
         {
+
+            if(Session["userID"] != null)
+            {
+                return RedirectToAction("Home", "PasteBook");
+            }else
+            {
+                return View();
+            }
             
 
-            return View();
+           
         }
 
         [HttpPost]
@@ -55,6 +63,7 @@ namespace PasteBook.Controllers
             }
             else
             {
+                ModelState.AddModelError("loginValidationMessage", "Email or password does not match our records, Please double check and try again.");
                 return View(model);
             }
         }
@@ -67,10 +76,10 @@ namespace PasteBook.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(PBRegisterViewModel model, HttpPostedFileBase file)
+        public ActionResult Register(USER_TABLE model, HttpPostedFileBase file)
         {
-            bool checkUserName = userManager.CheckIfUserNameAlreadyExist(model.userTable.USER_NAME);
-            bool checkEmail = userManager.CheckIfEmailAlreadyExist(model.userTable.EMAIL_ADDRESS);
+            bool checkUserName = userManager.CheckIfUserNameAlreadyExist(model.USER_NAME);
+            bool checkEmail = userManager.CheckIfEmailAlreadyExist(model.EMAIL_ADDRESS);
 
             if (ModelState.IsValid)
             {
@@ -92,8 +101,8 @@ namespace PasteBook.Controllers
                 }
                 else /*if ((checkUserName == false) && (checkEmail == false))*/
                 {
-                    bool registered = userManager.SimulateUserCreation(model.userTable);
-                    string email = model.userTable.EMAIL_ADDRESS;
+                    bool registered = userManager.SimulateUserCreation(model);
+                    string email = model.EMAIL_ADDRESS;
                     USER_TABLE userDetails = userManager.GetUserDetails(email);
                     Session["userID"] = userDetails.ID;
                     Session["profilePic"] = userDetails.PROFILE_PIC;
@@ -165,12 +174,12 @@ namespace PasteBook.Controllers
         public ActionResult MakeComment(int ID, COMMENTS_TABLE comment)
         {
             var createComment = false;
-            string email = (string)Session["email"];
-            USER_TABLE user = userManager.GetUserDetails(email);
+            int userID = (int)Session["userID"];
+            
             if(comment.CONTENT != null) {
                 comment.POST_ID = ID;
                 comment.DATE_CREATED = DateTime.Now;
-                comment.POSTER_ID = user.ID;
+                comment.POSTER_ID = userID;
                 createComment = commentManager.CommentOnAPost(comment);
             }
 
@@ -315,7 +324,27 @@ namespace PasteBook.Controllers
 
         }
 
-        
+        [HttpPost]
+        public JsonResult LikeAPostHome(int postID)
+        {
+            int userID = (int)Session["userID"];
+            LIKES_TABLE likeModel = new LIKES_TABLE();
+            likeModel.LIKED_BY = userID;
+            likeModel.POST_ID = postID;
+            var result = likeManager.LikeAPost(likeModel);
+
+            return Json(JsonRequestBehavior.AllowGet);
+
+        }
+
+        public JsonResult LikeListOfUsers(int postID)
+        {
+            
+
+            return Json(JsonRequestBehavior.AllowGet);
+
+        }
+
         [HttpGet]
         public ActionResult Settings()
         {
@@ -325,6 +354,18 @@ namespace PasteBook.Controllers
                 int userID = (int)ID;
                 
                 USER_TABLE user = userManager.GetUserDetailsByID(userID);
+
+                if (user.GENDER == "F")
+                {
+                    user.GENDER = "Female";
+                }else if(user.GENDER == "M")
+                {
+                    user.GENDER = "Male";
+                }
+                else if(user.GENDER == "U")
+                {
+                    user.GENDER = "";
+                }
 
                 return View(user);
 

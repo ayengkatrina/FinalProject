@@ -7,7 +7,19 @@
    
 
     <div class="form-horizontal">
-        <h4>Edit Profile</h4>
+        <div class="col-md-12">
+            <div class="col-md-6">
+                <h4>Edit Profile</h4>
+            </div>
+
+            <div class="col-md-6">
+                <button id="btnEditProf" type="button" class="btn btn-xs btn-default">
+                    <span class="glyphicon glyphicon-edit"></span>&nbsp;
+                </button>
+            </div>
+        </div>
+       
+        
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.ID)
@@ -73,13 +85,7 @@
         </div>
 
 
-        <div class="form-group">
-            @Html.Label("Email Address", new { @class = "control-label col-md-2" })
-            <div class="col-md-4">
-                @Html.EditorFor(model => model.EMAIL_ADDRESS, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EMAIL_ADDRESS, "", new { @class = "text-danger" })
-            </div>
-        </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-5 col-md-2">
@@ -88,6 +94,41 @@
         </div>
     </div>
 }
+
+
+@section scripts
+{
+    <script>
+
+        $('#FIRST_NAME').attr('disabled', 'disabled');
+        $('#USER_NAME').attr('disabled', 'disabled');
+        $('#LAST_NAME').attr('disabled', 'disabled');
+        $('#BIRTHDAY').attr('disabled', 'disabled');
+        $('#COUNTRY_ID').attr('disabled', 'disabled');
+        $('#MOBILE_NO').attr('disabled', 'disabled');
+        $('#GENDER').attr('disabled', 'disabled');
+        
+
+        $(function () {
+            $('#btnEditProf').click(function () {
+               
+                $('#FIRST_NAME').removeAttr('disabled');
+                $('#USER_NAME').removeAttr('disabled');
+                $('#LAST_NAME').removeAttr('disabled');
+                $('#BIRTHDAY').removeAttr('disabled');
+                $('#COUNTRY_ID').removeAttr('disabled');
+                $('#MOBILE_NO').removeAttr('disabled');
+                $('#GENDER').removeAttr('disabled');
+            });
+        });
+
+
+
+
+    </script>
+}
+
+
 
 
 

@@ -207,7 +207,6 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PasteBookViewModels\ProfileViewModel.cs" />
-    <Compile Include="Models\PasteBookViewModels\PBRegisterViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\SecurityModel.cs" />
     <Compile Include="Models\PasteBookViewModels\UserProfileModel.cs" />
     <Compile Include="Models\StoredProcModel\FriendPostUserJoinModel.cs" />
@@ -300,6 +299,7 @@
     <Content Include="Views\PasteBook\Security.cshtml" />
     <Content Include="Views\PasteBook\LikeAPostProfile.cshtml" />
     <Content Include="Views\PasteBook\NonFriend.cshtml" />
+    <Content Include="Views\PasteBook\ListOfUsersThatLikeAPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
