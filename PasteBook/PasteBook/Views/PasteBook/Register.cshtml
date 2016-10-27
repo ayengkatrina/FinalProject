@@ -17,7 +17,7 @@
 
                     <div class="form-group col-md-6">
                         @Html.Label("Required fields (*)")
-                       
+
 
 
                         <div class="form-group">
@@ -126,10 +126,10 @@
                             </div>
                         </div>
 
-                       
+
                     </div>
 
-                    <div class="form-horizontal col-md-6">
+                    <div id="divCredentials" class="form-horizontal col-md-6">
                         <div class="form-group">
                             <div class="col-md-4">
                                 @Html.Label("*User Name", new { @class = "control-label col-md-12" })
@@ -158,7 +158,7 @@
                                 @Html.Label("*Password", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.userTable.PASSWORD, new { htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
+                                @Html.EditorFor(model => model.userTable.PASSWORD, new { id = "txtPassword", htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.userTable.PASSWORD, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -168,8 +168,10 @@
                                 @Html.Label("*Confirm Password", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
+                                @Html.EditorFor(model => model.ConfirmPassword, new { id = "txtConfirmPassword", htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
                                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                <span id="txtMessage" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -178,32 +180,43 @@
                                 <input type="submit" value="Create" class="btn btn-primary" />
                             </div>
                         </div>
-
                     </div>
-
-
-
-
-
                 </div>
-
-
             </div>
         </div>
     </div>
 
-}
+                            }
 
 @{
     @Scripts.Render("~/bundles/jquery");
     <script>
-        var getUsernameUrl = '@Url.Action("ValidateUsername", "User")';
-        var getEmailUrl = '@Url.Action("ValidateEmail", "User")';
 
-    $(document).ready(function () {
+        //stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page
+        $(document).ready(function () {
+            $("#ConfirmPassword").keyup(validate);
        
-    });
+
+
+        function validate() {
+            var password1 = $("#userTable_PASSWORD").val();
+            var password2 = $("#ConfirmPassword").val();
+
+            //alert("it's working po!")
+
+            if (password1 != password2) {
+                $("#txtMessage").text("Password do not match!");
+            }
+            else {
+                $("#txtMessage").text("");
+            }
+            
+
+        }
+
+
+        });
     </script>
-    }
+}
 
 

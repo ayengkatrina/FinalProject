@@ -35,7 +35,7 @@
 
 <div class="container">
     <div class="fixed col-md-4">
-        <form id="formProfileDetails">
+        
 
             <div id="upperProfile">
                 <div id="divProfilePic" class="form-group text-center">
@@ -60,24 +60,39 @@
                                 string request = ViewBag.RequestStatus;
                                 if (request == "theySendARequest")
                                 {
-                                    using (@Html.BeginForm("ConfirmFriendRequest", "PasteBook", new { friendID = @id },FormMethod.Post, new { id = "formConfirmRequest" }))
-                                    {
-                                        <button type="button" id="btnConfirmRequest" >Confirm Friend Request</button>
+                                    using (Html.BeginForm("ConfirmFriendRequest", "PasteBook", new { friendID = @id },FormMethod.Post, new { id = "formConfirmRequest" }))
+                                    { 
+                                        <div class="md-col-12">
+                                            <button class="btn btn-default" type="submit" id="btnConfirmRequest">Confirm Friend Request</button>
+                                        </div>
+
+
                                     }
+
+                                    using (Html.BeginForm("RejectFriendRequest", "PasteBook", new { friendID = @id }, FormMethod.Post, new { id = "formConfirmRequest" }))
+                                    {
+
+                                        <div class="md-col-12">
+                                            <button class="btn btn-default" type="submit" id="btnRejectRequest">Reject Friend Request</button>
+                                        </div>
+
+                                    }
+
+
                                 }
                                 else if (request == "youSendARequest")
                                 {
-                                    <button type="button" id="btnPendingRequest" >Pending Friend Request</button>
+                                    <button class ="btn btn-default" type = "button" id = "btnPendingRequest" > Pending Friend Request </button >
                                 }
                                 else if (request == "noRequestAtAll")
                                 {
-                                    using (Html.BeginForm("SendFriendRequest", "PasteBook", FormMethod.Post, new { friendID = id }))
+                                    using (Html.BeginForm("SendFriendRequest", "PasteBook", new { friendID = @id }, FormMethod.Post  ))
                                     {
                                         <button class ="btn btn-default"type="submit" id="btnAddFriend" >Add Friend</button>
                                     }
                                 }
                             }
-                           
+
                         </div>
 
                         <h5>About Me</h5>
@@ -130,7 +145,7 @@
                 </div>
 
             </div>
-        </form>
+        
     </div>
 
     <div class="col-md-8">
@@ -168,22 +183,5 @@
 </div>
 
 
-@{
-    @Scripts.Render("~/bundles/jquery");
-    <script>
-
-
-        $(document).ready(function () {
-
-            $("#btnConfirmRequest").on("click", function () {
-                alert("button is working po!");
-
-                $('#formConfirmRequest').submit();
-            });
-        });
-
-
-    </script>
-}
 
 

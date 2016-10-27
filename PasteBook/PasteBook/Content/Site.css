@@ -62,7 +62,7 @@ a {
 /*TEXTAREA*/
 
 
-#textAreaAbboutMe, #textAreaComment, #textAreaPost, #textAreaComments{
+#textAreaAbboutMe, #textAreaComment, #textAreaPost, #textAreaComments, #textAreaHomePost{
 
  background-color: #A7FFEB;
     border:none;
@@ -130,6 +130,9 @@ a {
 }
 
 /*DIVISIONS*/
+#divCredentials{
+    margin-top: 17px;
+}
 .open>.dropdown-menu {
     display: block;
     background-color: antiquewhite;

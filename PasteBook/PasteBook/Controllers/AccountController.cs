@@ -57,8 +57,9 @@ namespace PasteBook.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+
+            //ViewBag.ReturnUrl = returnUrl;
+            return RedirectToAction("HomePage", "PasteBook");
         }
 
         //

@@ -55,7 +55,7 @@
                     <div id="divCommnentButton" class="col-md-12">
                         <div class="col-md-12">
 
-                            <textarea class="form-control" cols="110" rows="3" readonly="readonly">@item.CONTENT </textarea>
+                            <textarea id="textAreaHomePost" class="form-control" cols="110" rows="3" readonly="readonly">@item.CONTENT </textarea>
                         </div>
 
 
@@ -86,7 +86,26 @@
     </div>
  }
     
-
-
 </div>
+
+@{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+
+        //stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
+        var time = new Date().getTime();
+       
+        function refresh() {
+            if (new Date().getTime() - time >= 60000)
+                window.location.reload(true);
+            else
+                setTimeout(refresh, 10000);
+        }
+
+        setTimeout(refresh, 10000);
+
+
+    </script>
+}
+
 

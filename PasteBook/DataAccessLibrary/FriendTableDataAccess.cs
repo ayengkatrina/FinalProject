@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PasteBookEntityLibrary;
+using System.Data.Entity;
 
 namespace DataAccessLibrary
 {
@@ -35,18 +36,16 @@ namespace DataAccessLibrary
             }
         }
 
-        public bool SendFriendRequest(int friendID, int userID)
+        public bool RejectFriendRequest(int friendID, int userID)
         {
             int numberSave = 0;
             using (var context = new PasteBookDBEntities())
             {
-                FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == friendID && x.USER_ID == userID).SingleOrDefault();
+                FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.USER_ID == friendID).SingleOrDefault();
                 if (friendTable != null)
                 {
-                    //user.ABOUT_ME = aboutMe;
-                    friendTable.REQUEST = "N";
-                    friendTable.CREATED_DATE = DateTime.Now;
-                    numberSave = context.SaveChanges();
+                    context.FRIENDS_TABLE.Remove(friendTable);
+                   numberSave = context.SaveChanges();
 
                 }
 
@@ -60,5 +59,7 @@ namespace DataAccessLibrary
                 return false;
             }
         }
+
+
     }
 }

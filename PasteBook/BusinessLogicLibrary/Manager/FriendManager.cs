@@ -53,7 +53,13 @@ namespace BusinessLogicLibrary
 
         public bool SendFriendRequest(int friendID, int userID)
         {
-            var resulr = friendTableDataAccess.SendFriendRequest(friendID, userID);
+            FRIENDS_TABLE friendTable = new FRIENDS_TABLE();
+            friendTable.USER_ID = userID;
+            friendTable.FRIEND_ID = friendID;
+            friendTable.CREATED_DATE = DateTime.Now;
+            friendTable.REQUEST = "N";
+            friendTable.BLOCKED = "N";
+            var resulr = dataAccess.Create(friendTable);
             return resulr;
         }
 
@@ -78,6 +84,12 @@ namespace BusinessLogicLibrary
                 return friendsUserID;
             }
 
+        }
+
+        public bool CheckIfRejectionSuccess(int friendID, int userID)
+        {
+            var result = friendTableDataAccess.RejectFriendRequest(friendID, userID);
+            return result;
         }
 
         public bool CheckIfYouAlreadySendAnInvite(int friendID, int userID)

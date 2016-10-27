@@ -116,18 +116,31 @@ namespace PasteBook.Controllers
 
         }
 
+
+
         
-
-
         [HttpGet]
         public ActionResult Home()
         {
-            int userID = (int)Session["userID"];
-            //USER_TABLE user = userManager.GetUserDetailsByID(userID);
-                    
-            List<POST_TABLE> postList = new List<POST_TABLE>();
-            postList = postManager.PostInTheNewsFeed(userID);
-            return View(postList);
+
+            int? ID = (int?)Session["userID"];
+            if (ID != null)
+            {
+                int userID = (int)ID;
+                
+
+                List<POST_TABLE> postList = new List<POST_TABLE>();
+                postList = postManager.PostInTheNewsFeed(userID);
+                return View(postList);
+
+
+            }
+            else
+            {
+                return RedirectToAction("HomePage", "PasteBook");
+            }
+
+           
         }
        
 
@@ -164,12 +177,12 @@ namespace PasteBook.Controllers
             return RedirectToAction("Home", "PasteBook");
         }
 
-       
 
+        
         [HttpGet]
         public ActionResult Profile()
-
         {
+           
             int? userID = (int?)Session["userID"];
             if(userID != null)
             {
@@ -302,17 +315,27 @@ namespace PasteBook.Controllers
 
         }
 
-
+        
         [HttpGet]
         public ActionResult Settings()
         {
-            int userID = (int)Session["userID"];
+            int? ID = (int?)Session["userID"];
+            if (ID != null)
+            {
+                int userID = (int)ID;
+                
+                USER_TABLE user = userManager.GetUserDetailsByID(userID);
 
-            USER_TABLE user = userManager.GetUserDetailsByID(userID);
+                return View(user);
+
+            }
+            else
+            {
+                return RedirectToAction("HomePage", "PasteBook");
+            }
+
 
             
-
-            return View(user);
         }
 
         [HttpPost]
@@ -324,10 +347,23 @@ namespace PasteBook.Controllers
             return View(userModel);
         }
 
+        
         [HttpGet]
         public ActionResult Security()
         {
-            return View();
+            int? ID = (int?)Session["userID"];
+            if (ID != null)
+            {
+
+                return View();
+
+            }
+            else
+            {
+                return RedirectToAction("HomePage", "PasteBook");
+            }
+
+           
         }
 
         [HttpPost]
@@ -387,13 +423,29 @@ namespace PasteBook.Controllers
 
         }
 
+
+        
         [HttpGet]
         public ActionResult Friends()
         {
-            int userID = (int)Session["userID"];
-            List<USER_TABLE> friendsList = new List<USER_TABLE>();
-            friendsList = friendManager.FriendsList(userID);
-            return View(friendsList);
+
+            int? ID = (int?)Session["userID"];
+            if (ID != null)
+            {
+                int userID = (int)ID;
+
+                
+                List<USER_TABLE> friendsList = new List<USER_TABLE>();
+                friendsList = friendManager.FriendsList(userID);
+                return View(friendsList);
+
+            }
+            else
+            {
+                return RedirectToAction("HomePage", "PasteBook");
+            }
+
+           
         }
 
 
@@ -419,12 +471,12 @@ namespace PasteBook.Controllers
             return View("Search",registeredLlist);
         }
 
-        public ActionResult UserProfileFilter(int? friendID)
+        public ActionResult UserProfileFilter(int? userIDOfFriend)
         {
             int userID = (int)Session["userID"];
-            var checkIfFriend = friendManager.CheckIfFriend((int)friendID, userID);
-            var checkIfTheyAlreadySendArequest = friendManager.CheckIfFriendAlreadySentRequest((int)friendID, userID);
-            var checkIfYouAlreadySendARequest = friendManager.CheckIfYouAlreadySendAnInvite((int)friendID, userID);
+            var checkIfFriend = friendManager.CheckIfFriend((int)userIDOfFriend, userID);
+            var checkIfTheyAlreadySendArequest = friendManager.CheckIfFriendAlreadySentRequest((int)userIDOfFriend, userID);
+            var checkIfYouAlreadySendARequest = friendManager.CheckIfYouAlreadySendAnInvite((int)userIDOfFriend, userID);
           
              if(checkIfTheyAlreadySendArequest)
             {
@@ -433,8 +485,9 @@ namespace PasteBook.Controllers
                 ViewBag.RequestStatus = "theySendARequest";
                 UserProfileModel userProfile = new UserProfileModel();
 
-                userProfile.User = userManager.GetUserDetailsByID((int)friendID);
+                userProfile.User = userManager.GetUserDetailsByID((int)userIDOfFriend);
                 return View("NonFriend", userProfile);
+                //return Json(Url.Action("Index", "Home", new {friendID = userIDOfFriend }));
 
             }
             else if (checkIfYouAlreadySendARequest)
@@ -443,7 +496,7 @@ namespace PasteBook.Controllers
                 ViewBag.RequestStatus = "youSendARequest";
                 UserProfileModel userProfile = new UserProfileModel();
 
-                userProfile.User = userManager.GetUserDetailsByID((int)friendID);
+                userProfile.User = userManager.GetUserDetailsByID((int)userIDOfFriend);
                 return View("NonFriend", userProfile);
             }
             else if (checkIfFriend)
@@ -451,21 +504,21 @@ namespace PasteBook.Controllers
                
                 UserProfileModel userProfile = new UserProfileModel();
 
-                userProfile.User = userManager.GetUserDetailsByID((int)friendID);
+                userProfile.User = userManager.GetUserDetailsByID((int)userIDOfFriend);
                 return View("Profile", userProfile);
             }else
             { //view add as friend
                 ViewBag.RequestStatus = "noRequestAtAll";
                 UserProfileModel userProfile = new UserProfileModel();
 
-                userProfile.User = userManager.GetUserDetailsByID((int)friendID);
-                return View("Profile", userProfile);
+                userProfile.User = userManager.GetUserDetailsByID((int)userIDOfFriend);
+                return View("NonFriend", userProfile);
             }
             
         }
 
         [HttpPost]
-        public ActionResult ConfirmFriendRequest(int? friendID)
+        public ActionResult ConfirmFriendRequest(int friendID)
         {
             int userID = (int)Session["userID"];
             
@@ -473,14 +526,32 @@ namespace PasteBook.Controllers
             var checkIfConfirmed = friendManager.ConfirmFriendRequest((int)friendID, userID);
             if (checkIfConfirmed)
             {
-                return RedirectToAction("UserProfileFilter", "PasteBook", friendID);
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
             }else
             {
-                return RedirectToAction("UserProfileFilter", "PasteBook", friendID);
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
             }
 
 
         }
+
+       [HttpPost]
+       public ActionResult RejectFriendRequest(int friendID)
+        {
+            int userID = (int)Session["userID"];
+
+            var checkIfRejectionSuccessful = friendManager.CheckIfRejectionSuccess(friendID, userID);
+            if (checkIfRejectionSuccessful)
+            {
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
+            }
+            else
+            {
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
+            }
+
+        }
+
         [HttpPost]
         public ActionResult SendFriendRequest(int friendID)
         {
@@ -489,11 +560,11 @@ namespace PasteBook.Controllers
             var checkIfRequestSent = friendManager.SendFriendRequest((int)friendID, userID);
             if (checkIfRequestSent)
             {
-                return RedirectToAction("UserProfileFilter", "PasteBook", friendID);
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
             }
             else
             {
-                return RedirectToAction("UserProfileFilter", "PasteBook", friendID);
+                return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
             }
 
         }
@@ -506,15 +577,29 @@ namespace PasteBook.Controllers
             return View();
         }
 
-
+       
         [HttpGet]
         public ActionResult Logout()
         {
-            Session["userID"] = null;       
-            Session["profilePic"] = null;
-            Session["userName"] = null;
 
-            return RedirectToAction("HomePage", "PasteBook"); 
+            int? ID = (int?)Session["userID"];
+            if (ID != null)
+            {
+
+                Session["userID"] = null;
+                Session["profilePic"] = null;
+                Session["userName"] = null;
+
+                return RedirectToAction("HomePage", "PasteBook");
+
+
+            }
+            else
+            {
+                return RedirectToAction("HomePage", "PasteBook");
+            }
+
+            
         }
 
 

@@ -19,7 +19,7 @@
     }
 
     <div class="container col-md-3">
-        @using (Html.BeginForm("UserProfileFilter", "PasteBook", new { friendID = @item.ID }, FormMethod.Post))
+        @using (Html.BeginForm("UserProfileFilter", "PasteBook", new { userIDOfFriend = @item.ID }, FormMethod.Post))
         {
             <div id="divUpperColor" class="col-md-12"></div>
             <div class="col-md-6">

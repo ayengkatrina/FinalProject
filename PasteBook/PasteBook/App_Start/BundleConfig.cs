@@ -25,6 +25,7 @@ namespace PasteBook
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-simplex.min.css",
+                      "~/Content/normalize.css",
                       "~/Content/site.css"));
         }
     }
