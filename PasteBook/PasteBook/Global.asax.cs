@@ -19,6 +19,8 @@ namespace PasteBook
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
+
+        //stackoverflow.com/questions/25321794/custom-error-in-global-asax
         protected void Application_Error(object sender, EventArgs e)
         {
             var ex = Server.GetLastError() as HttpException;
