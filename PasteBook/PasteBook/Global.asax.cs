@@ -21,29 +21,29 @@ namespace PasteBook
 
 
         //stackoverflow.com/questions/25321794/custom-error-in-global-asax
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            var ex = Server.GetLastError() as HttpException;
+        //protected void Application_Error(object sender, EventArgs e)
+        //{
+        //    var ex = Server.GetLastError() as HttpException;
 
-            if (ex != null)
-            {
-                int errorCode = ex.GetHttpCode();
+        //    if (ex != null)
+        //    {
+        //        int errorCode = ex.GetHttpCode();
 
-                if (errorCode == 404)
-                {
-                    Response.Redirect("~/Error/Error404");
-                }
+        //        if (errorCode == 404)
+        //        {
+        //            Response.Redirect("~/Error/Error404");
+        //        }
 
-                else
-                {
-                    Response.Redirect("~/Error/GlobalError");
-                }
-            }
+        //        else
+        //        {
+        //            Response.Redirect("~/Error/GlobalError");
+        //        }
+        //    }
 
-            else
-            {
-                Response.Redirect("~/Error/GlobalError");
-            }
-        }
+        //    else
+        //    {
+        //        Response.Redirect("~/Error/GlobalError");
+        //    }
+        //}
     }
 }

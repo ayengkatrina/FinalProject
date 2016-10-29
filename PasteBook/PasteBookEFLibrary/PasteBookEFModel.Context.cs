@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PasteBook_EF_Library
+namespace PasteBookEFLibrary
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PasteBookDB_AYENGEntities1 : DbContext
+    public partial class PASTEBOOK_DBEntities : DbContext
     {
-        public PasteBookDB_AYENGEntities1()
-            : base("name=PasteBookDB_AYENGEntities1")
+        public PASTEBOOK_DBEntities()
+            : base("name=PASTEBOOK_DBEntities")
         {
         }
     

@@ -1,4 +1,4 @@
-﻿@model PasteBookEntityLibrary.USER_TABLE
+﻿@model PasteBookEFLibrary.USER_TABLE
 
 
 <div id="divHomePageWrapper" class="container">
@@ -79,7 +79,7 @@
     <script>
         $(function () {
             $('#linkregister').click(function () {
-                window.location.href = '@Url.Action("Register", "PasteBook")';
+                window.location.href = '@Url.Action("NewRegister", "PasteBook")';
             });
         });
 

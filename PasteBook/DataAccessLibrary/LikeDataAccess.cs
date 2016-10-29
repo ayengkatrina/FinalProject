@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 using DataAccessLibrary;
 
 namespace DataAccessLibrary
@@ -16,7 +16,7 @@ namespace DataAccessLibrary
         {
             bool result = false;
             int user = like.LIKED_BY;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 var likeRecord = context.LIKES_TABLE.Where(x => x.LIKED_BY == user && x.POST_ID == like.POST_ID);
 
@@ -32,7 +32,7 @@ namespace DataAccessLibrary
         public List<LIKES_TABLE> GetListOfLikeRecordOnPost(int postID)
         {
             
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 var list = context.LIKES_TABLE.Where(x => x.POST_ID == postID).ToList();
 

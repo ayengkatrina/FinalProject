@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace PasteBook
 {

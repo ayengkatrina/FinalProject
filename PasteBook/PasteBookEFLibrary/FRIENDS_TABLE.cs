@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PasteBook_EF_Library
+namespace PasteBookEFLibrary
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@ namespace PasteBook_EF_Library
         public int FRIEND_ID { get; set; }
         public string REQUEST { get; set; }
         public string BLOCKED { get; set; }
-        public Nullable<System.DateTime> CREATED_DATE { get; set; }
+        public System.DateTime CREATED_DATE { get; set; }
     
         public virtual USER_TABLE USER_TABLE { get; set; }
         public virtual USER_TABLE USER_TABLE1 { get; set; }

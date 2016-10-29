@@ -208,22 +208,17 @@
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PasteBookViewModels\ProfileViewModel.cs" />
+    <Compile Include="Models\PasteBookViewModels\CreateAccountViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\SecurityModel.cs" />
     <Compile Include="Models\PasteBookViewModels\UserProfileModel.cs" />
-    <Compile Include="Models\StoredProcModel\FriendPostUserJoinModel.cs" />
-    <Compile Include="Models\StoredProcModel\PostUserJoinModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-cerulean.min.css" />
-    <Content Include="Content\bootstrap-paper.min.css" />
     <Content Include="Content\bootstrap-simplex.min.css" />
-    <Content Include="Content\bootstrap-slate.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\default.png" />
-    <Content Include="Content\bootstrap-spacelab.min.css" />
     <Content Include="Content\Styles\loginStyle.css" />
     <Content Include="Content\Styles\normalize.css" />
     <Content Include="favicon.ico" />
@@ -303,6 +298,8 @@
     <Content Include="Views\PasteBook\ListOfUsersThatLikeAPost.cshtml" />
     <Content Include="Views\Error\Error404.cshtml" />
     <Content Include="Views\Error\GlobalError.cshtml" />
+    <Content Include="Views\PasteBook\NewRegister.cshtml" />
+    <Content Include="Views\PasteBook\CreateAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,9 +317,9 @@
       <Project>{73fa0e60-0d4f-404b-87df-10c5282e0b8b}</Project>
       <Name>BusinessLogicLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PasteBookEntityLibrary\PasteBookEntityLibrary.csproj">
-      <Project>{bdfc96af-3047-4316-9f2c-36ad18d8b5cb}</Project>
-      <Name>PasteBookEntityLibrary</Name>
+    <ProjectReference Include="..\PasteBookEFLibrary\PasteBookEFLibrary.csproj">
+      <Project>{c12811be-eba4-4bdc-867e-de8d05ef5483}</Project>
+      <Name>PasteBookEFLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

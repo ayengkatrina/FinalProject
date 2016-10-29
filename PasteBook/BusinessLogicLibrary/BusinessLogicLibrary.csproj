@@ -58,9 +58,9 @@
       <Project>{16840e98-448c-4083-93af-eddf8efedd33}</Project>
       <Name>DataAccessLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PasteBookEntityLibrary\PasteBookEntityLibrary.csproj">
-      <Project>{bdfc96af-3047-4316-9f2c-36ad18d8b5cb}</Project>
-      <Name>PasteBookEntityLibrary</Name>
+    <ProjectReference Include="..\PasteBookEFLibrary\PasteBookEFLibrary.csproj">
+      <Project>{c12811be-eba4-4bdc-867e-de8d05ef5483}</Project>
+      <Name>PasteBookEFLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

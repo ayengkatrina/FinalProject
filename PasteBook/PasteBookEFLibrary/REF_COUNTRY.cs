@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PasteBook_EF_Library
+namespace PasteBookEFLibrary
 {
     using System;
     using System.Collections.Generic;

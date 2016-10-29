@@ -1,6 +1,7 @@
-﻿@model PasteBookEntityLibrary.USER_TABLE
+﻿@model PasteBook.CreateAccountViewModel
 
-@using (Html.BeginForm("Register", "PasteBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+@using (Html.BeginForm("Register", "PasteBook", FormMethod.Post, new { enctype = "multipart/form-data", name = "REGISTRATION_FORM", id = "REGISTRATION_FORM" }))
 {
     @Html.AntiForgeryToken()
 
@@ -26,8 +27,10 @@
 
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.FIRST_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.FIRST_NAME, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.FIRST_NAME, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.User.FIRST_NAME, "", new { @class = "text-danger" })
+                                <span id="txtFirstNameMessage" class="text-danger"></span>
+
                             </div>
                         </div>
 
@@ -36,8 +39,9 @@
                                 @Html.Label("*Last Name", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.LAST_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.LAST_NAME, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.LAST_NAME, new { id = "txtLastName", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.User.LAST_NAME, "", new { @class = "text-danger" })
+                                <span id="txtLastNameMessage" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -46,83 +50,59 @@
                                 @Html.Label("*Birthday", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", @type = "date", @max = "0d", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.BIRTHDAY, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                                @Html.ValidationMessageFor(model => model.User.BIRTHDAY, "", new { @class = "text-danger" })
+                                <span id="txtBirthday" class="text-danger"></span>
                             </div>
                         </div>
 
-                        @{
-                            List<SelectListItem> countryItems = new List<SelectListItem>();
-                            countryItems.Add(new SelectListItem()
-                            {
-                                Text = "Philippines",
-                                Value = "63"
-                            });
-                            countryItems.Add(new SelectListItem()
-                            {
-                                Text = "Poland ",
-                                Value = "48",
-
-                            });
-
-                        }
 
 
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.Label("*Country", new { @class = "control-label col-md-12" })
+                                @Html.Label("Country", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.COUNTRY_ID, countryItems, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.COUNTRY_ID, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(x => x.User.COUNTRY_ID, ViewBag.Country as SelectList, "---Select Country---", new { @class = "form-control" })
+
                             </div>
                         </div>
 
 
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.Label("*Mobile No", new { @class = "control-label col-md-12" })
+                                @Html.Label("Mobile No", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.MOBILE_NO, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MOBILE_NO, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.MOBILE_NO, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.User.MOBILE_NO, "", new { @class = "text-danger" })
+                                <span id="txtMobileNumber" class="text-danger"></span>
                             </div>
                         </div>
-
-                        @{
-                            List<SelectListItem> genderItems = new List<SelectListItem>();
-                            genderItems.Add(new SelectListItem()
-                            {
-                                Text = "Male",
-                                Value = "M"
-                            });
-                            genderItems.Add(new SelectListItem()
-                            {
-                                Text = "Female ",
-                                Value = "F",
-
-                            });
-                            genderItems.Add(new SelectListItem()
-                            {
-                                Text = "Unspecified ",
-                                Value = "U",
-
-                            });
-
-
-                        }
-
 
 
 
                         <div class="form-group">
 
                             <div class="col-md-4">
-                                @Html.Label("*Gender", new { @class = "control-label col-md-12" })
+                                @Html.Label("Gender", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.GENDER, genderItems, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.GENDER, "", new { @class = "text-danger" })
+                                <div class="col-md-12">
+
+                                    @Html.RadioButtonFor(model => model.User.GENDER, "M")
+                                    @Html.Label("Male", new { @class = "control-label" })
+
+                                </div>
+                                <div class="col-md-12">
+
+
+                                    @Html.RadioButtonFor(model => model.User.GENDER, "F")
+                                    @Html.Label("Female", new { @class = "control-label" })
+                                </div>
+
+
+                                @Html.ValidationMessageFor(model => model.User.GENDER, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
@@ -135,9 +115,11 @@
                                 @Html.Label("*User Name", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.USER_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.USER_NAME, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.USER_NAME, new { id = "txtUserName", htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.User.USER_NAME, "", new { @class = "text-danger" })
                                 @Html.ValidationMessage("usernameExist", new { @class = "text-danger" })
+
+                                <span id="txtUserNameMessage" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -147,9 +129,10 @@
 
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.EMAIL_ADDRESS, new { id = "txtEmail", htmlAttributes = new { @class = "form-control", @type = "email", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.EMAIL_ADDRESS, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.EMAIL_ADDRESS, new { id = "txtEmail", htmlAttributes = new { @class = "form-control", @type = "email" } })
+                                @Html.ValidationMessageFor(model => model.User.EMAIL_ADDRESS, "", new { @class = "text-danger" })
                                 @Html.ValidationMessage("emailExist", new { @class = "text-danger" })
+                                <span id="txtEmailMessage" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -158,8 +141,9 @@
                                 @Html.Label("*Password", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.PASSWORD, new { id = "txtPassword", htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
-                                @Html.ValidationMessageFor(model => model.PASSWORD, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.User.PASSWORD, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.User.PASSWORD, "", new { @class = "text-danger" })
+                                <span id="txtPasswordMessage" class="text-danger"></span>
                             </div>
                         </div>
 
@@ -168,9 +152,9 @@
                                 @Html.Label("*Confirm Password", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.TextBox( "ConfirmPassword", null, new {id = "ConfirmPassword", @class = "form-control", @type = "password", @required = "required" } )
-                               
-                                <span id="txtMessage" class="text-danger"></span>
+                                @Html.EditorFor(model => model.CONFIRM_PASSWORD, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                                @Html.ValidationMessageFor(model => model.CONFIRM_PASSWORD, "", new { @class = "text-danger" })
+                                <span id="txtConfirmPasswordMatchMessage" class="text-danger"></span>
 
                             </div>
                         </div>
@@ -186,36 +170,116 @@
         </div>
     </div>
 
-                            }
+}
 
 @{
     @Scripts.Render("~/bundles/jquery");
     <script>
 
-        //stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page
+
         $(document).ready(function () {
-            $("#ConfirmPassword").keyup(validate);
-       
+            $("#CONFIRM_PASSWORD").blur(ValidatePasswordMatch);
 
+            function ValidatePasswordMatch() {
+                var password = $("#User_PASSWORD");
+                var confirmPassword = password;
 
-        function validate() {
-            var password1 = $("#userTable_PASSWORD").val();
-            var password2 = $("#ConfirmPassword").val();
-
-            //alert("it's working po!")
-
-            if (password1 != password2) {
-                $("#txtMessage").text("Password do not match!");
+                if (password.is(confirmPassword)) {
+                    $("#txtConfirmPasswordMatchMessage").text("");
+                }
+                else  {
+                    $("#txtConfirmPasswordMatchMessage").text("Password did not match");
+                }
             }
-            else {
-                $("#txtMessage").text("");
-            }
-            
 
-        }
 
 
         });
+    </script>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+
+            //www.sitepoint.com/basic-jquery-form-validation-tutorial/
+            $("form[name='REGISTRATION_FORM']").validate({
+
+                rules: {
+
+                    User_FIRST_NAME: {
+                        required: true,
+                        maxlenght: 50
+                    },
+                    User_LAST_NAME: {
+                        required: true,
+                        maxlenght: 50
+                    },
+
+                    User_USER_NAME: {
+                        required: true,
+                        maxlenght: 50,
+                    },
+
+                    User_EMAIL_ADDRESS: {
+                        required: true,
+                        maxlenght: 50,
+
+                        email: true,
+
+
+                    },
+                    User_PASSWORD: {
+                        required: true,
+                        maxlenght: 50,
+
+                    },
+
+                    CONFIRM_PASSWORD: {
+                        required: true,
+                        maxlenght: 50,
+                        equalTo: "#User_PASSWORD"
+
+                    }
+
+
+                },
+
+                messages: {
+                    User_FIRST_NAME: {
+                        required: "Please enter your first name.",
+                        maxlenght: "First name must not be longer than 50 characters."
+                    },
+
+                    User_LAST_NAME: {
+                        required: "Please enter your last name.",
+                        maxlenght: "Last name must not be longer than 50 characters"
+                    },
+                    User_PASSWORD: {
+                        required: "Please enter a password",
+                        maxlenght: "Password must not be longer than 50 characters"
+                    },
+
+                    CONFIRM_PASSWORD: {
+                        required: "Please enter a confirmation password",
+                        maxlenght: "Confirmation password must not be longer than 50 characters",
+                        equalTo: "Password did not match"
+                    },
+                    User_EMAIL_ADDRESS: {
+                        required: "Please enter an email address.",
+                        maxlenght: "Email address must not be longer than 50 characters",
+                        email: "Please input a valid email address"
+                    },
+
+
+                    submitHandler: function (form) {
+                        form.submit();
+                    }
+                } });
+        });
+
     </script>
 }
 

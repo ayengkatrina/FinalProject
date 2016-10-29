@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLibrary;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace BusinessLogicLibrary
 {
@@ -26,7 +26,7 @@ namespace BusinessLogicLibrary
             List<USER_TABLE> usersWhoLikeList = new List<USER_TABLE>();
             List<LIKES_TABLE> listLikeTable = likeDataAccess.GetListOfLikeRecordOnPost(postID);
 
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 
                 List<int> userIDList = listLikeTable.Select(x => x.ID).ToList();

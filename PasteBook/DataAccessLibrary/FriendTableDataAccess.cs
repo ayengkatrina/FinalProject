@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 using System.Data.Entity;
 
 namespace DataAccessLibrary
@@ -13,7 +13,7 @@ namespace DataAccessLibrary
         public bool ConfirmFriendRequest(int friendID, int userID )
         {
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.USER_ID == friendID).SingleOrDefault();
                 if (friendTable != null)
@@ -39,7 +39,7 @@ namespace DataAccessLibrary
         public bool RejectFriendRequest(int friendID, int userID)
         {
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.USER_ID == friendID).SingleOrDefault();
                 if (friendTable != null)

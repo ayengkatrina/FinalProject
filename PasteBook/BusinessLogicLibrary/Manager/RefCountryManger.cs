@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLibrary;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace BusinessLogicLibrary
 {
@@ -13,7 +13,7 @@ namespace BusinessLogicLibrary
         DataAccess<REF_COUNTRY> dataAccess = new DataAccess<REF_COUNTRY>();
     
 
-        public List<REF_COUNTRY> GetAllCountry() {
+        public IEnumerable<REF_COUNTRY> GetAllCountry() {
             List<REF_COUNTRY> list = new List<REF_COUNTRY>();
 
             list = dataAccess.GetAll();

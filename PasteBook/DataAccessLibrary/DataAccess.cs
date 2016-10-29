@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace DataAccessLibrary
 {
@@ -14,7 +14,7 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PasteBookDBEntities())
+                using (var context = new PASTEBOOK_DBEntities())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Added;
                     status = context.SaveChanges();
@@ -32,7 +32,7 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PasteBookDBEntities())
+                using (var context = new PASTEBOOK_DBEntities())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Deleted;
                     status = context.SaveChanges();
@@ -50,7 +50,7 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PasteBookDBEntities())
+                using (var context = new PASTEBOOK_DBEntities())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Modified;
                     status = context.SaveChanges();
@@ -68,14 +68,14 @@ namespace DataAccessLibrary
             List<T> entityList = new List<T>();
             try
             {
-                using (var context = new PasteBookDBEntities())
+                using (var context = new PASTEBOOK_DBEntities())
                 {
                     entityList = context.Set<T>().ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+               
             }
             return entityList;
         }
@@ -85,7 +85,7 @@ namespace DataAccessLibrary
             List<T> entityList = new List<T>();
             try
             {
-                using (var context = new PasteBookDBEntities())
+                using (var context = new PASTEBOOK_DBEntities())
                 {
                     entityList = context.Set<T>().Where(predicate).ToList();
                 }

@@ -1,0 +1,186 @@
+﻿@model PasteBook.RegistrationViewModel
+
+
+@using (Html.BeginForm("NewRegister", "PasteBook", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+   Model.
+
+    <div class="form-horizontal">
+
+
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h4>Create a new Account</h4></div>
+                <div class="panel-body">
+
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group col-md-6">
+                        @Html.Label("Required fields (*)")
+
+
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*First Name ", new { @class = "control-label col-md-12" })
+
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.FIRST_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.FIRST_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Last Name", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.LAST_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.LAST_NAME, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Birthday", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.BIRTHDAY, new { htmlAttributes = new { @class = "form-control", @type = "date", @max = "0d", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.BIRTHDAY, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                      
+
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Country", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model=>model.User.COUNTRY_ID, ViewBag.CountryList as SelectList,new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.User.COUNTRY_ID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Mobile No", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.MOBILE_NO, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.User.MOBILE_NO, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                       
+
+
+                        <div class="form-group">
+
+                            <div class="col-md-4">
+                                @Html.Label("*Gender", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.DropDownListFor(model => model.User.GENDER, ViewBag.Gender as SelectList, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.User.GENDER, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div id="divCredentials" class="form-horizontal col-md-6">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*User Name", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.USER_NAME, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.USER_NAME, "", new { @class = "text-danger" })
+                                @Html.ValidationMessage("usernameExist", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Email Address", new { @class = "control-label col-md-12" })
+
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.EMAIL_ADDRESS, new { id = "txtEmail", htmlAttributes = new { @class = "form-control", @type = "email", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.EMAIL_ADDRESS, "", new { @class = "text-danger" })
+                                @Html.ValidationMessage("emailExist", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Password", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.User.PASSWORD, new { id = "txtPassword", htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.User.PASSWORD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.Label("*Confirm Password", new { @class = "control-label col-md-12" })
+                            </div>
+                            <div class="col-md-8">
+                                @Html.TextBox("ConfirmPassword", null, new { id = "ConfirmPassword", @class = "form-control", @type = "password", @required = "required" });
+
+                                <span id="txtMessage" class="text-danger"></span>
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-8">
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   }
+
+@{
+    @Scripts.Render("~/bundles/jquery");
+    <script>
+
+        //stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page
+        $(document).ready(function () {
+            $("#ConfirmPassword").blur(validate);
+
+
+
+        function validate() {
+            var password1 = $("#userTable_PASSWORD").val();
+            var password2 = $("#ConfirmPassword").val();
+
+            //alert("it's working po!")
+
+            if (password1 != password2) {
+                $("#txtMessage").text("Password do not match!");
+            }
+            else if (password1 == password2) {
+                $("#txtMessage").text("");
+            }
+
+
+        }
+
+
+        });
+    </script>
+}
+
+

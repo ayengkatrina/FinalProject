@@ -7,7 +7,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 
 namespace PasteBook.Controllers
@@ -20,7 +20,7 @@ namespace PasteBook.Controllers
         LikeManager likeManager = new LikeManager();
         CommentManager commentManager = new CommentManager();
         FriendManager friendManager = new FriendManager();
-
+        RefCountryManger countryManager = new RefCountryManger();
         public ActionResult Index()
         {
             return View();
@@ -68,18 +68,49 @@ namespace PasteBook.Controllers
             }
         }
 
+
+
         [HttpGet]
         public ActionResult Register()
         {
+            CreateAccountViewModel model = new CreateAccountViewModel();
+
+            List<SelectListItem> genderItems = new List<SelectListItem>();
+            genderItems.Add(new SelectListItem()
+            {
+                Text = "Male",
+                Value = "M"
+            });
+            genderItems.Add(new SelectListItem()
+            {
+                Text = "Female ",
+                Value = "F",
+
+            });
+            genderItems.Add(new SelectListItem()
+            {
+                Text = "Unspecified ",
+                Value = "U",
+
+            });
+
+            ViewBag.Gender = genderItems;
+
+            ViewBag.CountryList = new SelectList(countryManager.GetAllCountry(), "ID", "COUNTRY");
+
+
+
+
+
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(USER_TABLE model, HttpPostedFileBase file)
+
+        public ActionResult Register(CreateAccountViewModel model, HttpPostedFileBase file)
         {
-            bool checkUserName = userManager.CheckIfUserNameAlreadyExist(model.USER_NAME);
-            bool checkEmail = userManager.CheckIfEmailAlreadyExist(model.EMAIL_ADDRESS);
+            bool checkUserName = userManager.CheckIfUserNameAlreadyExist(model.User.USER_NAME);
+            bool checkEmail = userManager.CheckIfEmailAlreadyExist(model.User.EMAIL_ADDRESS);
 
             if (ModelState.IsValid)
             {
@@ -101,13 +132,13 @@ namespace PasteBook.Controllers
                 }
                 else /*if ((checkUserName == false) && (checkEmail == false))*/
                 {
-                    bool registered = userManager.SimulateUserCreation(model);
-                    string email = model.EMAIL_ADDRESS;
+                    bool registered = userManager.SimulateUserCreation(model.User);
+                    string email = model.User.EMAIL_ADDRESS;
                     USER_TABLE userDetails = userManager.GetUserDetails(email);
                     Session["userID"] = userDetails.ID;
                     Session["profilePic"] = userDetails.PROFILE_PIC;
                     Session["userName"] = userDetails.USER_NAME;
-                    Session["userFullName"] = userDetails.FIRST_NAME + " " + userDetails.LAST_NAME;
+
 
 
                     return RedirectToAction("Profile", "PasteBook");
@@ -120,14 +151,14 @@ namespace PasteBook.Controllers
                 return View();
             }
 
-           
+
 
 
         }
 
 
 
-        
+
         [HttpGet]
         public ActionResult Home()
         {

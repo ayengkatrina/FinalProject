@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="638d82fafa564f1d9a07d6346132ea53" Name="Diagram1" ZoomLevel="78">
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.COMMENTS_TABLE" Width="1.5" PointX="7.5" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.FRIENDS_TABLE" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.LIKES_TABLE" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.NOTIFICATION_TABLE" Width="1.5" PointX="9.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.POST_TABLE" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.REF_COUNTRY" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PASTEBOOK_DBModel.USER_TABLE" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__COMMENTS___POST___182C9B23" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__COMMENTS___POSTE__1920BF5C" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__NOTIFICAT__COMME__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__FRIENDS_T__FRIEN__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__FRIENDS_T__USER___239E4DCF" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__LIKES_TAB__LIKED__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__LIKES_TAB__POST___31EC6D26" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__NOTIFICAT__POST___2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__NOTIFICAT__RECEI__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__NOTIFICAT__SENDE__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__POST_TABL__POSTE__1367E606" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__POST_TABL__PROFI__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="PASTEBOOK_DBModel.FK__USER_TABL__COUNT__0DAF0CB0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

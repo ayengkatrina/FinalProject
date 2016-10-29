@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccessLibrary;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace BusinessLogicLibrary
 {
@@ -24,7 +24,7 @@ namespace BusinessLogicLibrary
         {
             List<FRIENDS_TABLE> friendslist = new List<FRIENDS_TABLE>();
            
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 var list = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.REQUEST == "Y");
                 var secondList = context.FRIENDS_TABLE.Where(x => x.USER_ID == userID && x.REQUEST == "Y");
@@ -67,7 +67,7 @@ namespace BusinessLogicLibrary
         {
             List<FRIENDS_TABLE> listOfPendingRequest = new List<FRIENDS_TABLE>();
 
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
 
                 var list = context.FRIENDS_TABLE.Where(x => x.USER_ID == userID && x.REQUEST == "N");
@@ -111,7 +111,7 @@ namespace BusinessLogicLibrary
         {
             List<FRIENDS_TABLE> listOfPendingRequest = new List<FRIENDS_TABLE>();
 
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                
                 var list = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.REQUEST == "N");
@@ -152,7 +152,7 @@ namespace BusinessLogicLibrary
             List<USER_TABLE> friendsUserList = new List<USER_TABLE>();
             List<FRIENDS_TABLE> friend = new List<FRIENDS_TABLE>();
             friend = GetListOfFriends(userID).ToList();
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 var friendsID = friend.Distinct().Select(x => x.USER_ID == userID ? x.FRIEND_ID : x.USER_ID).ToList();
 
@@ -185,7 +185,7 @@ namespace BusinessLogicLibrary
         {
             List<FRIENDS_TABLE> friend = new List<FRIENDS_TABLE>();
             friend = GetListOfFriends(userID).ToList();
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 var friendsID = friend.Distinct().Select(x => x.USER_ID == userID ? x.FRIEND_ID : x.USER_ID).ToList();
 

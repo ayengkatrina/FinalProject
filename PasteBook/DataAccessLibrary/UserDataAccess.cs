@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PasteBookEntityLibrary;
+using PasteBookEFLibrary;
 
 namespace DataAccessLibrary
 {
@@ -15,7 +15,7 @@ namespace DataAccessLibrary
             List<USER_TABLE> userList = new List<USER_TABLE>();
             List<USER_TABLE> firstNameList = new List<USER_TABLE>();
             List<USER_TABLE> lastNameList = new List<USER_TABLE>();
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 firstNameList = context.USER_TABLE.Where(x => x.FIRST_NAME.ToLower() == userFullName).ToList();
                 lastNameList = context.USER_TABLE.Where(x => x.LAST_NAME.ToLower() == userFullName).ToList();
@@ -35,7 +35,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
@@ -60,7 +60,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
@@ -85,7 +85,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
@@ -118,7 +118,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
@@ -146,7 +146,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
@@ -171,7 +171,7 @@ namespace DataAccessLibrary
         {
 
             int numberSave = 0;
-            using (var context = new PasteBookDBEntities())
+            using (var context = new PASTEBOOK_DBEntities())
             {
                 USER_TABLE user = context.USER_TABLE.Where(x => x.ID == userID).SingleOrDefault();
                 if (user != null)
