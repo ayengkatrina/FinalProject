@@ -20,7 +20,7 @@
 
             @{
                 string userFullName = (string)Session["userFullName"];
-                string userName = "@"+(string)Session["userName"];
+                string userName = "@" + (string)Session["userName"];
                 var imgSrc = "";
                 if (Session["profilePic"] == null)
                 {
@@ -40,45 +40,60 @@
                             <ul id="ulNav" class="nav navbar-nav">
                                 <li>@Html.ActionLink("Home", "Home", "PasteBook")</li>
                                 <li>@Html.ActionLink("Profile", "Profile", "PasteBook")</li>
-                                <li>@Html.ActionLink("Notification", "Search", "PasteBook")</li>
+                                @*<li id="liNotif">
+                                    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                        @{Html.RenderAction("Notifications", "PasteBook"); }
+                                </ul>
+                                </li>*@
                                 <li>@Html.ActionLink("Friends", "Friends", "PasteBook")</li>
 
                             </ul>
                         </div>
 
-                        <div id="divSearch" class="col-md-5">
-                       @using (Html.BeginForm("Search", "PasteBook", FormMethod.Post))
-                       {
-                            <div class="input-group">
-                                <input id="txtSearch" name="txtSearch"type="text" class="form-control" placeholder="Search for...">
-                                <span class="input-group-btn">
-                                    <button id="btnSearch" class="btn btn-info" type="submit" >Go!</button>
-                                </span>
-                            </div><!-- /input-group -->
-                       }
-                        </div><!-- /.col-lg-6 -->
+
+                        
+                           
+                               
+                                   
                        
 
-                        <div id="dropdownIcon"class="dropdown col-md-1">
-                            <button id="btnDropdownIcon" class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
-                                <img id="imgDPNav" src="@imgSrc">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                               
-                                <li role="presentation"><span>&nbsp </span> @userFullName</li>
-                                <li role="presentation"><span>&nbsp </span>@userName</li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation">@Html.ActionLink("Edit Profile", "Settings", "PasteBook", new { id = "linkLogout" })</li>
-                                <li role="presentation">@Html.ActionLink("Security", "Security", "PasteBook", new { id = "linkLogout" })</li>
 
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation">@Html.ActionLink("Logout", "Logout", "PasteBook", new { id = "linkLogout" })</li>
-                            </ul>
-                        </div>
 
-                    </div>
-                     }
+
+
+                                        <div id="divSearch" class="col-md-5">
+                                            @using (Html.BeginForm("Search", "PasteBook", FormMethod.Post))
+                                            {
+                                                <div class="input-group">
+                                                    <input id="txtSearch" name="txtSearch" type="text" class="form-control" placeholder="Search for...">
+                                                    <span class="input-group-btn">
+                                                        <button id="btnSearch" class="btn btn-info" type="submit">Go!</button>
+                                                    </span>
+                                                </div><!-- /input-group -->
+                                            }
+                                        </div><!-- /.col-lg-6 -->
+
+
+                                        <div id="dropdownIcon" class="dropdown col-md-1">
+                                            <button id="btnDropdownIcon" class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                                <img id="imgDPNav" src="@imgSrc">
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+
+                                                <li role="presentation"><span>&nbsp </span> @userFullName</li>
+                                                <li role="presentation"><span>&nbsp </span>@userName</li>
+                                                <li role="presentation" class="divider"></li>
+                                                <li role="presentation">@Html.ActionLink("Edit Profile", "Settings", "PasteBook", new { id = "linkLogout" })</li>
+                                                <li role="presentation">@Html.ActionLink("Security", "Security", "PasteBook", new { id = "linkLogout" })</li>
+
+                                                <li role="presentation" class="divider"></li>
+                                                <li role="presentation">@Html.ActionLink("Logout", "Logout", "PasteBook", new { id = "linkLogout" })</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                }
 
             }
            
@@ -99,15 +114,19 @@
 </html>
 
 
-@{
-    @Scripts.Render("~/bundles/jquery");
-    <script>
 
+@section scripts {
+   @Scripts.Render("~/bundles/jquery");
+        <script>
 
+        var notifUrl = '@Url.Action("Notifications", "PasteBook")'
         $(document).ready(function () {
 
+            $('#liNotif').click(function(){
+                location.reload(notifUrl);
+            })
 
-            $('#settingSelector').change(function () {
+            $('#settingSelector').change(function() {
                 if ($(this).val() == 'profile') {
                     window.location.href = '@Url.Action("Security", "PasteBook")';
 
@@ -121,12 +140,12 @@
             var searchUrl = '@Url.Action("Search", "PasteBook")';
 
             $('#btnSearch').click(function () {
-               
+
                 var searchKeyword = $('#txtSearch').val();
 
                 $('#btnSearch').submit();
 
-               
+
 
             });
 
@@ -136,5 +155,7 @@
 
         });
 
-    </script>
+</script>
 }
+
+

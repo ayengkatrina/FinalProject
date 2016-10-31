@@ -1,0 +1,88 @@
+﻿@model PasteBookEFLibrary.POST_TABLE
+
+@{
+    
+    var imgSrc = "";
+    if (Model.USER_TABLE.PROFILE_PIC == null)
+    {
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
+    {
+
+        var base64 = Convert.ToBase64String(@Model.USER_TABLE.PROFILE_PIC);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    }
+
+   
+}
+
+
+
+
+<div class="panel-group">
+    <div id="divHomePosList" class="col-md-12">
+        <div class="panel panel-default">
+
+
+
+            <div id="divHomePostHead" class="col-md-12">
+                <div id="divHomePostNamePic" class="col-md-6">
+                    <img src="@imgSrc" id="imgHomePicPost" class="img-thumbnail" alt="Profile Picture" width="50" height="50">
+                    <span>@Model.USER_TABLE.FIRST_NAME >@Model.USER_TABLE.LAST_NAME</span>
+                </div>
+                <div id="divPostDate" class="col-md-6 text-right">
+                    >@Model.CREATED_DATE.ToString("MMMM, dd, yyyy")
+                </div>
+            </div>
+
+
+
+            <div class="panel-body">
+                <div id="divCommnentButton" class="col-md-12">
+                    <div class="col-md-12">
+
+                        <textarea id="textAreaHomePost" class="form-control" cols="110" rows="3" readonly="readonly">>@Model.CONTENT </textarea>
+                    </div>
+
+
+
+
+
+
+                    <div class="col-md-10">
+                        <div class="input-group">
+
+                            <input class="form-control text-box single-line" id="commentCONTENT" name="CONTENT" placeholder="Write a comment..." required="required" type="text">
+                            <span class="input-group-btn">
+                                <button id="btnComment" class="btn btn-default" type="submit" onclick="MakeComment(>@Model.ID)"> Comment</button>
+                            </span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div id="divLikeButton" class="col-md-1">
+                        <button type="submit" class="btn btn-default" onclick="LikeHomePost(@Model.ID)"><span>@Model.LIKES_TABLE.Where(x => x.POST_ID == @Model.ID).Count() Likes </span></button>
+                    </div>
+                </div>
+
+
+                <div id="divCommentList" class="col-md-12">
+                    @{
+
+                        Html.RenderAction("Comment", "PasteBook", new { ID = @Model.ID });
+
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

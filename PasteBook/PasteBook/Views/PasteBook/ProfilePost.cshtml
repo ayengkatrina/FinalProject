@@ -1,128 +1,257 @@
 ﻿
-@model IEnumerable <PasteBookEFLibrary.POST_TABLE>
+
+@model IEnumerable<PasteBookEFLibrary.POST_TABLE>
+
 
 
 
 @foreach (var item in Model)
-
 {
-    var postID = item.ID;
-    var user = item.USER_TABLE1.ID;
     var imgSrc = "";
+
     if (@item.USER_TABLE.PROFILE_PIC == null)
     {
-        imgSrc= @Url.Content("~/Content/Images/default.png");
-    }else
+        imgSrc = @Url.Content("~/Content/Images/default.png");
+    }
+    else
     {
         var base64 = Convert.ToBase64String(@item.USER_TABLE.PROFILE_PIC);
         imgSrc = String.Format("data:image/gif;base64,{0}", base64);
     }
 
-
-<div class="panel-group">
-
-    <div id="divPostPanel" class="panel panel-default">
-        <div id="divPostHead" class="col-md-12">
-            <div id="divPostNamePic" class="col-md-6">
-                <img src="@imgSrc" class="img-thumbnail" id="imgProfilePicPost" alt="Profile Picture" width="50px" height="50px">
-                <span>@item.USER_TABLE.FIRST_NAME @item.USER_TABLE.LAST_NAME</span>
-            </div>
-               
-            
-            <div id="divPostDate" class="col-md-6 text-right">
-                @item.CREATED_DATE.ToString("MMMM, dd, yyyy")
-            </div>
-        </div>
-
-        <div class="panel-body">
-            <div class="col-md-12">
+    var postID = @item.ID;
 
 
 
-                <div class="col-md-12">
-                    <textarea id="textAreaPost"class="form-control" cols="100" rows="3" readonly="readonly">@item.CONTENT </textarea>
-                </div>
-                @{
+    <div class="panel-group">
+        <div id="divHomePosList" class="col-md-12">
+            <div class="panel panel-default">
 
-                Html.RenderAction("MakeCommentOnPost", "PasteBook", new { ID = postID });
 
-                }
 
-                <div id="divLikeButtonProfile" class="col-md-1">
-                    <button id="btnLike" type="submit" class="btn btn-default" onclick="LikePost(@item.ID)"><span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count() Like  </span></button>
-                   
+                <div id="divHomePostHead" class="col-md-12">
+                    <div id="divHomePostNamePic" class="col-md-6">
+                        <img src="@imgSrc" id="imgHomePicPost" class="img-thumbnail" alt="Profile Picture" width="50" height="50">
+                        <span>@item.USER_TABLE.FIRST_NAME @item.USER_TABLE.LAST_NAME</span>
+                    </div>
+                    <div id="divPostDate" class="col-md-6 text-right">
+                        @item.CREATED_DATE.ToString("MMMM, dd, yyyy")
+                    </div>
                 </div>
 
 
 
+                <div class="panel-body">
+                    <div id="divCommnentButton" class="col-md-12">
+                        <div id="divPostConten" class="col-md-12">
+
+                            <textarea id="textAreaHomePost" class="form-control" cols="110" rows="3" readonly="readonly">@item.CONTENT </textarea>
+                        </div>
 
 
-            </div>
-            <div class="col-md-12">
-                @{
-                Html.RenderAction("CommentList", "PasteBook", new { ID = postID });
 
-                }
 
+
+
+
+
+
+                        <div id="divCommentList" class="col-md-12">
+                            @{
+
+                                Html.RenderAction("Comment", "PasteBook", new { ID = postID });
+
+                            }
+
+                        </div>
+                        <div class="col-md-10">
+                            <div class="input-group">
+
+                                <input class="form-control text-box single-line" id="commentCONTENT" name="CONTENT" placeholder="Write a comment..." required="required" type="text">
+                                <span class="input-group-btn">
+                                    <button id="btnComment" class="btn btn-default" type="submit" onclick="MakeComment(@item.ID)"> Comment</button>
+                                </span>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div id="divLikeButton" class="col-md-1">
+                            <button id="btnLike" type="submit" class="btn btn-default" onclick="LikeHomePost(@item.ID)">@*<span>@item.LIKES_TABLE.Where(x => x.POST_ID == @item.ID).Count()</span>*@Like</button>
+                        </div>
+
+                        <div id="divLikeList" class="col-md-1">
+                            <button id="btnLikeList"type="submit" class="btn btn-link" onclick="ShowLikeList(@item.ID)">
+                                @{
+                                    if (Model.Count() > 0)
+                                    {
+                                        <span>@Model.Count() likes</span>
+                                    }
+                                }
+                             
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
+    </div>
+                            }
 
+<div class="modal fade" id="modalErrorMessage" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Something went wrong. Please refresh the page and try again later.</p>
+            </div>
 
-
+        </div>
     </div>
 </div>
 
 
-}
+
+
+
+
+
+
+
 
 
 @{
     @Scripts.Render("~/bundles/jquery");
-<script>
-    var likeUrl = '@Url.Action("LikeAPostProfile", "PasteBook")';
-    var likeListUrl = '@Url.Action("LikeListOfUsers", "PasteBook")';
+    <script>
 
-    function LikePost(ID) {
-
-        var data = {
-            postID: ID
+        //stackoverflow.com/questions/4644027/how-to-automatically-reload-a-page-after-a-given-period-of-inactivity
+        var time = new Date().getTime();
+        function refresh() {
+            if (new Date().getTime() - time >= 60000)
+                window.location.reload(true);
+            else
+                setTimeout(refresh, 10000);
         }
 
-        $.ajax({
-            url: likeUrl,
-            data: data,
-            type: 'POST',
-            success: function (data) {
+        setTimeout(refresh, 10000);
+
+        function ShowErrorMessage() {
+            $('#modalErrorMessage').modal('show');
+        }
+
+        function ShowErrorIfFalse(data) {
+            alert("Show Modal");
+            if (data) {
+                alert("true");
+                LikeButtonText()
                 location.reload();
-            },
-            error: function () {
+            } else {
+                alert("false");
+                $('#modalErrorMessage').modal('show');
+            }
+        }
+
+        function LikeButtonText() {
+        var like =    $('#btnLike').text();
+
+        if (like == "Like") {
+            $('#btnLike').text("Unlike");
+        } else {
+            $('#btnLike').text("Like");
+        }
+        }
+
+        var likeHomePostUrl = '@Url.Action("LikeAPostHome", "PasteBook")';
+
+        function LikeHomePost(ID) {
+
+            var data = {
+                postID: ID
+            }
+
+            $.ajax({
+                url: likeHomePostUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
+
+                    ShowErrorIfFalse(data.resultLike);
+
+                },
+                error: function () {
+                    ShowErrorMessage();
+                }
+            })
+
+        }
+
+        var makeCommentUrl = '@Url.Action("MakeComment", "PasteBook")';
+        var homeUrl = '@Url.Action("Home", "PasteBook")';
+        function MakeComment(postID) {
+
+            var commentContent = $("#commentCONTENT").val();
+
+
+            var data = {
+                postID: postID,
+                comment: commentContent
 
             }
-        })
 
-    }
+            $.ajax({
+                url: makeCommentUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
 
-    $('#btnLike').hover(function () {
+                    ShowErrorIfFalse(data.createComment);
+                    //window.location.reload(homeUrl);
+                },
+                error: function () {
+                    ShowErrorMessage();
+                }
+            })
 
-        var likeListUrl = '@Url.Action("LikeListOfUsers", "PasteBook")';
+        }
 
+        function ShowModalLikeList(){
+            $('#modalLikeList').modal('show');
+        }
 
-        $.ajax({
-            url: likeUrl,
-            data: data,
-            type: 'POST',
-            success: function (data) {
-                alert("workingpo!");
-                $('#userListLike').modal('show');
-            },
-            error: function () {
+        var likelistUrl = '@Url.Action("LikeListOfUsers", "PasteBook")';
+        function ShowLikeList(postID) {
+            var data = {
+                postID: postID,
+
 
             }
-        })
 
-    });
+            $.ajax({
+                url: likelistUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
+
+                    ShowModalLikeList();
+                    
+                },
+                error: function () {
+                    ShowErrorMessage();
+                }
+            })
+        }
 
 
 
-</script>
+
+    </script>
 }
+
+

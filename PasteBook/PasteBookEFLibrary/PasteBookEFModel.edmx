@@ -42,8 +42,8 @@
           <Property Name="NOTIF_TYPE" Type="char" MaxLength="1" Nullable="false" />
           <Property Name="SENDER_ID" Type="int" Nullable="false" />
           <Property Name="CREATED_DATE" Type="datetime" Nullable="false" />
-          <Property Name="COMMENT_ID" Type="int" Nullable="false" />
-          <Property Name="POST_ID" Type="int" Nullable="false" />
+          <Property Name="COMMENT_ID" Type="int" />
+          <Property Name="POST_ID" Type="int" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SEEN" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
@@ -156,7 +156,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__NOTIFICAT__COMME__2B3F6F97">
-          <End Role="COMMENTS_TABLE" Type="Self.COMMENTS_TABLE" Multiplicity="1" />
+          <End Role="COMMENTS_TABLE" Type="Self.COMMENTS_TABLE" Multiplicity="0..1" />
           <End Role="NOTIFICATION_TABLE" Type="Self.NOTIFICATION_TABLE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COMMENTS_TABLE">
@@ -168,7 +168,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__NOTIFICAT__POST___2C3393D0">
-          <End Role="POST_TABLE" Type="Self.POST_TABLE" Multiplicity="1" />
+          <End Role="POST_TABLE" Type="Self.POST_TABLE" Multiplicity="0..1" />
           <End Role="NOTIFICATION_TABLE" Type="Self.NOTIFICATION_TABLE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POST_TABLE">
@@ -349,8 +349,8 @@
           <Property Name="NOTIF_TYPE" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="SENDER_ID" Type="Int32" Nullable="false" />
           <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="COMMENT_ID" Type="Int32" Nullable="false" />
-          <Property Name="POST_ID" Type="Int32" Nullable="false" />
+          <Property Name="COMMENT_ID" Type="Int32" />
+          <Property Name="POST_ID" Type="Int32" />
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SEEN" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="COMMENTS_TABLE" Relationship="Self.FK__NOTIFICAT__COMME__2B3F6F97" FromRole="NOTIFICATION_TABLE" ToRole="COMMENTS_TABLE" />
@@ -434,7 +434,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__NOTIFICAT__COMME__2B3F6F97">
-          <End Role="COMMENTS_TABLE" Type="Self.COMMENTS_TABLE" Multiplicity="1" />
+          <End Role="COMMENTS_TABLE" Type="Self.COMMENTS_TABLE" Multiplicity="0..1" />
           <End Role="NOTIFICATION_TABLE" Type="Self.NOTIFICATION_TABLE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="COMMENTS_TABLE">
@@ -494,7 +494,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__NOTIFICAT__POST___2C3393D0">
-          <End Role="POST_TABLE" Type="Self.POST_TABLE" Multiplicity="1" />
+          <End Role="POST_TABLE" Type="Self.POST_TABLE" Multiplicity="0..1" />
           <End Role="NOTIFICATION_TABLE" Type="Self.NOTIFICATION_TABLE" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="POST_TABLE">
@@ -565,7 +565,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="PASTEBOOK_DBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PASTEBOOK_DBEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="COMMENTS_TABLE" EntityType="Self.COMMENTS_TABLE" />
           <EntitySet Name="FRIENDS_TABLE" EntityType="Self.FRIENDS_TABLE" />
           <EntitySet Name="LIKES_TABLE" EntityType="Self.LIKES_TABLE" />
@@ -631,7 +631,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PASTEBOOK_DBModelStoreContainer" CdmEntityContainer="PASTEBOOK_DBEntities">
+        <EntityContainerMapping StorageEntityContainer="PASTEBOOK_DBModelStoreContainer" CdmEntityContainer="PASTEBOOK_DBEntities1">
           <EntitySetMapping Name="COMMENTS_TABLE">
             <EntityTypeMapping TypeName="PASTEBOOK_DBModel.COMMENTS_TABLE">
               <MappingFragment StoreEntitySet="COMMENTS_TABLE">

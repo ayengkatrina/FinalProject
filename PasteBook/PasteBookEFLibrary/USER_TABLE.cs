@@ -11,8 +11,7 @@ namespace PasteBookEFLibrary
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class USER_TABLE
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,64 +28,18 @@ namespace PasteBookEFLibrary
         }
     
         public int ID { get; set; }
-
-        [RegularExpression(@"^((\s*([_.]?)\s*[a-zA-Z0-9]+)+([_.]?)\s*)$", ErrorMessage = "Alphanumeric and and (_) characters only")]
-        [StringLength(50, ErrorMessage = "User name must not be longer than 50 characters")]
-        [Display(Name = "User name")]
-        [Required(ErrorMessage = "Please enter a user name.")]
         public string USER_NAME { get; set; }
-
-        [StringLength(50, ErrorMessage = "Password must not be longer than 50 characters")]
-        [Required(ErrorMessage = "Please enter a password.")]
         public string PASSWORD { get; set; }
-
         public string SALT { get; set; }
-
-        [RegularExpression(@"^((\s*[ '.-]?\s*[a-zA-Z0-9]+)+[ '.-]?\s*)$", ErrorMessage = "Alphanumeric and ('_.-) characters only")]
-        [StringLength(50, ErrorMessage = "First name must not be longer than 50 characters")]
-        [Display(Name = "First Name")]
-        [Required(ErrorMessage = "Please enter your first name.")]
         public string FIRST_NAME { get; set; }
-
-
-        [RegularExpression(@"^((\s*[ '.-]?\s*[a-zA-Z0-9]+)+[ '.-]?\s*)$", ErrorMessage = "Alphanumeric and ('_.-) characters only")]
-        [StringLength(50, ErrorMessage = "Last name must not be longer than 50 characters")]
-        [Display(Name = "Last Name")]
-        [Required(ErrorMessage = "Please enter your last name.")]
         public string LAST_NAME { get; set; }
-
-        [Required(ErrorMessage = "Please enter your birthdate.")]
-        [DataType(DataType.DateTime)]
-        [Display(Name = "Birthday")]
         public System.DateTime BIRTHDAY { get; set; }
-
-
-
         public Nullable<int> COUNTRY_ID { get; set; }
-
-
-        [DataType(DataType.PhoneNumber)]
-        [StringLength(50, ErrorMessage = "Mobile number name must not be longer than 50 characters")]
-        [Display(Name = "Mobile No")]
         public string MOBILE_NO { get; set; }
-
-
         public string GENDER { get; set; }
-
-
         public byte[] PROFILE_PIC { get; set; }
-
-
-        [DataType(DataType.DateTime, ErrorMessage = "Invalid Date format ex. 01/01/2016 ")]       
         public System.DateTime DATE_CREATED { get; set; }
-
-        [StringLength(2000, ErrorMessage = "Last name must not be longer than 50 characters")]
         public string ABOUT_ME { get; set; }
-
-        [Display(Name = "Email Address")]
-        [StringLength(50, ErrorMessage = "Email address must not be longer than 50 characters")]
-        [Required(ErrorMessage = "Please enter an email address.")]
-        [DataType(DataType.EmailAddress, ErrorMessage = "Invalid Email Address format ex. sample@yahoo.com ")]
         public string EMAIL_ADDRESS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

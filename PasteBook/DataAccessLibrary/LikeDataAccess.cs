@@ -16,7 +16,7 @@ namespace DataAccessLibrary
         {
             bool result = false;
             int user = like.LIKED_BY;
-            using (var context = new PASTEBOOK_DBEntities())
+            using (var context = new PASTEBOOK_DBEntities1())
             {
                 var likeRecord = context.LIKES_TABLE.Where(x => x.LIKED_BY == user && x.POST_ID == like.POST_ID);
 
@@ -32,7 +32,7 @@ namespace DataAccessLibrary
         public List<LIKES_TABLE> GetListOfLikeRecordOnPost(int postID)
         {
             
-            using (var context = new PASTEBOOK_DBEntities())
+            using (var context = new PASTEBOOK_DBEntities1())
             {
                 var list = context.LIKES_TABLE.Where(x => x.POST_ID == postID).ToList();
 

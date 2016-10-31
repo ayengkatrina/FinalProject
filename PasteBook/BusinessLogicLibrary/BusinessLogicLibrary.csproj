@@ -44,6 +44,7 @@
     <Compile Include="Manager\CommentManager.cs" />
     <Compile Include="Manager\FriendManager.cs" />
     <Compile Include="Manager\LikeManager.cs" />
+    <Compile Include="Manager\NotificationManager.cs" />
     <Compile Include="Manager\PostManager.cs" />
     <Compile Include="Manager\RefCountryManger.cs" />
     <Compile Include="Manager\UserManager.cs" />

@@ -63,7 +63,7 @@
                                 @Html.Label("Country", new { @class = "control-label col-md-12" })
                             </div>
                             <div class="col-md-8">
-                                @Html.DropDownListFor(x => x.User.COUNTRY_ID, ViewBag.Country as SelectList, "---Select Country---", new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.User.COUNTRY_ID, new SelectList(ViewBag.Country,"ID", "COUNTRY"), "---Select Country---", new { @class = "form-control" })
 
                             </div>
                         </div>

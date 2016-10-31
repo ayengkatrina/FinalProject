@@ -8,18 +8,19 @@ using PasteBookEFLibrary;
 
 namespace BusinessLogicLibrary
 {
-   
+
     public class PostManager
     {
         DataAccess<POST_TABLE> dataAccess = new DataAccess<POST_TABLE>();
-        StoredProcDataAccess storedProcAccess = new StoredProcDataAccess();
-        
+        PostDataAccess postDataAccess = new PostDataAccess();
+
 
         public bool CreatePost(POST_TABLE post)
         {
             post.CREATED_DATE = DateTime.Now;
-           bool result = dataAccess.Create(post);
-            return result;           
+            bool result = dataAccess.Create(post);
+
+            return result;
 
         }
 
@@ -27,42 +28,38 @@ namespace BusinessLogicLibrary
         {
             FriendManager friendManager = new FriendManager();
             List<POST_TABLE> postList = new List<POST_TABLE>();
+          
+            List<int> friendsList = friendManager.FriendsIdList(userID);
+            friendsList.Add(userID);
+            postList = postDataAccess.NewsFeedPost(friendsList);
 
-            List<FRIENDS_TABLE> friendList = friendManager.GetListOfFriends(userID);
-
-            using (var context = new PASTEBOOK_DBEntities())
-            {
-                foreach(var item in friendList)
-                {
-                  var list = context.POST_TABLE.Include("USER_TABLE").Include("LIKES_TABLE").Where(x => x.POSTER_ID == item.USER_ID || x.POSTER_ID == item.FRIEND_ID).OrderByDescending(x=>x.CREATED_DATE).Take(100);
-                    foreach(var itemInList in list)
-                    {
-                        postList.Add(itemInList);
-                    }
-                }
-
-                return postList;
-            }
+            return postList;
+            
         }
 
 
 
         public List<POST_TABLE> TimelinePost(int profileID)
         {
-            List<POST_TABLE> list = new List<POST_TABLE>();
-            //list = dataAccess.GetOne(x => x.PROFILE_ID == profileID);
+            List<POST_TABLE> postList = postDataAccess.TimelinePost(profileID);
 
-            using (var context = new PASTEBOOK_DBEntities())
-            {
-                list = context.POST_TABLE.Include("USER_TABLE").Include("LIKES_TABLE").Where(x => x.PROFILE_ID == profileID).OrderByDescending(x => x.CREATED_DATE).Take(100).ToList();
-            }
+            return postList;
+        }
 
-                return list;
+        public int GetPosterID(int postID)
+        {
+            int posterID = postDataAccess.GetPosterID(postID);
+            return posterID;
+        }
+
+        public POST_TABLE Post(int postID)
+        {
+            return postDataAccess.GetPost(postID);
         }
 
 
 
 
-        }
     }
+}
 

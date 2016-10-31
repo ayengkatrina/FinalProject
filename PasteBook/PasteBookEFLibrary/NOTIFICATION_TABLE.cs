@@ -18,8 +18,8 @@ namespace PasteBookEFLibrary
         public string NOTIF_TYPE { get; set; }
         public int SENDER_ID { get; set; }
         public System.DateTime CREATED_DATE { get; set; }
-        public int COMMENT_ID { get; set; }
-        public int POST_ID { get; set; }
+        public Nullable<int> COMMENT_ID { get; set; }
+        public Nullable<int> POST_ID { get; set; }
         public int ID { get; set; }
         public string SEEN { get; set; }
     

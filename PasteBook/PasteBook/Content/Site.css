@@ -51,22 +51,41 @@ a {
     text-decoration: none;
 }
 
+/*LABELS*/
+
+.title{
+    font-size:large;
+}
+
 /*BUTTON*/
-#btnConfirmRequest{
+#btnConfirmRequest, #btnRejectRequest, #btnPendingRequest, #btnAddFriend{
     height: 35px;
-    width:300px;
+    width:200px;
     border-radius: 2px;
+    margin-bottom: 3px;
     
 }
+
+.btn-default{
+    background-color:aquamarine;
+}
+#btnAboutMeEdit{
+    background-color:#2e2f2f;
+    color: aliceblue;
+    border-radius: 2px;
+    border-color:#2e2f2f;
+}
+
 
 /*TEXTAREA*/
 
 
 #textAreaAbboutMe, #textAreaComment, #textAreaPost, #textAreaComments, #textAreaHomePost{
 
- background-color: #A7FFEB;
-    border:none;
-    border-radius: 5px;
+ background-color: #FAFAFA;
+    border:solid;
+    border-color:#EEEEEE;
+    border-radius: 0px;
     outline: none;    
    
 }
@@ -78,6 +97,43 @@ a {
 }
 
 /*IMAGE*/
+
+#divProfilePic.imgDescription{
+   position:absolute;
+    bottom:50px;
+    left:0px;
+visibility:hidden;
+}
+
+/*geekgirllife.com/place-text-over-images-on-hover-without-javascript*/
+.imgDescription{
+  background: rgba(0,0,0,0.5);
+  color: aliceblue;
+  font-size: large;
+  cursor: pointer;
+  display: table;
+  height: 160px;
+  left: 110px;
+  position: absolute;
+  top: 43px;
+  width: 160px;
+  opacity: 0;
+  -webkit-transition: opacity 500ms;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  transition: opacity 500ms;
+
+
+  visibility: hidden;
+  opacity: 0;
+
+}
+
+#divProfilePic:hover .imgDescription {
+  visibility: visible;
+  opacity: 1;
+}
+
 #imgProfilePicPost, #imgHomePicPost{
     height: 40px;
     width: 40px;
@@ -109,7 +165,7 @@ a {
     width: 22px;
 }
 #btnDropdownIcon{
-    background-color:#FCE4EC;
+    background-color:#009688;
 }
 /*Dropdown*/
 #dropdownIcon{
@@ -135,7 +191,7 @@ a {
 }
 .open>.dropdown-menu {
     display: block;
-    background-color: antiquewhite;
+    background-color: #FAFAFA;
 }
 
 
@@ -162,6 +218,9 @@ a {
    
     margin-top: 10px;
     margin-bottom:10px;
+}
+#divHome{
+    margin-left: 100px;
 }
 
 
@@ -219,12 +278,17 @@ a {
     
 }
 #divComment{
-    margin-top: 1px;
+    margin-top: -20px;
     margin-left: 8px;
 }
 #divCommentList{
     margin-top: 5px;
 }
+
+#divPostConten{
+    margin-bottom: 25px;
+}
+
 #divPostHead{
     background-color: #009688;
     padding-top: 3px;
@@ -315,6 +379,10 @@ a {
 
 /*BUTTONS*/
 
+#btnLikeList{
+    margin-left: -5px;
+    margin-top:5px;
+}
 #btnAboutMe{
     
     -webkit-appearance: none;

@@ -21,6 +21,8 @@ namespace PasteBook.Controllers
         CommentManager commentManager = new CommentManager();
         FriendManager friendManager = new FriendManager();
         RefCountryManger countryManager = new RefCountryManger();
+        NotificationManager notificationManager = new NotificationManager();
+
         public ActionResult Index()
         {
             return View();
@@ -73,30 +75,11 @@ namespace PasteBook.Controllers
         [HttpGet]
         public ActionResult Register()
         {
-            CreateAccountViewModel model = new CreateAccountViewModel();
+            
 
-            List<SelectListItem> genderItems = new List<SelectListItem>();
-            genderItems.Add(new SelectListItem()
-            {
-                Text = "Male",
-                Value = "M"
-            });
-            genderItems.Add(new SelectListItem()
-            {
-                Text = "Female ",
-                Value = "F",
 
-            });
-            genderItems.Add(new SelectListItem()
-            {
-                Text = "Unspecified ",
-                Value = "U",
 
-            });
-
-            ViewBag.Gender = genderItems;
-
-            ViewBag.CountryList = new SelectList(countryManager.GetAllCountry(), "ID", "COUNTRY");
+            ViewBag.Country = countryManager.GetAllCountry();
 
 
 
@@ -109,6 +92,7 @@ namespace PasteBook.Controllers
 
         public ActionResult Register(CreateAccountViewModel model, HttpPostedFileBase file)
         {
+            ViewBag.CountryList = new SelectList(countryManager.GetAllCountry(), "ID", "COUNTRY");
             bool checkUserName = userManager.CheckIfUserNameAlreadyExist(model.User.USER_NAME);
             bool checkEmail = userManager.CheckIfEmailAlreadyExist(model.User.EMAIL_ADDRESS);
 
@@ -156,8 +140,7 @@ namespace PasteBook.Controllers
 
         }
 
-
-
+      
 
         [HttpGet]
         public ActionResult Home()
@@ -171,7 +154,7 @@ namespace PasteBook.Controllers
 
                 List<POST_TABLE> postList = new List<POST_TABLE>();
                 postList = postManager.PostInTheNewsFeed(userID);
-                return View(postList);
+                return View("ProfilePost",postList);
 
 
             }
@@ -202,16 +185,29 @@ namespace PasteBook.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeComment(int ID, COMMENTS_TABLE comment)
+        public ActionResult MakeComment(int postID, string comment, COMMENTS_TABLE commentTable)
         {
             var createComment = false;
             int userID = (int)Session["userID"];
+
             
-            if(comment.CONTENT != null) {
-                comment.POST_ID = ID;
-                comment.DATE_CREATED = DateTime.Now;
-                comment.POSTER_ID = userID;
-                createComment = commentManager.CommentOnAPost(comment);
+            if(comment != null) {
+                commentTable.POST_ID = postID;
+                commentTable.DATE_CREATED = DateTime.Now;
+                commentTable.POSTER_ID = userID;
+                commentTable.CONTENT = comment;
+                createComment = commentManager.CommentOnAPost(commentTable);
+               
+                if (createComment)
+                {
+                    int receiverID = postManager.GetPosterID(commentTable.POST_ID);
+                    bool result = notificationManager.NotificationComment(receiverID, userID, commentTable.POST_ID, commentTable.ID);
+                    return Json(new { createComment = createComment }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { createComment = createComment }, JsonRequestBehavior.AllowGet);
+                }
             }
 
             return RedirectToAction("Home", "PasteBook");
@@ -241,7 +237,7 @@ namespace PasteBook.Controllers
         }
 
         [HttpPost]
-        public ActionResult MakeAPost(string postContent, int profileOwnerID )
+        public ActionResult MakeAPost(string postContent, int profileID)
         {
             if(postContent != null)
             {
@@ -249,7 +245,7 @@ namespace PasteBook.Controllers
                 POST_TABLE postTable = new POST_TABLE();
                 postTable.CONTENT = postContent;
 
-                postTable.PROFILE_ID = profileOwnerID;
+                postTable.PROFILE_ID = profileID;
                 postTable.POSTER_ID = posterID;
                 var postCreationResult = postManager.CreatePost(postTable);
             }
@@ -270,6 +266,11 @@ namespace PasteBook.Controllers
                     //byte[] array = ms.GetBuffer();
                     byte[] profilePic = ms.GetBuffer();
                     var addingPicResult = userManager.AddProfilePicture(profilePic, userID);
+                    if (addingPicResult)
+                    {
+                        USER_TABLE user = userManager.GetUserDetailsByID(userID);
+                        Session["profilePic"] = user.PROFILE_PIC;
+                    }
                 }               
                
                 return RedirectToAction("Profile", "PasteBook");
@@ -294,67 +295,7 @@ namespace PasteBook.Controllers
             return PartialView("ProfilePost", postList);
         }
       
-
-
-        public PartialViewResult CommentList(int ID)
-        {
-
-
-            var result = commentManager.GetComments(ID);
-
-           return PartialView("Comment", result);
-
-
-        }
-
-        [HttpGet]
-        public PartialViewResult MakeCommentOnPost(int ID)
-        {
-            return PartialView();
-        }
-
-       
-
-
-        [HttpPost]
-        public ActionResult MakeCommentOnPost(int ID, COMMENTS_TABLE comment)
-        {
-            var createComment = false;
-
-           
-            int userID = (int)Session["userID"];           
-            if (comment.CONTENT != null)
-            {
-                comment.POST_ID = ID;
-                comment.DATE_CREATED = DateTime.Now;
-                comment.POSTER_ID = userID;
-                createComment = commentManager.CommentOnAPost(comment);
-                
-            }
-           return RedirectToAction("Profile", "PasteBook"); 
-           
-        }
-
-        [HttpGet]
-        public ActionResult LikeAPostProfile()
-        {
-
-            return View();
-        }
-
-        [HttpPost]
-        public JsonResult LikeAPostProfile(int postID)
-        {
-            int userID = (int)Session["userID"]; 
-            LIKES_TABLE likeModel = new LIKES_TABLE();
-            likeModel.LIKED_BY = userID;
-            likeModel.POST_ID = postID;
-            var result = likeManager.LikeAPost(likeModel);
-            
-            return Json(JsonRequestBehavior.AllowGet);
-
-        }
-
+        
         [HttpPost]
         public JsonResult LikeAPostHome(int postID)
         {
@@ -362,15 +303,25 @@ namespace PasteBook.Controllers
             LIKES_TABLE likeModel = new LIKES_TABLE();
             likeModel.LIKED_BY = userID;
             likeModel.POST_ID = postID;
-            var result = likeManager.LikeAPost(likeModel);
+            var resultLike = likeManager.LikeAPost(likeModel);
+            if (resultLike)
+            {
+                int receiverID = postManager.GetPosterID(postID);
+                bool result = notificationManager.NotificationLike(receiverID, userID, postID);
+                return Json(new { resultLike = resultLike }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new { resultLike = resultLike }, JsonRequestBehavior.AllowGet);
+            }
 
-            return Json(JsonRequestBehavior.AllowGet);
+           
 
         }
 
         public JsonResult LikeListOfUsers(int postID)
         {
-            
+            var userListWhoLikeAPost = userManager.ListOfUserWhoLikeAPost(postID);
 
             return Json(JsonRequestBehavior.AllowGet);
 
@@ -559,7 +510,7 @@ namespace PasteBook.Controllers
 
                 userProfile.User = userManager.GetUserDetailsByID((int)userIDOfFriend);
                 return View("NonFriend", userProfile);
-                //return Json(Url.Action("Index", "Home", new {friendID = userIDOfFriend }));
+                
 
             }
             else if (checkIfYouAlreadySendARequest)
@@ -632,6 +583,7 @@ namespace PasteBook.Controllers
             var checkIfRequestSent = friendManager.SendFriendRequest((int)friendID, userID);
             if (checkIfRequestSent)
             {
+                var notifAddFriend = notificationManager.NotificationFriendRequest(friendID, userID);
                 return RedirectToAction("UserProfileFilter", "PasteBook", new { userIDOfFriend = friendID });
             }
             else
@@ -646,9 +598,22 @@ namespace PasteBook.Controllers
 
         public ActionResult Notifications()
         {
-            return View();
+            int userID = (int)Session["userID"];
+            List<NOTIFICATION_TABLE> notifLlist = notificationManager.NotifList(userID);
+
+            return View(notifLlist);
         }
 
+        public ActionResult Post( int? postID)
+        {
+            POST_TABLE post = new POST_TABLE();
+
+            post = postManager.Post((int)postID);
+
+            return View("Post",post);
+        }
+
+        
        
         [HttpGet]
         public ActionResult Logout()

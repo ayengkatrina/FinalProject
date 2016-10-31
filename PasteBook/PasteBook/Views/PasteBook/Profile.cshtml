@@ -36,19 +36,23 @@
         <form id="formProfileDetails">
 
             <div id="upperProfile">
-                <div id="divProfilePic" class="form-group text-center">
+                <div id="wrapperPic" class="form-group text-center" >
 
                     @{
                         var userID = (int)Session["userID"];
                         if (userID == Model.User.ID)
                         {
-                            <img id="imgProfileImage" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" data-toggle="modal" data-target="#modalPictureAdd" />
+                            <div id="divProfilePic" data-toggle="modal" data-target="#modalPictureAdd">
+                                <img id="imgProfileImage" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" data-toggle="modal" data-target="#modalPictureAdd" />
+                                <span class="imgDescription"><span>Change Photo</span></span>
+                            </div>
                         }
                         else
                         {
                             <img id="imgProfileImageFriend" src="@imgSrc" alt="Profile-Picture" class="img-thumbnail" />
                         }
                     }
+                   
 
                 </div>
 
@@ -61,13 +65,19 @@
             <div id="lowerProfile">
                 <div class="div-details">
                     <div class="form-group text-center">
+                       
+                        <div class="col-md-12">
+
+                            <label class="title">About Me</label>
+                        </div>
+                        
                         @{
                             if (userID == Model.User.ID)
                             {
-                                <button id="btnAboutMeEdit" type="button" data-toggle="modal" data-target="#modalAboutMe"><span class="glyphicon glyphicon-edit"></span></button>
+                              <button id="btnAboutMeEdit" type="button" data-toggle="modal" data-target="#modalAboutMe"><span class="glyphicon glyphicon-edit"></span>Edit About Me</button>
+
                             }
                         }
-                        <h5>About Me</h5>
                         
                     </div>
                     <div class="form-group">
@@ -121,20 +131,20 @@
     </div>
 
     <div class="col-md-8">
-        @using (Html.BeginForm("MakeAPost", "PasteBook", new { profileOwnerID = Model.User.ID, id = "formPost" }, FormMethod.Post))
-        {
+        @*@using (Html.BeginForm("MakeAPost", "PasteBook", new { profileOwnerID = Model.User.ID, id = "formPost" }, FormMethod.Post))
+        {*@
 
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    @*@Html.TextAreaFor(x => x.Post.CONTENT, new { @cols = "150", @rows = "3" })*@
+                   
                     <textarea id="postContent" , name="postContent" cols="150" , rows="3"></textarea>
 
                 </div>
                 <div class="panel-footer clearfix">
                     <div class="pull-right">
 
-                        <button id="btnPost" type="submit" class="btn btn-default">
+                        <button id="btnPost" type="submit" class="btn btn-default" onclick="MakeAPost(@Model.User.ID)">
                             <span class="glyphicon glyphicon-pencil"></span>
                             <span>Post</span>
                         </button>
@@ -143,7 +153,7 @@
             </div>
 
 
-        }
+        @*}*@
         @{
             Html.RenderAction("ProfilePost", "PasteBook", new { ID = profileID });
 
@@ -205,13 +215,6 @@
                         </label>
                         
 
-
-
-
-
-
-
-
                         <div id="txtExtensionValidationMessage" class="form-group">
                             <span class="text-danger">Please select .jpg, .jpeg and .png image only</span>
                         </div>
@@ -246,7 +249,7 @@
                 $('#formPost').submit();
             });
 
-            $("#imgProfileImage").on("click", function () {
+            $("#divProfilePic").on("click", function () {
 
                 $('#modalPictureAdd').modal('show');
             });
@@ -319,7 +322,6 @@
             }
 
             //stackoverflow.com/questions/5371089/count-characters-in-textarea
-
             function AboutMeLenghtValidate() {
                 var max = 2000;
                 var len = $('#txtAboutMe').val().length;
@@ -349,6 +351,34 @@
             });
 
         });
+
+        var makeaPostUrl = '@Url.Action("MakeAPost", "PasteBook")';
+        var profileUrl = '@Url.Action("Profile", "PasteBook")';
+        function MakeAPost(profileID) {
+
+            var postContent = $("#postContent").val();
+
+
+            var data = {
+                profileID: profileID,
+                postContent: postContent
+
+            }
+
+            $.ajax({
+                url: makeaPostUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
+
+                    window.location.reload(profileUrl);
+                },
+                error: function () {
+                    ShowErrorMessage();
+                }
+            })
+
+        }
 
 
     </script>

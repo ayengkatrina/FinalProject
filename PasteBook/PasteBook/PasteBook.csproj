@@ -207,6 +207,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PasteBookViewModels\HomeViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\ProfileViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\CreateAccountViewModel.cs" />
     <Compile Include="Models\PasteBookViewModels\SecurityModel.cs" />
@@ -287,10 +288,8 @@
     <Content Include="Views\PasteBook\Home.cshtml" />
     <Content Include="Views\PasteBook\Profile.cshtml" />
     <Content Include="Views\PasteBook\Comment.cshtml" />
-    <Content Include="Views\PasteBook\MakeComment.cshtml" />
     <Content Include="Views\PasteBook\Notifications.cshtml" />
     <Content Include="Views\PasteBook\Friends.cshtml" />
-    <Content Include="Views\PasteBook\MakeCommentOnPost.cshtml" />
     <Content Include="Views\PasteBook\Settings.cshtml" />
     <Content Include="Views\PasteBook\Security.cshtml" />
     <Content Include="Views\PasteBook\LikeAPostProfile.cshtml" />
@@ -300,6 +299,8 @@
     <Content Include="Views\Error\GlobalError.cshtml" />
     <Content Include="Views\PasteBook\NewRegister.cshtml" />
     <Content Include="Views\PasteBook\CreateAccount.cshtml" />
+    <Content Include="Views\PasteBook\Post.cshtml" />
+    <Content Include="Views\PasteBook\LikeListOfUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

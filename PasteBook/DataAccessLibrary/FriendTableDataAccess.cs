@@ -13,12 +13,12 @@ namespace DataAccessLibrary
         public bool ConfirmFriendRequest(int friendID, int userID )
         {
             int numberSave = 0;
-            using (var context = new PASTEBOOK_DBEntities())
+            using (var context = new PASTEBOOK_DBEntities1())
             {
                 FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.USER_ID == friendID).SingleOrDefault();
                 if (friendTable != null)
                 {
-                    //user.ABOUT_ME = aboutMe;
+                    
                     friendTable.REQUEST = "Y";
                     friendTable.CREATED_DATE = DateTime.Now;
                     numberSave = context.SaveChanges();
@@ -39,7 +39,7 @@ namespace DataAccessLibrary
         public bool RejectFriendRequest(int friendID, int userID)
         {
             int numberSave = 0;
-            using (var context = new PASTEBOOK_DBEntities())
+            using (var context = new PASTEBOOK_DBEntities1())
             {
                 FRIENDS_TABLE friendTable = context.FRIENDS_TABLE.Where(x => x.FRIEND_ID == userID && x.USER_ID == friendID).SingleOrDefault();
                 if (friendTable != null)

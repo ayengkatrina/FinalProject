@@ -1,81 +1,80 @@
-﻿
-<div class="container">
-    <div class="fixed col-md-4">
-        <form id="formProfileDetails">
+﻿@model IEnumerable<PasteBookEFLibrary.NOTIFICATION_TABLE>
 
-            <div id="upperProfile">
-                <div id="divProfilePic" class="form-group text-center">
-                    <img src="@Url.Content("~/Content/Images/default.png")" id="imgProfilePic" alt="Profile-Picture" class="img-thumbnail" />
-                </div>
 
-                <div id="divProfileName" class="form-group text-center">
-                    <h4>Katrina Ayeng</h4>
-                </div>
-             </div>
 
-            <div id="lowerProfile">
-                <div class="div-details">
-                    <div class="form-group text-center">
-                        <h5>About Me <button id="btnAboutMe" type="button"><span class="glyphicon glyphicon-edit"></span></button></h5>
-                    </div>
-                    <div class="form-group">
-                        @*<span>Don't you ever give up!</span>*@
-                        <textarea id="textAreaAbboutMe" cols="43" rows="8" readonly="readonly">
-                            aaaaasssssdddddfffffaaaaasssssdddddfffffdddddfffffaaaaasssssdddddfffffaaaaasssssdddddfffffdddddfffffaaaaasssssdddddfffffaaaaasssssdddddfffffdddddfffffaaaaasssssdddddfffffaaaaasssssdddddfffffdddddfffffaaaaasssssdddddfffffaaaaasssssdddddfffffdddddfffff
+@*<div id="dropdownIcon" class="dropdown col-md-1">*@
+    @*<button id="btnDropdownIcon" class="btn dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">      
+        <span class="badge">6</span><span>Notifications</span>
+    </button>*@
+   
 
-                        </textarea>
-                    </div>
+        @foreach (var item in Model)
+        {
+            if (item.NOTIF_TYPE == "L")
+            {
+                <li role="presentation">
+               <span>@item.USER_TABLE1.FIRST_NAME @item.USER_TABLE1.LAST_NAME  Like your  @Html.ActionLink("Post", "Post", new {postID = @item.POST_ID})</span>    
+                     
+                </li>
+            }
+            else if (item.NOTIF_TYPE == "C")
+            {
 
-                    
-                        <div class="form-group text-center">
-                            <span class="glyphicon glyphicon-map-marker"></span>
-                            <span>Philippines</span>
-                        </div>
+                <li role="presentation">
+                    <span>@item.USER_TABLE1.FIRST_NAME @item.USER_TABLE1.LAST_NAME  commented on  your @Html.ActionLink("Post", "Post", new { postID = item.POST_ID })</span>
 
-                        <div class="form-group text-center">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                            <span>Joined August 2013</span>
-                        </div>
+                </li>
+            }
+            else if (item.NOTIF_TYPE == "F")
+            {
+                <li role="presentation">
+                    <span>@item.USER_TABLE1.FIRST_NAME @item.USER_TABLE1.LAST_NAME  added you as a  @Html.ActionLink("Friend", "UserProfileFilter", new { userIDOfFriend = item.USER_TABLE1.ID })</span>
 
-                        <div class="form=group text-center">
-                            <span class="glyphicon glyphicon-gift"></span>
-                            <span>Born on October 19, 1993</span>
-                        </div><br />
+                </li>
+            }
 
-                        <div class="form-group text-center">
-                            <span class="glyphicon glyphicon-phone-alt"></span>
-                            <span>09456789763</span>
-                        </div>
+        }
+       
 
-                        <div class="form-group text-center">
-                            <span class="glyphicon glyphicon-info-sign"></span>
-                            <span>Female</span>
-                        </div>
-                    </div>
+        
+   
+@*</div>*@
+
+@{
+    @*@Scripts.Render("~/bundles/jquery");*@
+    <script>
+
+        var postUrl = '@Url.Action("Post", "PasteBook")';
+       
+        function Post(postID) {
+
+            
+
+
+            var data = {
+                postID: postID,
                 
-            </div>
-        </form>
-    </div>
 
-    <div class="col-md-8">
-        <form>
+            }
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <textarea cols="150" rows="3"></textarea>
-                </div>
-                <div class="panel-footer clearfix">
-                    <div class="pull-right">
-                        <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span>
-                        <span>Post</span></a>
-                    </div>
-                </div>
-            </div>
+            $.ajax({
+                url: postUrl,
+                data: data,
+                type: 'POST',
+                success: function (data) {
 
+                    //ShowErrorIfFalse(data.createComment);
+                    window.location.reload(postUrl);
+                },
+                error: function () {
+                    ShowErrorMessage();
+                }
+            })
 
-        </form>
-    </div>
+        }
 
 
 
-</div>
+
+    </script>
+}

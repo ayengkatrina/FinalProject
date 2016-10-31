@@ -11,22 +11,18 @@ namespace BusinessLogicLibrary
 {
    public class UserManager
     {
-        //UserTableAccess userTableAccess = new UserTableAccess();
+        
         DataAccess<USER_TABLE> dataAccess = new DataAccess<USER_TABLE>();
         UserDataAccess userDataAccess = new UserDataAccess();
         LikeDataAccess likeDataAccess = new LikeDataAccess();
 
-        //public USER_TABLE GetUserAccount(string email)
-        //{
-        //   List<USER_TABLE> user = ;
-        //    return user;
-        //}
+       
         public List<USER_TABLE> ListOfUserWhoLikeAPost(int postID)
         {
             List<USER_TABLE> usersWhoLikeList = new List<USER_TABLE>();
             List<LIKES_TABLE> listLikeTable = likeDataAccess.GetListOfLikeRecordOnPost(postID);
 
-            using (var context = new PASTEBOOK_DBEntities())
+            using (var context = new PASTEBOOK_DBEntities1())
             {
                 
                 List<int> userIDList = listLikeTable.Select(x => x.ID).ToList();

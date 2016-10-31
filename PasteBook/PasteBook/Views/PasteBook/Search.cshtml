@@ -3,7 +3,19 @@
 
 
 
-<h4>Search Result</h4>
+<label class="title">Search Result</label>
+
+@{ 
+    if(Model.Count() == 0)
+    {
+        <div class="col-md-12">
+            <label>No results found.</label>
+
+        </div>
+       
+    }
+}
+
 @foreach (var item in Model)
 {
     var imgSrc = "";

@@ -14,15 +14,15 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PASTEBOOK_DBEntities())
+                using (var context = new PASTEBOOK_DBEntities1())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Added;
                     status = context.SaveChanges();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                
             }
             return status != 0;
         }
@@ -32,7 +32,7 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PASTEBOOK_DBEntities())
+                using (var context = new PASTEBOOK_DBEntities1())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Deleted;
                     status = context.SaveChanges();
@@ -50,7 +50,7 @@ namespace DataAccessLibrary
             int status = 0;
             try
             {
-                using (var context = new PASTEBOOK_DBEntities())
+                using (var context = new PASTEBOOK_DBEntities1())
                 {
                     context.Entry(newEntity).State = System.Data.Entity.EntityState.Modified;
                     status = context.SaveChanges();
@@ -68,7 +68,7 @@ namespace DataAccessLibrary
             List<T> entityList = new List<T>();
             try
             {
-                using (var context = new PASTEBOOK_DBEntities())
+                using (var context = new PASTEBOOK_DBEntities1())
                 {
                     entityList = context.Set<T>().ToList();
                 }
@@ -85,7 +85,7 @@ namespace DataAccessLibrary
             List<T> entityList = new List<T>();
             try
             {
-                using (var context = new PASTEBOOK_DBEntities())
+                using (var context = new PASTEBOOK_DBEntities1())
                 {
                     entityList = context.Set<T>().Where(predicate).ToList();
                 }
